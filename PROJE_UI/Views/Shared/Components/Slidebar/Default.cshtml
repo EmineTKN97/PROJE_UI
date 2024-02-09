@@ -1,0 +1,27 @@
+﻿@using PROJE_UI.Models;
+@model List<Blog>;
+<section id="hero">
+    <div id="blogSlider" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        @foreach (Blog item in Model)
+        {
+            <div class="carousel-item">
+                <img src="/assets/img/slide/slide-1.jpg" class="d-block w-100" alt="image">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>@item.Title</h5>
+                    <p>@item.Content</p>
+                    <a href="@Url.Action("BlogDetails", "Home", new { id = item.İd})">Devamını Oku</a>
+                </div>
+            </div>
+        }
+    </div>
+    <a class="carousel-control-prev" href="#blogSlider" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Önceki</span>
+    </a>
+    <a class="carousel-control-next" href="#blogSlider" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Sonraki</span>
+    </a>
+</div>
+</section>

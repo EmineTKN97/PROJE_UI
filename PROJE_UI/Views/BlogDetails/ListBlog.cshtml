@@ -1,0 +1,119 @@
+﻿@using PROJE_UI.Models;
+@model List<Blog>;
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Bloglar</h2>
+            <ol>
+                <li><a href="Home/Index">Home</a></li>
+                <li>Blog</li>
+            </ol>
+        </div>
+
+    </div>
+</section>
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            @foreach (Blog item in Model)
+            {
+                <div class="col-lg-8 entries">
+                    <article class="entry">
+
+                        <div class="entry-img">
+                            <img src="/Uploads/StaticContent/@item.İmagePath" alt="Blog Resimi" class="img-fluid">
+
+                        </div>
+                        <h2 class="entry-title">
+                            @item.Title.ToUpper()
+                        </h2>
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center">
+                                    <i class="bi bi-person"></i>
+                                    @item.Name.ToUpper()  @item.SurName.ToUpper()
+                                </li>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i><time datetime="2020-01-01">@item.BlogDate</time></li>
+                                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/Blog/BlogDetails">@item.BlogCommentCount</a></li>
+                                <li class="d-flex align-items-center">
+                                    <i class="bi bi-heart"></i> <a href="/Blog/BlogDetails">@item.BlogLikeCount</a>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="entry-content">
+                            <p>
+                                @item.Content
+                            </p>
+                            <div class="read-more">
+                                <div class="read-more">
+                                    <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.İd" id="readMoreBtn">Detayını Gör</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+            }
+
+
+
+
+            <div class="col-lg-4">
+
+                <div class="sidebar">
+
+                    <h3 class="sidebar-title">Search</h3>
+                    <div class="sidebar-item search-form">
+                        <form action="">
+                            <input type="text">
+                            <button type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                    </div><!-- End sidebar search formn-->
+                    <h3 class="sidebar-title">Recent Posts</h3>
+                    <div class="sidebar-item recent-posts">
+                        <div class="post-item clearfix">
+                            <img src="~/assets/img/blog/blog-recent-1.jpg" alt="">
+                            <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                        <div class="post-item clearfix">
+                            <img src="~/assets/img/blog/blog-recent-2.jpg" alt="">
+                            <h4><a href="blog-single.html">Quidem autem et impedit</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                        <div class="post-item clearfix">
+                            <img src="~/assets/img/blog/blog-recent-3.jpg" alt="">
+                            <h4><a href="blog-single.html">Id quia et et ut maxime similique occaecati ut</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                        <div class="post-item clearfix">
+                            <img src="~/assets/img/blog/blog-recent-4.jpg" alt="">
+                            <h4><a href="blog-single.html">Laborum corporis quo dara net para</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                        <div class="post-item clearfix">
+                            <img src="~/assets/img/blog/blog-recent-5.jpg" alt="">
+                            <h4><a href="blog-single.html">Et dolores corrupti quae illo quod dolor</a></h4>
+                            <time datetime="2020-01-01">Jan 1, 2020</time>
+                        </div>
+
+                    </div><!-- End sidebar recent posts-->
+                </div><!-- End sidebar -->
+
+            </div><!-- End blog sidebar -->
+
+        </div>
+
+    </div>
+</section>
+
+
+

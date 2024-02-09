@@ -1,0 +1,76 @@
+﻿@using PROJE_UI.Models
+@model User
+
+@section css
+{
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            margin: auto;
+            padding: auto;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+}
+
+<main id="main">
+    <div class="rounded-form-container">
+        <center><h1 class="text-danger">KULLANICI GİRİŞİ</h1></center>
+        <form class="position-sticky" id="loginForm">
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email adresi</label>
+                <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email">
+            </div>
+            <div class="mb-3">
+                <label for="Password" class="form-label">Şifre:</label>
+                <input type="password" class="form-control" id="Password" name="Password">
+            </div>
+            <center><button type="button" class="btn btn-danger" onclick="login()">Giriş Yap</button></center>
+        </form>
+    </div>
+</main>
+
+@section script
+{
+    <script>
+        const login = async () => {
+            const email = document.getElementById('Email').value;
+            const password = document.getElementById('Password').value;
+
+            try {
+                const response = await fetch('https://localhost:7185/api/Auth/loginUser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                    }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const token = data.token;
+
+                    // Sunucudan gelen token'i sakla
+                    localStorage.setItem('token', token);
+                } else {
+                    // Giriş başarısızsa kullanıcıyı bilgilendir
+                    console.error('Login failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+    </script>
+}

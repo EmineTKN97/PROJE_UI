@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\PROJE_UI.props" />
+</Project>
