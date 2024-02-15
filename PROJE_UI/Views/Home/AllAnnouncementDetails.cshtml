@@ -1,0 +1,53 @@
+﻿@using PROJE_UI.Models;
+@model List<Announcement>
+
+<!-- ======= Blog Single Section ======= -->
+<section id="blog" class="blog">
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Tüm Duyurular</h2>
+                <ol>
+
+                    <li><a href="/Home/Index"><i class="fas fa-home"></i> Anasayfa</a></li>
+                    <li><a href="/Home/AnnuncementDetails/">Duyurular</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+         @foreach (Announcement item in Model)
+            {
+                <div class="col-lg-8 entries">
+
+                    <article class="entry entry-single">
+                        <h2 class="entry-title">
+                            @item.AnnouncementTitle.ToUpper()
+                        </h2>
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="2020-01-01"> @item.CreateDate</time></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="entry-content">
+                            <p>
+                                @item.AnnouncementContent
+                            </p>
+
+                        </div>
+                    </article>
+                </div>
+            }
+         
+        </div>
+    </div>
+</section>
+
+
+
+

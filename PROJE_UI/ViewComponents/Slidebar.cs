@@ -14,21 +14,20 @@ namespace PROJE_UI.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var httpClient = _httpClientFactory.CreateClient(); // HttpClientFactory'den HTTP isteği için bir HttpClient oluşturun
+            var httpClient = _httpClientFactory.CreateClient(); 
 
-            httpClient.BaseAddress = new Uri("https://localhost:7185/"); // API'nin base adresini burada belirtin
+            httpClient.BaseAddress = new Uri("https://localhost:7185/"); 
 
-            var response = await httpClient.GetAsync("api/Blogs/GetLatestBlog"); // API endpoint'inizi ve route'ünüzü buraya ekleyin
-
+            var response = await httpClient.GetAsync("api/Blogs/GetLatestBlog"); 
             if (response.IsSuccessStatusCode)
             {
-                var latestBlogs = await response.Content.ReadFromJsonAsync<List<Blog>>(); // API'den gelen veriyi okuyun
+                var latestBlogs = await response.Content.ReadFromJsonAsync<List<Blog>>(); 
                 return View(latestBlogs);
             }
             else
             {
-                // Hata durumu ile başa çıkın
-                return View(new List<Blog>()); // veya hata mesajını kullanıcıya göstermek için RedirectToAction("Error", new { message = "API ile iletişim sırasında bir hata oluştu." });
+                
+                return View(new List<Blog>()); 
             }
         }
     }

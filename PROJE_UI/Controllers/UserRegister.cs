@@ -45,6 +45,7 @@ namespace PROJE_UI.Controllers
                 }
             }
         }
+        [HttpGet]
         public IActionResult Login()
         {
             return View(new User());

@@ -1,7 +1,8 @@
 ﻿@using PROJE_UI.Models;
-@model Announcement;
+@model Announcement
 
-<main id="main">
+<!-- ======= Blog Single Section ======= -->
+<section id="blog" class="blog">
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
         <div class="container">
@@ -9,50 +10,40 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h2>Blog Single</h2>
                 <ol>
-                    <li><a href="Home/Index">Home</a></li>
-                    <li><a href="Home/AnnuncementDetails">Duyurular</a></li>
+                    <li><a href="/Home/Index"><i class="fas fa-home"></i> Anasayfa</a></li>
                     <li>Duyuru Detay</li>
                 </ol>
             </div>
 
         </div>
     </section><!-- End Breadcrumbs -->
-    <!-- ======= Blog Single Section ======= -->
-    <section id="blog" class="blog">
-        <div class="container" data-aos="fade-up">
+    <div class="container" data-aos="fade-up">
 
-            <div class="row">
+        <div class="row">
 
-                <div class="col-lg-8 entries">
+            <div class="col-lg-8 entries">
 
-                    <article class="entry entry-single">
+                <article class="entry entry-single">
+                    <h2 class="entry-title">
+                        @Model.AnnouncementTitle.ToUpper()
+                    </h2>
+                    <div class="entry-meta">
+                        <ul>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="#"><time datetime="2020-01-01"> @Model.CreateDate</time></a></li>
+                        </ul>
+                    </div>
 
+                    <div class="entry-content">
+                        <p>
+                            @Model.AnnouncementContent
+                        </p>
 
-
-                        <h2 class="entry-title">
-                            @Model.AnnouncementTitle.ToUpper()
-                        </h2>
-
-                        <div class="entry-meta">
-                            <ul>
-
-                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01"> @Model.CreateDate</time></a></li>
-
-                            </ul>
-                        </div>
-
-                        <div class="entry-content">
-                            <p>
-                                @Model.AnnouncementContent
-                            </p>
-
-                        </div>
-                    </article>
-
-
-                </div>
+                    </div>
+                </article>
             </div>
         </div>
-    </section>
- </main>
+    </div>
+</section>
+
+
 

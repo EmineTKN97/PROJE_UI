@@ -576,6 +576,7 @@ section {
   background: #f8f9fa;
   min-height: 40px;
   margin-top: 80px;
+  z-index:750;
 }
 
 .breadcrumbs h2 {

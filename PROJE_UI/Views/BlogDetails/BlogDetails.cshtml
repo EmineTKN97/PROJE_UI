@@ -15,24 +15,22 @@
     </style>
 
 }
-<main id="main">
+    <!-- ======= Blog Single Section ======= -->
+    <section id="blog" class="blog">
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
         <div class="container">
 
             <div class="d-flex justify-content-between align-items-center">
-                <h2>Blog Single</h2>
+                <h2>Blog Detayı</h2>
                 <ol>
-                    <li><a href="Home/Index">Home</a></li>
-                    <li><a href="BlogDetails/ListBlog">Blog</a></li>
-                    <li>Blog Detay</li>
+                    <li><a href="/Home/Index"><i class="fas fa-home"></i> Anasayfa</a></li>
+                    <li><a href="/BlogDetails/ListBlog">Bloglar</a></li>
                 </ol>
             </div>
 
         </div>
     </section><!-- End Breadcrumbs -->
-    <!-- ======= Blog Single Section ======= -->
-    <section id="blog" class="blog">
         <div class="container" data-aos="fade-up">
 
             <div class="row">
@@ -119,69 +117,19 @@
                     </div><!-- End blog comments -->
                 </div>
 
-                <div class="col-lg-4">
 
-                    <div class="sidebar">
 
-                        <h3 class="sidebar-title">Search</h3>
-                        <div class="sidebar-item search-form">
-                            <form action="">
-                                <input type="text">
-                                <button type="submit"><i class="bi bi-search"></i></button>
-                            </form>
-                        </div><!-- End sidebar search formn-->
-                        <h3 class="sidebar-title">Recent Posts</h3>
-                        <div class="sidebar-item recent-posts">
-                            <div class="post-item clearfix">
-                                <img src="~/assets/img/blog/blog-recent-1.jpg" alt="">
-                                <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
-                                <time datetime="2020-01-01">Jan 1, 2020</time>
-                            </div>
-
-                            <div class="post-item clearfix">
-                                <img src="~/assets/img/blog/blog-recent-2.jpg" alt="">
-                                <h4><a href="blog-single.html">Quidem autem et impedit</a></h4>
-                                <time datetime="2020-01-01">Jan 1, 2020</time>
-                            </div>
-
-                            <div class="post-item clearfix">
-                                <img src="~/assets/img/blog/blog-recent-3.jpg" alt="">
-                                <h4><a href="blog-single.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-                                <time datetime="2020-01-01">Jan 1, 2020</time>
-                            </div>
-
-                            <div class="post-item clearfix">
-                                <img src="~/assets/img/blog/blog-recent-4.jpg" alt="">
-                                <h4><a href="blog-single.html">Laborum corporis quo dara net para</a></h4>
-                                <time datetime="2020-01-01">Jan 1, 2020</time>
-                            </div>
-
-                            <div class="post-item clearfix">
-                                <img src="~/assets/img/blog/blog-recent-5.jpg" alt="">
-                                <h4><a href="blog-single.html">Et dolores corrupti quae illo quod dolor</a></h4>
-                                <time datetime="2020-01-01">Jan 1, 2020</time>
-                            </div>
-
-                        </div><!-- End sidebar recent posts-->
-
-                    </div><!-- End sidebar -->
-
-                </div><!-- End blog sidebar -->
+            @await Component.InvokeAsync("AnnouncementDetails")
 
 
             </div>
         </div>
 
     </section><!-- End Blog Single Section -->
-
-</main>
 @section script {
     <script>
         var likeButton = document.getElementById('likeButton');
         likeButton.addEventListener('click', function () {
-            // Beğeni işlemlerini gerçekleştirebilirsiniz
-
-            // Buton rengini değiştir
             likeButton.style.color = 'red';
         });
 
@@ -189,13 +137,8 @@
         var commentForm = document.getElementById('commentForm');
 
         commentButton.addEventListener('click', function () {
-            // Yorum ekleme butonuna tıklandığında formun altına kaydırma işlemi
             commentForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-            // Bloğun ID'sini al
             var blogId = commentButton.getAttribute('data-blog-id');
-
-            // Bloğun ID'sini yorum ekle formuna ekleyebilir veya başka işlemler yapabilirsin
             var blogIdField = document.getElementById('BlogId');
             if (blogIdField) {
                 blogIdField.value = blogId;

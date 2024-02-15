@@ -27,11 +27,10 @@ namespace PROJE_UI.Controllers
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                // Kullanıcı oturum açmamışsa, giriş sayfasına yönlendir
+            
                 return RedirectToAction("Login", "UserRegister");
             }
 
-            // Kullanıcı oturum açmışsa, blog eklemeye devam et
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
             using (var response = await _client.PostAsync("https://localhost:7185/api/Blogs/AddBlog", content))
             {

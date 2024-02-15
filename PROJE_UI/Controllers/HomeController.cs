@@ -18,20 +18,8 @@ namespace PROJE_UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var response = await _client.GetAsync("https://localhost:7185/api/Announcements/GetLatestAnnouncement");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var apiResponse = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<List<Announcement>>(apiResponse);
-                return View(result); 
-            }
-            else
-            {
-                // Hata durumu ile başa çıkın
-                return RedirectToAction("Error", new { message = "API ile iletişim sırasında bir hata oluştu." });
-            }
-
+            return View(Index);
 
         }
         [HttpGet]
@@ -47,7 +35,22 @@ namespace PROJE_UI.Controllers
             }
             else
             {
-                // Hata durumu ile başa çıkın
+                return RedirectToAction("Error", new { message = "API ile iletişim sırasında bir hata oluştu." });
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> AllAnnouncementDetails()
+        {
+            var response = await _client.GetAsync("https://localhost:7185/api/Announcements/GetAllAnnouncement");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<Announcement>>(apiResponse);
+                return View(result);
+            }
+            else
+            {
                 return RedirectToAction("Error", new { message = "API ile iletişim sırasında bir hata oluştu." });
             }
         }

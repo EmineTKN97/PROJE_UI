@@ -1,0 +1,32 @@
+﻿@using PROJE_UI.Models;
+@model List<Announcement>
+<div class="col-lg-4">
+    <div class="sidebar">
+        <h3 class="sidebar-title">Search</h3>
+        <div class="sidebar-item search-form">
+            <form action="">
+                <input type="text" />
+                <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+
+        <h3 class="sidebar-title">DUYURULAR</h3>
+
+        @foreach (Announcement item in Model)
+        {
+            <div>
+                <h4>@item.AnnouncementTitle</h4>
+                <time datetime="2020-01-01">@item.CreateDate</time>
+                <p>
+                    @Html.Raw(Html.Encode(item.AnnouncementContent.Substring(0, Math.Min(item.AnnouncementContent.Length, 51))))
+                    @if (item.AnnouncementContent.Length > 51)
+                    {
+                        <a href="@Url.Action("AnnouncementDetails", "Home", new { id = item.AnnouncementId })">Devamını Oku...</a>
+                    }
+                </p>
+             
+            </div>
+        }
+        <center> <a asp-controller="Home" asp-action="AllAnnouncementDetails" class="btn btn-danger">Tümünü Gör</a></center>
+    </div>
+</div>

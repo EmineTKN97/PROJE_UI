@@ -7,7 +7,7 @@ builder.Services.Configure<ApiServiceOptions>(options =>
 });
 
 builder.Services.AddHttpClient<IApiService, ApiService>();
-builder.Services.AddHttpClient();
+
 
 builder.Services.AddControllersWithViews();
 
