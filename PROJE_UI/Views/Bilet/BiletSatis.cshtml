@@ -12,7 +12,7 @@
                     <select id="selectCity" class="form-select form-select-lg mb-3" aria-label="Large select example">
                         @foreach (var item in Model.Cities)
                         {
-                            <option value="@item.Id">@item.CityName.ToLower()</option>
+                            <option value="@item.CityName.ToLower()">@item.CityName.ToLower()</option>
                         }
                     </select>
 
@@ -20,14 +20,14 @@
                     <select id="selectDistrict" class="form-select form-select-lg mb-3" aria-label="Large select example">
                         @foreach (var item in Model.Districts)
                         {
-                            <option value="@item.Id">@item.DistrictName.ToLower()</option>
+                            <option value="@item.DistrictName.ToLower()">@item.DistrictName.ToLower()</option>
                         }
                     </select>
 
                     <button asp-controller="Bilet" asp-action="BlogDetails" class="btn btn-danger">
                         <i class="fas fa-arrow-left"></i> Geri
                     </button>
-                    <button asp-controller="Bilet" asp-action="MuseumDetails" class="btn btn-danger float-end">
+                    <button onclick="redirectToMuseum()" class="btn btn-danger float-end">
                         İleri <i class="fas fa-arrow-right"></i>
                     </button>
                 </article>
@@ -37,3 +37,26 @@
         </div>
     </div>
 </section>
+@section script{
+<script>
+    function redirectToMuseum() {
+        var selectedCityName = document.getElementById('selectCity').value;
+        var selectedDistrictName = document.getElementById('selectDistrict').value;
+
+        // AJAX kullanarak seçilen şehir adını ve ilçe id'sini post et
+        var xhr = new XMLHttpRequest();
+        var url = '/Bilet/MuseumDetails?city=' + selectedCityName + '&district=' + selectedDistrictName;
+        xhr.open('GET', url, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // İsteğiniz başarıyla tamamlandığında burada işlemlerinizi gerçekleştirebilirsiniz
+                console.log(xhr.responseText);
+                // Yönlendirme işlemi burada gerçekleştirilebilir
+                window.location.href = url;
+            }
+        };
+
+        xhr.send();
+    }
+</script>
+}

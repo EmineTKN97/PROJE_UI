@@ -67,16 +67,39 @@ namespace PROJE_UI.Controllers
                 return RedirectToAction("Error", new { message = "Şehirler API ile iletişim sırasında bir hata oluştu." });
             }
         }
+      
             [HttpGet]
-            public async Task<IActionResult> MuseumDetails()
+            public async Task<IActionResult> MuseumDetails(string city,string district)
             {
-        
-        return View();
-        
+                string apiKey = "93k9I6pzPzDC3Nnc4tsJLdK86pCLIUySdbmpxfHqTmnsQyWdQ1tipEf0AnQ7";
+                var museumResponse = await _client.GetAsync($" https://www.nosyapi.com/apiv2/service/museum?city={city}&district={district}&apiKey={apiKey}");
+
+            if (museumResponse.IsSuccessStatusCode)
+                {
+              
+
+                var museumApiResponse = await museumResponse.Content.ReadAsStringAsync();
+                    var museumResult = JsonConvert.DeserializeObject<MuseumApiResponse>(museumApiResponse);
+
+                    if (museumResult.status == "success")
+                    {
+                        // MuseumDetails view'e modeli ileterek döndürme
+                        return View("MuseumDetails",  museumResult.data); // data, bir List<Museum>
+                    }
+                    else
+                    {
+                        // Hata durumu için Error action'ına yönlendirme
+                        return RedirectToAction("Error", new { message = museumResult.message });
+                    }
+                }
+                else
+                {
+                    // API ile iletişim hatası durumu için Error action'ına yönlendirme
+                    return RedirectToAction("Error", new { message = "Müze API ile iletişim sırasında bir hata oluştu." });
+                }
             }
-        
 
 
-     
-    }
+
+        }
 }

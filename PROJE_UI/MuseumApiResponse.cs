@@ -11,6 +11,6 @@ namespace PROJE_UI
         public string endpoint { get; set; }
         public int rowCount { get; set; }
         public int creditUsed { get; set; }
-       // public List<Museum> data { get; set; }
+       public List<Museum> data { get; set; }
     }
 }

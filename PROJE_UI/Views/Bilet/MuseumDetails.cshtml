@@ -1,1 +1,31 @@
-﻿
+﻿@using PROJE_UI.Models
+@model List<Museum>
+@await Component.InvokeAsync("Slidebar")
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-8 entries">
+                <article class="entry">
+                    <center><h1 class="text-danger">MÜZE BİLETİ SATIN AL</h1></center>
+                    @foreach (Museum item in Model)
+                    {
+                        <div>
+                            <h2>@item.name</h2>
+                            <p><strong>Description:</strong> @item.description</p>
+                            <p><strong>Address:</strong> @item.address</p>
+                            <p><strong>Working Time:</strong> @item.workingTime</p>
+                            <p><strong>Details:</strong> @item.details</p>
+                            <p><strong>Location:</strong> Latitude @item.latitude, Longitude @item.longitude</p>
+                            <p><strong>Contact:</strong> Phone:@item.phone, Email: @item.email</p>
+                            <p><strong>Website:</strong> @item.website</p>
+                            <p><strong>City:</strong> @item.city, District: @item.district</p>
+                        </div>
+                    }
+                </article>
+            </div>
+
+            @await Component.InvokeAsync("AnnouncementDetails")
+        </div>
+    </div>
+</section>
+
