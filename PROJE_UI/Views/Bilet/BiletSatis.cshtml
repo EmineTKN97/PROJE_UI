@@ -1,0 +1,39 @@
+﻿@using PROJE_UI.Models;
+@model PROJE_UI.ViewModels.BiletSatisViewModel;
+
+@await Component.InvokeAsync("Slidebar")
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-8 entries">
+                <article class="entry">
+                    <center><h1 class="text-danger">MÜZE BİLETİ SATIN AL</h1></center>
+                    <label>Şehir Seçiniz:</label>
+                    <select id="selectCity" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                        @foreach (var item in Model.Cities)
+                        {
+                            <option value="@item.Id">@item.CityName.ToLower()</option>
+                        }
+                    </select>
+
+                    <label>İlçe Seçiniz:</label>
+                    <select id="selectDistrict" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                        @foreach (var item in Model.Districts)
+                        {
+                            <option value="@item.Id">@item.DistrictName.ToLower()</option>
+                        }
+                    </select>
+
+                    <button asp-controller="Bilet" asp-action="BlogDetails" class="btn btn-danger">
+                        <i class="fas fa-arrow-left"></i> Geri
+                    </button>
+                    <button asp-controller="Bilet" asp-action="MuseumDetails" class="btn btn-danger float-end">
+                        İleri <i class="fas fa-arrow-right"></i>
+                    </button>
+                </article>
+            </div>
+
+            @await Component.InvokeAsync("AnnouncementDetails")
+        </div>
+    </div>
+</section>

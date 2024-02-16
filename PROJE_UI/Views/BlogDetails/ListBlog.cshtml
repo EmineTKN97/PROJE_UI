@@ -21,6 +21,7 @@
 
             @foreach (Blog item in Model)
             {
+                
                 <div class="col-lg-8 entries">
                     <article class="entry">
 
@@ -34,8 +35,9 @@
                         <div class="entry-meta">
                             <ul>
                                 <li class="d-flex align-items-center">
-                                    <i class="bi bi-person"></i>
+                                    <div class="comment-img"><img src="/Uploads/StaticContent/@item.UserImagePath" alt="BlogYazarResimi" height="30">
                                     @item.Name.ToUpper()  @item.SurName.ToUpper()
+                                    </div>
                                 </li>
                                 <li class="d-flex align-items-center"><i class="bi bi-clock"></i><time datetime="2020-01-01">@item.BlogDate</time></li>
                                 <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/Blog/BlogDetails">@item.BlogCommentCount</a></li>
@@ -49,6 +51,7 @@
                             <p>
                                 @item.Content
                             </p>
+                            
                             <div class="read-more">
                                 <div class="read-more">
                                     <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.İd" id="readMoreBtn">Detayını Gör</a>

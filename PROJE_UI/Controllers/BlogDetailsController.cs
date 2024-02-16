@@ -68,7 +68,7 @@ namespace PROJE_UI.Controllers
                 var commentApiResponse = await commentResponse.Content.ReadAsStringAsync();
                 var commentResult = JsonConvert.DeserializeObject<List<BlogComment>>(commentApiResponse);
 
-                // BlogViewModel oluşturulur ve gerekli alanlar doldurulur
+          
                 var blogViewModel = new BlogViewModel
                 {
                     Blogs = blogResult,

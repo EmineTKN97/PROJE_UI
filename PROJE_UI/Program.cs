@@ -9,6 +9,7 @@ builder.Services.Configure<ApiServiceOptions>(options =>
 builder.Services.AddHttpClient<IApiService, ApiService>();
 
 
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

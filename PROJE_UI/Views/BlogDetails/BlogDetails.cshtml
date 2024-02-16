@@ -40,7 +40,7 @@
                     <article class="entry entry-single">
 
                         <div class="entry-img">
-                            <img src="@Model.Blogs.İmagePath" alt="" class="img-fluid">
+                        <img src="/Uploads/StaticContent/@Model.Blogs.İmagePath" alt="" class="img-fluid">
                         </div>
 
                         <h2 class="entry-title">
@@ -74,7 +74,7 @@
                         {
                             <div id="comment-1" class="comment">
                                 <div class="d-flex">
-                                    <div class="comment-img"><img src="@item.UserİmagePath" alt=""></div>
+                                <div class="comment-img"><img src="/Uploads/StaticContent/@item.UserİmagePath" alt="KullanıcıResimi"></div>
                                     <div>
                                         <h5><a href="#">@item.UserName.ToUpper() @item.UserSurname.ToUpper()</a> </h5>
                                         <time datetime="2020-01-01">@item.CommentDate</time>

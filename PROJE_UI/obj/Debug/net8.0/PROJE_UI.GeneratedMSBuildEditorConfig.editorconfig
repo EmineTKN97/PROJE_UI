@@ -26,6 +26,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Bilet/BiletSatis.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsZXRcQmlsZXRTYXRpcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Bilet/MuseumDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsZXRcTXVzZXVtRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/BlogDetails/BlogDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ0RldGFpbHNcQmxvZ0RldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

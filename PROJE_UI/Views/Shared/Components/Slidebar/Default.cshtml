@@ -1,31 +1,25 @@
 ﻿@using PROJE_UI.Models;
 @model List<Blog>
-<section id="hero">
-	<div class="card-body h-100">
-		<div id="carousel-captions1" class="carousel slide" data-bs-ride="carousel">
-			<div class="carousel-inner">
-				@foreach (Blog item in Model)
-				{
-					<div class="carousel-item active">
-						<img class="d-block w-100" alt="" src="~/Uploads/StaticContent/@item.İmagePath" data-bs-holder-rendered="true">
-						<div class="carousel-caption">
-							<h3>@item.Title</h3>
-							<p>@item.Content</p>
-							<a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.İd" class="btn btn-danger">Detayını Gör</a>
-						</div>
-					</div>
-				}
-				
-				
-			</div>
-			<a class="carousel-control-prev" href="#carousel-captions1" role="button" data-bs-slide="prev">
-				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#carousel-captions1" role="button" data-bs-slide="next">
-				<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-	</div>
-</section>
+<div id="carousel-captions1" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @foreach (Blog item in Model)
+        {
+            <div class="carousel-item active">
+                <img class="d-block" alt="Sliderresim" width="2500px"  height="500px" src="~/Uploads/StaticContent/@item.İmagePath" data-bs-holder-rendered="true">
+                <div class="carousel-caption d-none d-md-block">
+                    <bold><h3 style=" font-family:Broadway">@item.Title</h3></bold>
+                    <bold> <p style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">@item.Content</p></bold>
+                    <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.İd" class="btn btn-danger">Detayını Gör</a>
+                </div>
+            </div>
+        }
+    </div>
+    <a class="carousel-control-prev" href="#carousel-captions1" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel-captions1" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
