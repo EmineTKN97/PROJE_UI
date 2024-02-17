@@ -1,5 +1,6 @@
 
 using PROJE_UI;
+using PROJE_UI.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ApiServiceOptions>(options =>
 {

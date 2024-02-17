@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Newtonsoft.Json;
+using NuGet.Common;
 using PROJE_UI.Models;
 using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 
 namespace PROJE_UI.Controllers
@@ -38,8 +43,7 @@ namespace PROJE_UI.Controllers
                     return RedirectToAction("Login");
                 }
                 else
-                {
-                    // Hata durumuyla başa çıkın
+                { 
                     ModelState.AddModelError("", "Kullanıcı kaydedilemedi. Lütfen tekrar deneyin.");
                     return View(model);
                 }
@@ -54,23 +58,25 @@ namespace PROJE_UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(User model)
         {
-            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+                var handler = new JwtSecurityTokenHandler();
             using (var response = await _client.PostAsync("https://localhost:7185/api/Auth/loginUser", content))
-            {
-                if (response.IsSuccessStatusCode)
                 {
-                    var apiResponse = await response.Content.ReadAsStringAsync();
-                    var loginuser= JsonConvert.DeserializeObject<User>(apiResponse);
-                    return RedirectToAction("Blog","Blog");
-                }
-                else
-                {
-                    // Hata durumuyla başa çıkın
-                    ModelState.AddModelError("", "Giriş Yapılamadı. Lütfen tekrar deneyin.");
-                    return View(model);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var apiResponse = await response.Content.ReadAsStringAsync();
+                        var data = JsonConvert.DeserializeObject<TokenOptions>(apiResponse);
+                        var token = handler.ReadJwtToken(data.Token);
+                        return RedirectToAction("Blog", "Blog");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Giriş Yapılamadı. Lütfen tekrar deneyin.");
+                        return View(model);
+                    }
                 }
             }
            
         }
     }
-}
+
