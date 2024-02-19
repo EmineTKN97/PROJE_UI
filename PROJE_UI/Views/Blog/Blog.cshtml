@@ -1,5 +1,5 @@
 ﻿@using PROJE_UI.Models
-@model Blog;
+@model AddBlog
 @section css{<style>
      main {
          display: flex;
@@ -24,15 +24,9 @@
                 <input type="text" class="form-control" id="Title" name="Title">
             </div>
             <div class="mb-3">
-                <label for="İmagePath" class="form-label">Resim Ekle</label>
-                <input class="form-control" type="file" id="İmagePath">
-            </div>
-            <div class="mb-3">
-                <label for="Description" class="form-label">Blog Yazısı:</label>
-                <textarea class="form-control" id="Description" rows="15"></textarea>
+                <label for="Content" class="form-label">Blog Yazısı:</label>
+                <textarea class="form-control" id="Content" name="Content" rows="15"></textarea>
             </div>
             <center><button type="submit" class="btn btn-danger">Bloğu Kaydet</button></center>
         </form>
     </div>
-
-

@@ -12,5 +12,7 @@
         public string Name { get; set; }
         public string SurName { get; set; }
         public string UserImagePath { get; set; }
+        public Guid UserId { get; set; }
+
     }
 }

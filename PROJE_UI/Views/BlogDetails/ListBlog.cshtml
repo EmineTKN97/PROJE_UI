@@ -21,12 +21,11 @@
 
             @foreach (Blog item in Model)
             {
-                
-                <div class="col-lg-8 entries">
+                <div class="col-lg-8">
                     <article class="entry">
 
                         <div class="entry-img">
-                            <img src="/Uploads/StaticContent/@item.İmagePath" alt="Blog Resimi" class="img-fluid">
+                            <img src="/Uploads/StaticContent/@item.İmagePath" width="1920px" height="430px" alt="Blog Resimi" class="img-fluid">
 
                         </div>
                         <h2 class="entry-title">
@@ -62,8 +61,6 @@
                     </article>
                 </div>
             }
-            @await Component.InvokeAsync("AnnouncementDetails")
-
         </div>
 
     </div>
