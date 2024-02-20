@@ -1,8 +1,29 @@
-﻿<nav id="navbar" class="navbar">
-    <ul>
-        <li><a href="/Home/Index" class="active">Anasayfa</a></li>
+﻿@{
+    var userRole = Context.Request.Cookies["UserRole"]; 
+}
 
-        <li class="dropdown">
+<nav id="navbar" class="navbar">
+    <ul>
+        @if (userRole == "USER")
+        {
+            <li><a href="/UserEdit/Index" class="active">Anasayfa</a></li>
+            <li class="dropdown">
+                <a href="#"><span>Blog İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="/Blog/Blog">Blog Ekle</a></li>
+                    <li><a href="testimonials.html">Bloglarını Listele</a></li>
+                    <li><a href="testimonials.html">Bloglarını Düzenle</a></li>
+                    <li><a href="/BlogDetails/ListBlog">Diğer Blogları Görüntüle</a></li>
+                </ul>
+            </li>
+            <li><a href="/Bilet/BiletSatis">Bilet Satış</a></li>
+            @await Component.InvokeAsync("EditProfile")
+            
+        }
+        else 
+        {
+            <li><a href="/Home/Index" class="active">Anasayfa</a></li>
+         <li class="dropdown">
             <a href="#"><span>Hakkımızda</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
                 <li><a href="about.html">Misyonumuz</a></li>
@@ -12,8 +33,9 @@
         </li>
         <li><a href="/Bilet/BiletSatis">Bilet Satış</a></li>
         <li><a href="/BlogDetails/ListBlog">Blog</a></li>
-        <li><a href="/UserRegister/Register" class="getstarted">Üye Ol</a></li>
-        <li><a href="/UserRegister/Login" class="getstarted">Giriş Yap</a></li>
+        <li><a href="/User/Register" class="getstarted">Üye Ol</a></li>
+        <li><a href="/User/Login" class="getstarted">Giriş Yap</a></li>
+    
+        }
     </ul>
-    <i class="bi bi-list mobile-nav-toggle"></i>
 </nav>

@@ -19,7 +19,7 @@ namespace PROJE_UI.Controllers
         public async Task<IActionResult> Index()
         {
 
-            return View(Index);
+            return View();
 
         }
         [HttpGet]

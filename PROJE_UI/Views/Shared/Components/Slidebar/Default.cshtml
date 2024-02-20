@@ -5,11 +5,11 @@
         @foreach (Blog item in Model)
         {
             <div class="carousel-item active">
-                <img class="d-block" alt="Sliderresim" width="2500px"  height="500px" src="~/Uploads/StaticContent/@item.İmagePath" data-bs-holder-rendered="true">
+                <img class="d-block" alt="Sliderresim" width="2500px"  height="500px" src="~/Uploads/StaticContent/@item.ImagePath" data-bs-holder-rendered="true">
                 <div class="carousel-caption d-none d-md-block">
                     <bold><h3 style=" font-family:Broadway">@item.Title.ToUpper()</h3></bold>
                     <bold> <p style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">@item.Content</p></bold>
-                    <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.İd" class="btn btn-danger">Detayını Gör</a>
+                    <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.BlogId" class="btn btn-danger">Detayını Gör</a>
                 </div>
             </div>
         }

@@ -37,15 +37,45 @@ namespace PROJE_UI.Controllers
 
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userRole))
             {
-                return RedirectToAction("Login", "UserRegister");
+                return RedirectToAction("Login", "User");
             }
             model.UserId=Guid.Parse(userId);
+            model.BlogDate=DateTime.Now;
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
 
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
             var response = await _client.PostAsync($"https://localhost:7185/api/Blogs/AddBlog?UserId={model.UserId}", content);
-                var apiResponse = await response.Content.ReadAsStringAsync();
-            return RedirectToAction("Index", "Home");
+            var apiResponse = await response.Content.ReadAsStringAsync();
+            return RedirectToAction("Index", "UserEdit");
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteBlog(Guid blogId)
+        {
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var userRole = HttpContext.Request.Cookies["UserRole"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userRole))
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+            
+            var response = await _client.DeleteAsync($"https://localhost:7185/api/Blogs/DeleteBlog?id={blogId}&UserId={userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Başarılı bir şekilde silinirse, kullanıcıyı yönlendir
+                return RedirectToAction("Index", "UserEdit");
+            }
+            else
+            {
+                // Silme işlemi başarısız olursa, hata mesajını görüntüle veya başka bir işlem yap
+                var apiErrorResponse = await response.Content.ReadAsStringAsync();
+                return View("Error");
+            }
         }
     }
 

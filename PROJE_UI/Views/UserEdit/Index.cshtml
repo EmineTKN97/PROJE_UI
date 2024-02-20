@@ -1,0 +1,67 @@
+﻿@using PROJE_UI.Models
+@model List<Blog>
+
+@await Component.InvokeAsync("Slidebar")
+<section id="blog" class="blog">
+<div class="container" data-aos="fade-up">
+
+    <div class="row">
+        <div class="col-lg-8 entries">
+            @foreach (Blog item in Model)
+            {
+                <article class="entry entry-single">
+
+                    <div class="entry-img">
+                            <img src="/Uploads/StaticContent/@item.ImagePath" width="1920px" height="430px" alt="BlogResimleri" class="img-fluid">
+                    </div>
+
+                    <h2 class="entry-title">
+                        @item.Title.ToUpper()
+                    </h2>
+
+                    <div class="entry-meta">
+                        <ul>
+
+                            <li class="d-flex align-items-center">
+                                <i class="bi bi-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">@item.BlogDate</time></a>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div class="entry-content">
+                        <p>
+                            @item.Content
+                        </p>
+                    <div class="read-more">
+                            <div class="read-more">
+                                    <a asp-controller="Blog" asp-action="DeleteBlog" asp-route-blogId="@item.BlogId" id="readMoreBtn" onclick="confirmDelete()">Sil</a>
+                                    <a asp-controller="Blog" asp-action="UpdateBlog" asp-route-blogId="@item.BlogId" id="readMoreBtn">Güncelle</a>
+                                </div>
+                            </div>
+                    </div>
+
+                </article>
+            }
+        </div>
+    </div>
+</div>
+</section>
+@section script 
+{
+    <script>
+        function confirmDelete() {
+     
+            var result = confirm("Blogu silmek istediğinizden emin misiniz?");
+
+            if (result) {
+            
+                window.location.href = '@Url.Action("DeleteBlog", "Blog");
+            }
+           
+        }
+    </script>
+
+   
+
+}

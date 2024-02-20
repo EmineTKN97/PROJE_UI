@@ -1,0 +1,29 @@
+﻿@using PROJE_UI.Models;
+@model User
+<div class="dropdown d-none d-md-flex profile-1">
+    <a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex" aria-expanded="false">
+        <span>
+            <img src="~/Uploads/StaticContent/@Model.ImagePath" alt="profile-user" height="50" class="avatar  profile-user brround cover-image">
+        </span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow show"  style="position: absolute; inset: 0px auto auto 0px; margin: 25px; padding:25px; transform: translate(-134px, 52px);" data-popper-placement="bottom-end">
+        <div class="drop-heading">
+            <div class="text-center">
+                <h5 class="text-dark mb-0">@Model.Name @Model.SurName.ToUpper()</h5>
+                <small class="text-muted">@Model.Email</small>
+            </div>
+        </div>
+        <div class="dropdown-divider m-0">
+        </div>
+            <a class="dropdown-item" href="profile.html">
+                <i class="dropdown-icon fe fe-user"></i> Profilini Düzenle
+            </a>
+            <a class="dropdown-item" href="emailservices.html">
+                <i class="dropdown-icon fe fe-settings"></i> Şifreni Değiştir
+            </a>
+            <a class="dropdown-item" href="login.html">
+                <i class="dropdown-icon fe fe-alert-circle"></i> Çıkış Yap
+            </a>
+       
+    </div>
+</div>
