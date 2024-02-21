@@ -20,7 +20,7 @@ namespace PROJE_UI.ViewComponents
 
             httpClient.BaseAddress = new Uri("https://localhost:7185/");
 
-            var response = await httpClient.GetAsync($"/api/Users/GetById?Userİd={userId}");
+            var response = await httpClient.GetAsync($"/api/Users/GetById?UserId={userId}");
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<User>();

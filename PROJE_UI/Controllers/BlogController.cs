@@ -48,32 +48,61 @@ namespace PROJE_UI.Controllers
             var apiResponse = await response.Content.ReadAsStringAsync();
             return RedirectToAction("Index", "UserEdit");
         }
-        [HttpDelete]
-        public async Task<IActionResult> DeleteBlog(Guid blogId)
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid blogId, Guid userId)
         {
-            var userId = HttpContext.Request.Cookies["UserId"];
-            var userRole = HttpContext.Request.Cookies["UserRole"];
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
 
-            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userRole))
+            if (string.IsNullOrEmpty(bearerToken))
             {
                 return RedirectToAction("Login", "User");
             }
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-
-            
             var response = await _client.DeleteAsync($"https://localhost:7185/api/Blogs/DeleteBlog?id={blogId}&UserId={userId}");
 
             if (response.IsSuccessStatusCode)
             {
-               
                 return RedirectToAction("Index", "UserEdit");
             }
             else
             {
+                return View("Error");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> UpdateBlog(Guid blogId)
+        {
+            var blogResponse = await _client.GetAsync($"https://localhost:7185/api/Blogs/GetById?id={blogId}");
 
-                var apiErrorResponse = await response.Content.ReadAsStringAsync();
+            if (!blogResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Error", new { message = "Blog bulunamadı." });
+            }
+
+            var ApiResponse = await blogResponse.Content.ReadAsStringAsync();
+            var blogResult = JsonConvert.DeserializeObject<AddBlog>(ApiResponse);
+            return View(blogResult);
+        }
+          [HttpPost]
+        public async Task<IActionResult> UpdateBlog(AddBlog model)
+        {
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"https://localhost:7185/api/Blogs/UpdateBlog?id={model.BlogId}&UserId={userId}",content);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "UserEdit");
+            }
+            else
+            {
                 return View("Error");
             }
         }

@@ -1,0 +1,47 @@
+﻿@using PROJE_UI.Models;
+@model User;
+
+@section css
+{
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+
+}
+
+<div class="rounded-form-container">
+    <center><h1 class="text-danger">PROFİLİNİ GÜNCELLE</h1></center>
+    <form class="position-sticky" method="post" action="/User/UpdateProfile">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Ad:</label>
+            <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name">
+        </div>
+        <div class="mb-3">
+            <label for="SurName" class="form-label">Soyad:</label>
+            <input type="text" class="form-control" id="SurName" name="SurName" value="@Model.SurName">
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email adresi</label>
+            <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email" value="@Model.Email">
+        </div>
+        <div class="mb-3">
+            <label for="Birthdate" class="form-label">Doğum Tarihi:</label>
+            <input type="date" class="form-control" id="Birthdate" name="Birthdate" value="@Model.BirthDate.ToString("yyyy-MM-dd")">
+        </div>
+        <center><button type="submit" class="btn btn-danger">Güncelle</button></center>
+    </form>
+</div>
+
+

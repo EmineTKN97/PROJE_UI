@@ -1,0 +1,42 @@
+﻿@using PROJE_UI.Models
+@model AddBlog
+@section css
+{
+
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+}
+
+<div class="rounded-form-container">
+    <center><h1 class="text-danger">BLOG YAZISINI GÜNCELLE</h1></center>
+    <form class="position-sticky" method="post" action="/Blog/UpdateBlog">
+        <div class="mb-3">
+            <label for="Title" class="form-label">Blog Başlığı:</label>
+            <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
+        </div>
+        <div class="mb-3">
+            <label for="Content" class="form-label">Blog Yazısı:</label>
+            <textarea class="form-control" id="Content" name="Content" rows="15">@Model.Content</textarea>
+        </div>
+        <input type="hidden" id="BlogId" name="BlogId" value="@Model.BlogId" />
+        <input type="hidden" id="UserId" name="UserId" value="@Model.UserId" />
+
+        <center>
+            <button type="submit" class="btn btn-danger">Bloğu Güncelle</button>
+        </center>
+    </form>
+</div>
+

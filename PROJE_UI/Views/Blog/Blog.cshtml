@@ -1,21 +1,25 @@
 ﻿@using PROJE_UI.Models
 @model AddBlog
-@section css{<style>
-     main {
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         height: 100vh;
-     }
+@section css {
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-     .rounded-form-container {
-         border: 1px solid #ccc;
-         border-radius: 10px;
-         padding: 20px;
-         width: 700px;
-     }
-</style>
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+ 
+
 }
+
     <div class="rounded-form-container">
         <center><h1 class="text-danger">BLOG YAZISI EKLE</h1></center>
         <form class="position-sticky" method="post" action="/Blog/Blog">
