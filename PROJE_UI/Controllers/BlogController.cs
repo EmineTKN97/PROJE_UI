@@ -67,12 +67,12 @@ namespace PROJE_UI.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                // Başarılı bir şekilde silinirse, kullanıcıyı yönlendir
+               
                 return RedirectToAction("Index", "UserEdit");
             }
             else
             {
-                // Silme işlemi başarısız olursa, hata mesajını görüntüle veya başka bir işlem yap
+
                 var apiErrorResponse = await response.Content.ReadAsStringAsync();
                 return View("Error");
             }

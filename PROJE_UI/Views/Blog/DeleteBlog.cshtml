@@ -1,1 +1,27 @@
-﻿
+﻿@using PROJE_UI.Models;
+@model Blog
+
+<h2>Silmek Üzeresiniz!</h2>
+
+<p>Bu işlemi onaylıyor musunuz?</p>
+
+<div>
+    <h4>Blog Detayları</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <!-- Diğer blog özellikleri için aynı şekilde devam edebilirsiniz -->
+
+    </dl>
+
+    <form asp-action="DeleteBlog" asp-route-blogId="@Model.BlogId" method="post">
+        <input type="submit" value="Evet, Sil" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
