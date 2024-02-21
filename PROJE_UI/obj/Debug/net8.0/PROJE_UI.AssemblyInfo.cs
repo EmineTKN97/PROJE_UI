@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PROJE_UI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8554092003b6485873ae44ccf02c28e4cae1ef4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18c470f8b98dd722670e89453ce497d9ff0bdc7f")]
 [assembly: System.Reflection.AssemblyProductAttribute("PROJE_UI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PROJE_UI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

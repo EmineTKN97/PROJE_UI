@@ -90,8 +90,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/User/PasswordOperation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQYXNzd29yZE9wZXJhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/User/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/User/ProfilePicture.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlUGljdHVyZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/User/Register.cshtml]

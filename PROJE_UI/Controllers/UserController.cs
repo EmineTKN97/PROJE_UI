@@ -122,7 +122,73 @@ namespace PROJE_UI.Controllers
                 return View("Error");
             }
         }
+        [HttpGet]
+        public IActionResult PasswordOperation()
+        {
+            return View(new UserPaswordChange());
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdatePassword(UserPaswordChange model)
+        {
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
 
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            model.UserId = Guid.Parse(userId);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"https://localhost:7185/api/Users/ChangePassword?currentPassword={model.currentPassword}&newPassword={model.newPassword}&UserId={userId}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "UserEdit");
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
+        [HttpGet]
+        public async  Task<IActionResult> ProfilePicture()
+        {
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var mediaResponse = await _client.GetAsync($"https://localhost:7185/api/Medias/GetMediaByUserId?UserId={userId}");
+
+            if (!mediaResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Error", new { message = "Media bulunamadı." });
+            }
+
+            var ApiResponse = await mediaResponse.Content.ReadAsStringAsync();
+            var mediaResult = JsonConvert.DeserializeObject<UserMedia>(ApiResponse);
+            return View(mediaResult);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdatePicture(UserMedia model)
+        {
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            model.UserId=Guid.Parse(userId);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            MultipartFormDataContent file = new MultipartFormDataContent();
+
+            var response = await _client.PutAsync($"https://localhost:7185/api/Medias/UpdateMedia?MediaId={model.MediaId}&UserId={model.UserId}", file);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "UserEdit");
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
         public void SetUserCookies(string userId, string userRole, string bearerToken)
         {
             var userCookieOptions = new CookieOptions
