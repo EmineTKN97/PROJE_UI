@@ -46,6 +46,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsZXRcTXVzZXVtRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/BlogComment/UpdateBlogComment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ0NvbW1lbnRcVXBkYXRlQmxvZ0NvbW1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/BlogComment/UserAllComment.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ0NvbW1lbnRcVXNlckFsbENvbW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

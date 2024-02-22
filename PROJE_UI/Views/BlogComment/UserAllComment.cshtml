@@ -1,1 +1,118 @@
-﻿
+﻿@using PROJE_UI.Models;
+@model List<BlogComment>
+@{
+    var userId = Context.Request.Cookies["UserId"];
+}
+
+<section id="blog" class="blog">
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Blog Yorumlarım</h2>
+                <ol>
+                    <li><a href="/UserEdit/Index"><i class="fas fa-home"></i> Anasayfa</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </section>
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            @foreach (BlogComment item in Model)
+            {
+                <div class="col-lg-8">
+                    <article class="entry">
+                        <h2 class="entry-title">
+                            @item.BlogTitle.ToUpper()
+                        </h2>
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center">
+                                    <div class="comment-img">
+                                        <img src="/Uploads/StaticContent/@item.UserİmagePath" alt="BlogYazarResimi" height="30">
+                                        @item.UserName.ToUpper()  @item.UserSurname.ToUpper()
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i>@item.CommentDate</li>
+                            </ul>
+                        </div>
+                        <div class="entry-content">
+                            <h3>@item.CommentTitle</h3>
+                            <p>
+                                @item.CommentDetail
+                            </p>
+
+                            <div class="read-more">
+                                <div class="read-more">
+                                    <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.BlogId" id="readMoreBtn">Bloğu Görüntüle</a>
+                                     <a href="javascript:void(0);" onclick="ShowModal('@item.CommentId')" class="btn btn-danger">Sil</a>
+                                      <a asp-controller="BlogComment" asp-action="UpdateBlogComment" asp-route-CommentId="@item.CommentId" class="btn btn-primary">Güncelle</a>
+                                   
+                                </div>
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+            }
+        </div>
+
+    </div>
+
+</section>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Dikkat</h4>
+            </div>
+            <div class="modal-body">
+                <p>Bu yorumu silmek istediğinize emin misiniz?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="CloseModal()">İptal</button>
+                <button type="button" class="btn btn-danger" onclick="Delete()">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="deleteForm" method="post" action="@Url.Action("Delete","BlogComment")">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="CommentId" name="CommentId" />
+    <input type="hidden" id="UserId" name="UserId" />
+</form>
+
+@section script {
+    <script>
+        function ShowModal(id) {
+            $("#CommentId").val(id);
+            $("#UserId").val('@userId');
+            $("#myModal").modal("show");
+        }
+
+        function Delete() {
+            console.log("CommentId: " + $("#CommentId").val());
+            document.getElementById("deleteForm").submit();
+            var userId = $("#UserId").val();
+
+            $.ajax({
+                url: "/BlogComment/Delete",
+                type: "POST",
+                data: { CommentId: commentId, UserId: userId },
+                success: function (result) {
+                    // Başarılı bir şekilde silindiğinde yapılacak işlemler
+                    console.log("Yorum başarıyla silindi.");
+                },
+                error: function (error) {
+                    console.log("Silme işlemi başarısız oldu. Hata: " + error);
+                }
+            });
+        }
+        function CloseModal() {
+            $('#myModal').modal('hide');
+        }
+    </script>
+}

@@ -11,5 +11,6 @@
         public DateTime CommentDate { get; set; }
         public string? UserİmagePath { get; set; }
         public Guid BlogId { get; set; }
+        public string? BlogTitle { get; set; }
     }
 }
