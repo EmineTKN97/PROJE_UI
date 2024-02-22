@@ -26,12 +26,28 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/About/Mission.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcTWlzc2lvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/About/Vision.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcVmlzaW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/About/Who.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcV2hvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Bilet/BiletSatis.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsZXRcQmlsZXRTYXRpcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Bilet/MuseumDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmlsZXRcTXVzZXVtRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/BlogComment/UserAllComment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ0NvbW1lbnRcVXNlckFsbENvbW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/BlogDetails/BlogDetails.cshtml]

@@ -84,7 +84,7 @@ namespace PROJE_UI.Controllers
             var blogResult = JsonConvert.DeserializeObject<AddBlog>(ApiResponse);
             return View(blogResult);
         }
-          [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> UpdateBlog(AddBlog model)
         {
             var userId = HttpContext.Request.Cookies["UserId"];
@@ -107,8 +107,6 @@ namespace PROJE_UI.Controllers
             }
         }
     }
-
-
  }
 
 

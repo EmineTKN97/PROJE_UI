@@ -77,39 +77,7 @@ namespace PROJE_UI.Controllers
 
                 return View(blogViewModel);
             }
-
-            [HttpGet]
-            public IActionResult AddBlogComment(Guid blogId)
-            {
-                var viewModel = new BlogViewModel
-                {
-                    BlogId = blogId,
-                    NewComment = new BlogComment()
-                };
-
-                return View(viewModel);
-            }
-        [HttpPost]
-        public async Task<IActionResult> AddBlogComment(BlogViewModel model)
-        {
-            model.NewComment.BlogId = model.BlogId;
-            StringContent content = new StringContent(JsonConvert.SerializeObject(model.NewComment), Encoding.UTF8, "application/json");
-
-            using (var response = await _client.PostAsync("https://localhost:7185/api/BlogComments/AddComment", content))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    var apiResponse = await response.Content.ReadAsStringAsync();
-                    var addBlogComment = JsonConvert.DeserializeObject<BlogComment>(apiResponse);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Blog Yorumu kaydedilemedi. Lütfen tekrar deneyin.");
-                    return View(model);
-                }
-            }
-        }
+        
     }
 }
 

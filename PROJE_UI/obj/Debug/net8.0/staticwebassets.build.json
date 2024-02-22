@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "sNvGRB8xYkv3G6qqam3RzxWNzYXl3mHgWGvItDh65L0=",
+  "Hash": "9Z8fJM+ZNxsi4IZHDG6fsQKVjS5kY1tDLfvoQoCuvV8=",
   "Source": "PROJE_UI",
   "BasePath": "_content/PROJE_UI",
   "Mode": "Default",
@@ -2941,6 +2941,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Uploads\\StaticContent\\fdc95324-eae1-4afa-ae6f-7cc182fa1cdc.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\emine\\OneDrive\\Masaüstü\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\wwwroot\\Uploads\\StaticContent\\user.jpg",
+      "SourceId": "PROJE_UI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\emine\\OneDrive\\Masaüstü\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\wwwroot\\",
+      "BasePath": "_content/PROJE_UI",
+      "RelativePath": "Uploads/StaticContent/user.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\StaticContent\\user.jpg"
     }
   ]
 }

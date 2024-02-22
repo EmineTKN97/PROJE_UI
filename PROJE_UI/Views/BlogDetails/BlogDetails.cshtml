@@ -13,14 +13,13 @@
             border-radius: 50%;
         }
     </style>
-
 }
-    <!-- ======= Blog Single Section ======= -->
-    <section id="blog" class="blog">
+
+<!-- ======= Blog Single Section ======= -->
+<section id="blog" class="blog">
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
         <div class="container">
-
             <div class="d-flex justify-content-between align-items-center">
                 <h2>Blog Detayı</h2>
                 <ol>
@@ -28,122 +27,101 @@
                     <li><a href="/BlogDetails/ListBlog">Bloglar</a></li>
                 </ol>
             </div>
-
         </div>
     </section><!-- End Breadcrumbs -->
-        <div class="container" data-aos="fade-up">
 
-            <div class="row">
-
-                <div class="col-lg-8 entries">
-
-                    <article class="entry entry-single">
-
-                        <div class="entry-img">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-8 entries">
+                <article class="entry entry-single">
+                    <div class="entry-img">
                         <img src="/Uploads/StaticContent/@Model.Blogs.ImagePath" alt="" class="img-fluid">
-                        </div>
-
-                        <h2 class="entry-title">
-                            @Model.Blogs.Title.ToUpper()
-                        </h2>
-
-                        <div class="entry-meta">
-                            <ul>
-                                <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">@Model.Blogs.Name @Model.Blogs.SurName</a></li>
-                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i> @Model.Blogs.BlogDate</li>
-                                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">@Model.Blogs.BlogCommentCount</a></li>
-                                <li class="d-flex align-items-center"><i class="bi bi-heart"></i> <a href="blog-single.html">@Model.Blogs.BlogLikeCount</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="entry-content">
-                            <p>
-                                @Model.Blogs.Content
-                            </p>
-                            <button type="button" id="likeButton">
-                                <i class="bi bi-heart"></i> Beğen
-                            </button>
-                            <button type="button" id="commentButton" data-blog-id="@Model.Blogs.BlogId">
-                                <i class="bi bi-chat"></i> Yorum Ekle
-                            </button>
-                        </div>
-
-                    </article>
-                    <div class="blog-comments">
-                        @foreach (var item in Model.Comments)
-                        {
-                            <div id="comment-1" class="comment">
-                                <div class="d-flex">
+                    </div>
+                    <h2 class="entry-title">
+                        @Model.Blogs.Title.ToUpper()
+                    </h2>
+                    <div class="entry-meta">
+                        <ul>
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">@Model.Blogs.Name @Model.Blogs.SurName</a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> @Model.Blogs.BlogDate</li>
+                            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">@Model.Blogs.BlogCommentCount</a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-heart"></i> <a href="blog-single.html">@Model.Blogs.BlogLikeCount</a></li>
+                        </ul>
+                    </div>
+                    <div class="entry-content">
+                        <p>
+                            @Model.Blogs.Content
+                        </p>
+                        <button type="button" id="likeButton">
+                            <i class="bi bi-heart"></i> Beğen
+                        </button>
+                        <button type="button" id="commentButton">
+                            <i class="bi bi-chat"></i> Yorum Ekle
+                        </button>
+                    </div>
+                </article>
+                <div class="blog-comments">
+                    @foreach (var item in Model.Comments)
+                    {
+                        <div id="comment-1" class="comment">
+                            <div class="d-flex">
                                 <div class="comment-img"><img src="/Uploads/StaticContent/@item.UserİmagePath" alt="KullanıcıResimi"></div>
-                                    <div>
-                                        <h5><a href="#">@item.UserName.ToUpper() @item.UserSurname.ToUpper()</a> </h5>
-                                        <time datetime="2020-01-01">@item.CommentDate</time>
-                                        <p>
-                                            @item.CommentDetail
-                                        </p>
-                                    </div>
+                                <div>
+                                    <h5><a href="#">@item.UserName.ToUpper() @item.UserSurname.ToUpper()</a> </h5>
+                                    <time datetime="2020-01-01">@item.CommentDate</time>
+                                    <p>
+                                        @item.CommentDetail
+                                    </p>
                                 </div>
                             </div>
-
-                            <!-- End comment #1 -->
-                        }
-                        <div class="reply-form">
-                            <h4 class="text-danger">YORUM EKLE</h4>
-                            <form asp-action="AddComment" asp-controller="Blog" method="post" id="commentForm">
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <input type="hidden" asp-for="BlogId" />
-                                        <input name="UserName" type="text" class="form-control" placeholder="Adınız">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <input name="UserSurName" type="text" class="form-control" placeholder="Soyadınız">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col form-group">
-                                        <input name="commentTitle" type="text" class="form-control" placeholder="Yorumun Konusu">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col form-group">
-                                        <textarea name="commentDetails" class="form-control" placeholder="Yorum İçeriğiniz"></textarea>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-danger">Yorum Ekle</button>
-                            </form>
-
                         </div>
-
-                    </div><!-- End blog comments -->
+                    }
+                    <div class="reply-form">
+                        <h4 class="text-danger">YORUM EKLE</h4>
+                        <form  asp-action="AddComment" asp-controller="BlogComment" method="post">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <input name="UserName" type="text" class="form-control" placeholder="Adınız">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input name="UserSurname" type="text" class="form-control" placeholder="Soyadınız">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col form-group">
+                                    <input name="CommentTitle" type="text" class="form-control" placeholder="Yorumun Konusu">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col form-group">
+                                    <textarea name="CommentDetail" class="form-control" placeholder="Yorum İçeriğiniz"></textarea>
+                                </div>
+                                <input type="hidden" name="BlogId" id="blogIdField" value="@Model.Blogs.BlogId" />
+                            </div>
+                            <button type="submit" class="btn btn-danger">Yorum Ekle</button>
+                        </form>
+                    </div>
                 </div>
-
-
-
-            @await Component.InvokeAsync("AnnouncementDetails")
-
-
             </div>
+            @await Component.InvokeAsync("AnnouncementDetails")
         </div>
-
-    </section><!-- End Blog Single Section -->
+    </div>
+</section><!-- End Blog Single Section -->
 @section script {
     <script>
         var likeButton = document.getElementById('likeButton');
         likeButton.addEventListener('click', function () {
             likeButton.style.color = 'red';
         });
-
-        var commentButton = document.getElementById('commentButton');
-        var commentForm = document.getElementById('commentForm');
-
-        commentButton.addEventListener('click', function () {
-            commentForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            var blogId = commentButton.getAttribute('data-blog-id');
-            var blogIdField = document.getElementById('BlogId');
-            if (blogIdField) {
-                blogIdField.value = blogId;
-            }
-        });
+       
+            document.addEventListener('DOMContentLoaded', function () {
+                var commentButton = document.getElementById('commentButton');
+                commentButton.addEventListener('click', function () {
+                    var replyForm = document.querySelector('.reply-form');
+                    if (replyForm) {
+                        replyForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
     </script>
 }
-

@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\Uploads\\StaticContent\\fdc95324-eae1-4afa-ae6f-7cc182fa1cdc.jpg"
     },
     {
+      "Id": "C:\\Users\\emine\\OneDrive\\Masaüstü\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\wwwroot\\Uploads\\StaticContent\\user.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\StaticContent\\user.jpg"
+    },
+    {
       "Id": "C:\\Users\\emine\\OneDrive\\Masaüstü\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\wwwroot\\assets\\css\\style.css",
       "PackagePath": "staticwebassets\\assets\\css\\style.css"
     },

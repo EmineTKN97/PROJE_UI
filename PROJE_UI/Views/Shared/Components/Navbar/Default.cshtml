@@ -16,6 +16,14 @@
                     <li><a href="/BlogDetails/ListBlog">Diğer Blogları Görüntüle</a></li>
                 </ul>
             </li>
+            <li class="dropdown">
+                <a href="#"><span>Blog Yorum İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="/BlogDetails/ListBlog">Yorum Ekle</a></li>
+                    <li><a href="/BlogComment/UserAllComment">Yorumlarımı Listele</a></li>
+                    <li><a href="/BlogComment/UserAllComment">Yorumlarımı Düzenle</a></li>
+                </ul>
+            </li>
             <li><a href="/Bilet/BiletSatis">Bilet Satış</a></li>
             @await Component.InvokeAsync("EditProfile")
             
@@ -26,9 +34,9 @@
          <li class="dropdown">
             <a href="#"><span>Hakkımızda</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-                <li><a href="about.html">Misyonumuz</a></li>
-                <li><a href="team.html">Vizyonumuz</a></li>
-                <li><a href="testimonials.html">Biz Kimiz?</a></li>
+                <li><a href="/About/Mission">Misyonumuz</a></li>
+                <li><a href="/About/Vision">Vizyonumuz</a></li>
+                <li><a href="About/Who">Biz Kimiz?</a></li>
             </ul>
         </li>
         <li><a href="/Bilet/BiletSatis">Bilet Satış</a></li>
