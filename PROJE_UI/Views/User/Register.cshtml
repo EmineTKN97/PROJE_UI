@@ -9,13 +9,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            height: 110vh;
         }
 
         .rounded-form-container {
             border: 1px solid #ccc;
             border-radius: 10px;
             padding: 20px;
+            margin-top:20px;
             width: 700px;
         }
     </style>
@@ -25,6 +26,11 @@
     <div class="rounded-form-container">
         <center><h1 class="text-danger">ÜYE OL</h1></center>
     <form class="position-sticky" method="post" action="/User/Register">
+        <div class="input-group text-center mt-1 mb-4">
+            <div class="d-flex justify-content-center w-100">
+                <img src="~/Uploads/StaticContent/user.jpg" width="100" height="100" />
+            </div>
+        </div>
         <div class="mb-3">
             <label for="Name" class="form-label">Ad:</label>
             <input type="text" class="form-control" id="Name" name="Name">
@@ -45,9 +51,7 @@
             <label for="Birthdate" class="form-label">Doğum Tarihi:</label>
             <input type="date" class="form-control" id="Birthdate" name="Birthdate">
         </div>
-
-            <center><button type="submit" class="btn btn-danger">Kaydet</button></center>
+            <center><button type="submit" class="btn btn-danger">Kaydet</button>
+            <button type="reset" class="btn btn-danger">Temizle</button></center>
         </form>
     </div>
-
-

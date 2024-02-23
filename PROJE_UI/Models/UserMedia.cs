@@ -4,7 +4,7 @@
     {
         public Guid MediaId { get; set; }
         public Guid UserId { get; set; }
-        public string ImagePath { get; set; }
+        public IFormFile  ImagePath { get; set; }
         public DateTime CreateDate { get; set; }
     }
 }

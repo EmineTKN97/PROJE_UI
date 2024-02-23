@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authentication.Cookies;
 using PROJE_UI;
 using PROJE_UI.Controllers;
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,11 @@ builder.Services.Configure<ApiServiceOptions>(options =>
 });
 
 builder.Services.AddHttpClient<IApiService, ApiService>();
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+     .AddCookie(options =>
+     {
+         options.LogoutPath = "/User/Logout"; 
+     });
 
 
 builder.Services.AddControllersWithViews();

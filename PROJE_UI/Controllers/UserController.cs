@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Newtonsoft.Json;
 using PROJE_UI.Models;
@@ -42,7 +45,7 @@ namespace PROJE_UI.Controllers
                     {
                         SetUserCookies(userIdClaim.Value, userRoleClaim.Value, data.Token);
                     }
-                    return RedirectToAction("Index", "UserEdit");
+                    return RedirectToAction("AddPicture", "User");
                 }
                 else
                 {
@@ -150,21 +153,7 @@ namespace PROJE_UI.Controllers
                 return View("Error");
             }
         }
-        [HttpGet]
-        public async  Task<IActionResult> ProfilePicture()
-        {
-            var userId = HttpContext.Request.Cookies["UserId"];
-            var mediaResponse = await _client.GetAsync($"https://localhost:7185/api/Medias/GetMediaByUserId?UserId={userId}");
-
-            if (!mediaResponse.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Error", new { message = "Media bulunamadı." });
-            }
-
-            var ApiResponse = await mediaResponse.Content.ReadAsStringAsync();
-            var mediaResult = JsonConvert.DeserializeObject<UserMedia>(ApiResponse);
-            return View(mediaResult);
-        }
+ 
         [HttpPost]
         public async Task<IActionResult> UpdatePicture(UserMedia model)
         {
@@ -175,11 +164,92 @@ namespace PROJE_UI.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
-            model.UserId=Guid.Parse(userId);
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-            MultipartFormDataContent file = new MultipartFormDataContent();
 
-            var response = await _client.PutAsync($"https://localhost:7185/api/Medias/UpdateMedia?MediaId={model.MediaId}&UserId={model.UserId}", file);
+            model.UserId = Guid.Parse(userId);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
+            if (model.ImagePath != null)
+            {
+                using (var formContent = new MultipartFormDataContent())
+                {
+                  
+                    formContent.Add(new StringContent(model.ImagePath.FileName), "ImagePath");
+                    formContent.Add(new StreamContent(model.ImagePath.OpenReadStream())
+                    {
+                        Headers =
+                {
+                    ContentLength = model.ImagePath.Length,
+                    ContentType= new MediaTypeHeaderValue(model.ImagePath.ContentType)
+
+                }
+                    }, "file", model.ImagePath.FileName);
+
+                    var response = await _client.PostAsync($"https://localhost:7185/api/Medias/UpdateMedia?UserId={model.UserId}", formContent);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index", "UserEdit");
+                    }
+                }
+            }
+
+            return View("Error");
+        }
+        [HttpGet]
+        public async Task<IActionResult> AddPicture()
+        {
+            return View(new UserMedia());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPicture(UserMedia model)
+        {
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            model.UserId = Guid.Parse(userId);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+                   using (var formContent = new MultipartFormDataContent())
+                {
+
+                    formContent.Add(new StringContent(model.ImagePath.FileName), "ImagePath");
+                    formContent.Add(new StreamContent(model.ImagePath.OpenReadStream())
+                    {
+                        Headers =
+                {
+                    ContentLength = model.ImagePath.Length,
+                    ContentType= new MediaTypeHeaderValue(model.ImagePath.ContentType)
+
+                }
+                    }, "file", model.ImagePath.FileName);
+
+                    var response = await _client.PostAsync($"https://localhost:7185/api/Medias/AddUserMedia?UserId={model.UserId}", formContent);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("Index", "UserEdit");
+                    }
+                }
+            
+
+            return View("Error");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeletePicture(Guid userId,Guid MediaId)
+        {
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.DeleteAsync($"https://localhost:7185/api/Medias/DeleteMedia?MediaId={MediaId}&UserId={userId}");
+
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "UserEdit");
@@ -188,6 +258,16 @@ namespace PROJE_UI.Controllers
             {
                 return View("Error");
             }
+        }
+        public async Task<IActionResult> LogOut()
+        {
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            Response.Cookies.Delete("UserId");
+            Response.Cookies.Delete("UserRole");
+            Response.Cookies.Delete("Bearer");
+            return RedirectToAction("Index", "Home");
+
         }
         public void SetUserCookies(string userId, string userRole, string bearerToken)
         {

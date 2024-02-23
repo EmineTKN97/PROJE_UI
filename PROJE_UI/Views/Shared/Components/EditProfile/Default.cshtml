@@ -9,23 +9,17 @@
     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow show"  style="position: absolute; inset: 0px auto auto 0px; margin: 25px; padding:25px; transform: translate(-134px, 52px);" data-popper-placement="bottom-end">
         <div class="drop-heading">
             <div class="text-center">
-                <h5 class="text-dark mb-0">@Model.Name @Model.SurName.ToUpper()</h5>
+                <h5 class="text-dark mb-0">@Char.ToUpper(Model.Name[0])@Model.Name.Substring(1) @Model.SurName.ToUpper()</h5>
                 <small class="text-muted">@Model.Email</small>
             </div>
         </div>
         <div class="dropdown-divider m-0">
         </div>
-            <a class="dropdown-item" href="/User/Profile">
-                <i class="dropdown-icon fe fe-user"></i> Profilini Düzenle
+            <a href="/User/Profile"> Profilini Düzenle
             </a>
-        <a class="dropdown-item" href="/User/ProfilePicture">
-            <i class="dropdown-icon fe fe-settings"></i> Profil Fotoğrafını Değiştir
-        </a>
-            <a class="dropdown-item" href="/User/PasswordOperation">
-                <i class="dropdown-icon fe fe-settings"></i> Şifreni Değiştir
+            <a  href="/User/PasswordOperation">Şifreni Değiştir
             </a>
-            <a class="dropdown-item" href="/User/Login">
-                <i class="dropdown-icon fe fe-alert-circle"></i> Çıkış Yap
+            <a href="/User/Logout"> Çıkış Yap
             </a>
        
     </div>
