@@ -42,7 +42,7 @@
                     </h2>
                     <div class="entry-meta">
                         <ul>
-                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">@Model.Blogs.Name @Model.Blogs.SurName</a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="blog-single.html">@Model.Blogs.Name.ToUpper() @Model.Blogs.SurName.ToUpper()</a></li>
                             <li class="d-flex align-items-center"><i class="bi bi-clock"></i> @Model.Blogs.BlogDate</li>
                             <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">@Model.Blogs.BlogCommentCount</a></li>
                             <li class="d-flex align-items-center"><i class="bi bi-heart"></i> <a href="blog-single.html">@Model.Blogs.BlogLikeCount</a></li>
@@ -94,7 +94,7 @@
                             </div>
                             <div class="row">
                                 <div class="col form-group">
-                                    <textarea name="CommentDetail" class="form-control" placeholder="Yorum İçeriğiniz"></textarea>
+                                    <textarea name="CommentDetail" class="form-control" placeholder="Yorum İçeriğiniz" rows="15"></textarea>
                                 </div>
                                 <input type="hidden" name="BlogId" id="blogIdField" value="@Model.Blogs.BlogId" />
                             </div>

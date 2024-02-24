@@ -49,7 +49,7 @@
                                 <div class="read-more">
                                     <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.BlogId" id="readMoreBtn">Bloğu Görüntüle</a>
                                      <a href="javascript:void(0);" onclick="ShowModal('@item.CommentId')" class="btn btn-danger">Sil</a>
-                                      <a asp-controller="BlogComment" asp-action="UpdateBlogComment" asp-route-CommentId="@item.CommentId" class="btn btn-primary">Güncelle</a>
+                                      <a asp-controller="BlogComment" asp-action="UpdateBlogComment" asp-route-CommentId="@item.CommentId" class="btn btn-danger">Güncelle</a>
                                    
                                 </div>
                             </div>

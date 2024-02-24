@@ -269,6 +269,48 @@ namespace PROJE_UI.Controllers
             return RedirectToAction("Index", "Home");
 
         }
+        [HttpGet]
+        public async Task<IActionResult> DeleteUser()
+        { 
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var userResponse = await _client.GetAsync($"https://localhost:7185/api/Users/GetById?UserId={userId}");
+
+            if (!userResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Error", new { message = "Kullanıcı bulunamadı." });
+            }
+
+            var ApiResponse = await userResponse.Content.ReadAsStringAsync();
+            var userResult = JsonConvert.DeserializeObject<User>(ApiResponse);
+            return View(userResult);
+        }
+   
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(User model)
+        {
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.DeleteAsync($"https://localhost:7185/api/Users/DeleteUser?id={userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                Response.Cookies.Delete("UserId");
+                Response.Cookies.Delete("UserRole");
+                Response.Cookies.Delete("Bearer");
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View("Error");
+            }
+        }
         public void SetUserCookies(string userId, string userRole, string bearerToken)
         {
             var userCookieOptions = new CookieOptions

@@ -1,0 +1,60 @@
+﻿@using PROJE_UI.Models;
+@model User;
+@{
+    var userId = Context.Request.Cookies["UserId"];
+}
+@section css
+{
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+}
+
+<div class="rounded-form-container">
+    <center><h1 class="text-danger">PROFİLİNİ SİLMEK İSTEDİĞİNİZE EMİN MİSİNİZ?</h1></center>
+
+    <div class="input-group text-center mt-1 mb-4">
+        <div class="d-flex justify-content-center w-100">
+            <img src="~/Uploads/StaticContent/@Model.ImagePath" width="150" height="150" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Ad:</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name">
+    </div>
+    <div class="mb-3">
+        <label for="SurName" class="form-label">Soyad:</label>
+        <input type="text" class="form-control" id="SurName" name="SurName" value="@Model.SurName">
+    </div>
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email adresi</label>
+        <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email" value="@Model.Email">
+    </div>
+    <div class="mb-3">
+        <label for="Birthdate" class="form-label">Doğum Tarihi:</label>
+        <input type="date" class="form-control" id="Birthdate" name="Birthdate" value="@Model.BirthDate.ToString("yyyy-MM-dd")">
+    </div>
+    <center>
+        <form asp-action="DeleteUser" asp-controller="User" method="post">
+            <button type="submit" class="btn btn-danger">Sil</button>
+            <a asp-controller="UserEdit" asp-action="Index"  class="btn btn-danger">İptal</a>
+        </form> 
+            
+        
+    </center>
+  
+
+</div>
+
