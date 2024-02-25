@@ -25,10 +25,12 @@
         <center><h1 class="text-danger">PROFİL FOTOĞRAFI EKLE</h1></center>
     <form class="position-sticky" method="post" action="/User/AddPicture" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="ImagePath" class="form-label">Resim seçiniz</label>
+                <label for="ImagePath" class="form-label">Resim seçiniz:</label>
             <input type="file" name="ImagePath" class="form-control"  id="inputGroupFile02">
             </div>
-            <center><button type="submit" class="btn btn-danger">Kaydet</button></center>
+            <center><button type="submit" class="btn btn-danger fw-bold mx-1">Kaydet</button>
+        <a asp-controller="UserEdit" asp-action="Index" class="btn btn-danger fw-bold mx-1">Varsayılan Fotoğrafı Kullan</a>
+        </center>
         </form>
     </div>
 

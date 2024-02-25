@@ -32,6 +32,9 @@ h5,
 h6 {
   font-family: "Raleway", sans-serif;
 }
+label {
+    font-weight: bold;
+}
 
 /*--------------------------------------------------------------
 # Back to top button

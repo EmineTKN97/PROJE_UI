@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Newtonsoft.Json;
 using PROJE_UI.Models;
 using System.Net.Http.Headers;
@@ -16,12 +17,22 @@ namespace PROJE_UI.Controllers
         [HttpGet]
         public async Task<IActionResult> AddBlogMedia()
         {
-            return View(new BlogMedia());
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var blogResponse = await _client.GetAsync($"https://localhost:7185/api/Blogs/GetLatestBlogByUserId?UserId={userId}");
+
+            if (!blogResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Error", new { message = "Blog bulunamadı." });
+            }
+
+            var ApiResponse = await blogResponse.Content.ReadAsStringAsync();
+            var blogResult = JsonConvert.DeserializeObject<AddBlog>(ApiResponse);
+            return View(blogResult);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBlogMedia(BlogMedia model)
-        {
+        public async Task<IActionResult> AddBlogMedia(BlogMedia model,Guid BlogId)
+        { 
             var userId = HttpContext.Request.Cookies["UserId"];
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
             if (string.IsNullOrEmpty(bearerToken))
@@ -42,7 +53,7 @@ namespace PROJE_UI.Controllers
 
                 }
                 }, "file", model.ImagePath.FileName);
-                var response = await _client.PostAsync($"https://localhost:7185/api/Medias/AddBlogMedia?BlogId={model.BlogId}&UserId{userId}", formContent);
+                var response = await _client.PostAsync($"https://localhost:7185/api/Medias/AddBlogMedia?BlogId={BlogId}&UserId={userId}", formContent);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index", "UserEdit");

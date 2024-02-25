@@ -241,4 +241,3 @@ C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\bin\
 C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\obj\Debug\net8.0\PROJE_UI.sourcelink.json
 C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\obj\Debug\net8.0\PROJE_UI.csproj.Up2Date
-C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\bin\Debug\net8.0\libman.json

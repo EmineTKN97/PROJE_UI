@@ -1,15 +1,14 @@
 ﻿@using PROJE_UI.Models;
-@model BlogMedia
+@model AddBlog
 @section css
 {
+
     <style>
         main {
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 70vh;
-            margin: auto;
-            padding: auto;
+            height: 150vh;
         }
 
         .rounded-form-container {
@@ -21,14 +20,78 @@
     </style>
 }
 
+
+
 <div class="rounded-form-container">
     <center><h1 class="text-danger">BLOĞA FOTOĞRAF EKLE</h1></center>
     <form class="position-sticky" method="post" action="/BlogMedia/AddBlogMedia" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="ImagePath" class="form-label">Resim seçiniz</label>
-            <input type="file" name="ImagePath" class="form-control" id="inputGroupFile02">
+        <div class="input-group text-center mt-1 mb-4">
+            <div class="input-group text-center mt-1 mb-4">
+                <div class="d-flex justify-content-center w-100">
+                    <img src="~/Uploads/StaticContent/@Model.ImagePath" width="100%" />
+                </div>
+            </div>
         </div>
-        <center><button type="submit" class="btn btn-danger">Kaydet</button></center>
+        <div class="mb-3">
+            <label for="Title" class="form-label">Blog Başlığı:</label>
+            <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
+        </div>
+        <div class="mb-3">
+            <label for="Content" class="form-label">Blog Yazısı:</label>
+            <textarea class="form-control" id="Content" name="Content" rows="15">@Model.Content</textarea>
+        </div>
+      <center> 
+          <button type="button" class="btn btn-danger fw-bold mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-blogId="@Model.BlogId">
+            Bloğa Fotoğraf Ekle
+        </button>
+            <a asp-controller="UserEdit" asp-action="Index"  class="btn btn-danger fw-bold mx-1">Varsayılan Fotoğrafı Kullan</a>
+        </center>
     </form>
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Bloğa Fotoğraf Ekle</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="pictureForm" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <input type="file" name="ImagePath" class="form-control" multiple="multiple" id="inputGroupFile02">
+                        <input type="hidden" name="BlogId" value="@Model.BlogId" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+                        <button type="button" class="btn btn-danger" id="savePictureBtn">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section script {
+    <script>
+        $('#savePictureBtn').click(function () {
+            var blogId = $('#blogIdInput').val();
+            var formData = new FormData($('#pictureForm')[0]);
 
+            formData.append('BlogId', blogId);
+
+            $.ajax({
+                url: '/BlogMedia/AddBlogMedia',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('#exampleModal').modal('hide');
+                    window.location.href = '/UserEdit/Index';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    </script>
+    }

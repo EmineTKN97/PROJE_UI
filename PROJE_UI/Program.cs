@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authentication.Cookies;
 using PROJE_UI;
 var builder = WebApplication.CreateBuilder(args);
