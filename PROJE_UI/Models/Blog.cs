@@ -13,6 +13,7 @@
         public string SurName { get; set; }
         public string UserImagePath { get; set; }
         public Guid UserId { get; set; }
+        public Guid? MediaId { get; set; }
 
     }
 }

@@ -8,6 +8,7 @@ using PROJE_UI.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Text;
+using PROJE_UI.ViewModels;
 
 namespace PROJE_UI.Controllers
 {
@@ -29,6 +30,7 @@ namespace PROJE_UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(User model)
         {
+           
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
             var handler = new JwtSecurityTokenHandler();
             using (var response = await _client.PostAsync("https://localhost:7185/api/Auth/registerUser", content))
@@ -153,7 +155,7 @@ namespace PROJE_UI.Controllers
                 return View("Error");
             }
         }
- 
+
         [HttpPost]
         public async Task<IActionResult> UpdatePicture(UserMedia model)
         {
@@ -172,7 +174,7 @@ namespace PROJE_UI.Controllers
             {
                 using (var formContent = new MultipartFormDataContent())
                 {
-                  
+
                     formContent.Add(new StringContent(model.ImagePath.FileName), "ImagePath");
                     formContent.Add(new StreamContent(model.ImagePath.OpenReadStream())
                     {
@@ -213,32 +215,32 @@ namespace PROJE_UI.Controllers
 
             model.UserId = Guid.Parse(userId);
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-                   using (var formContent = new MultipartFormDataContent())
-                {
+            using (var formContent = new MultipartFormDataContent())
+            {
 
-                    formContent.Add(new StringContent(model.ImagePath.FileName), "ImagePath");
-                    formContent.Add(new StreamContent(model.ImagePath.OpenReadStream())
-                    {
-                        Headers =
+                formContent.Add(new StringContent(model.ImagePath.FileName), "ImagePath");
+                formContent.Add(new StreamContent(model.ImagePath.OpenReadStream())
+                {
+                    Headers =
                 {
                     ContentLength = model.ImagePath.Length,
                     ContentType= new MediaTypeHeaderValue(model.ImagePath.ContentType)
 
                 }
-                    }, "file", model.ImagePath.FileName);
+                }, "file", model.ImagePath.FileName);
 
-                    var response = await _client.PostAsync($"https://localhost:7185/api/Medias/AddUserMedia?UserId={model.UserId}", formContent);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return RedirectToAction("Index", "UserEdit");
-                    }
+                var response = await _client.PostAsync($"https://localhost:7185/api/Medias/AddUserMedia?UserId={model.UserId}", formContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index", "UserEdit");
                 }
-            
+            }
+
 
             return View("Error");
         }
         [HttpPost]
-        public async Task<IActionResult> DeletePicture(Guid userId,Guid MediaId)
+        public async Task<IActionResult> DeletePicture(Guid userId, Guid MediaId)
         {
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
 
@@ -271,7 +273,7 @@ namespace PROJE_UI.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> DeleteUser()
-        { 
+        {
             var userId = HttpContext.Request.Cookies["UserId"];
             var userResponse = await _client.GetAsync($"https://localhost:7185/api/Users/GetById?UserId={userId}");
 
@@ -284,7 +286,7 @@ namespace PROJE_UI.Controllers
             var userResult = JsonConvert.DeserializeObject<User>(ApiResponse);
             return View(userResult);
         }
-   
+
         [HttpPost]
         public async Task<IActionResult> DeleteUser(User model)
         {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Newtonsoft.Json;
 using PROJE_UI.Models;
 using PROJE_UI.ViewModels;
@@ -27,7 +28,6 @@ namespace PROJE_UI.Controllers
             return View(new AddBlog());
 
         }
-
         [HttpPost]
         public async Task<IActionResult> Blog(AddBlog model)
         {
@@ -46,7 +46,7 @@ namespace PROJE_UI.Controllers
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
             var response = await _client.PostAsync($"https://localhost:7185/api/Blogs/AddBlog?UserId={model.UserId}", content);
             var apiResponse = await response.Content.ReadAsStringAsync();
-            return RedirectToAction("Index", "UserEdit");
+            return RedirectToAction("AddBlogMedia", "BlogMedia");
         }
         [HttpPost]
         public async Task<IActionResult> Delete(Guid blogId, Guid userId)
@@ -89,7 +89,6 @@ namespace PROJE_UI.Controllers
         {
             var userId = HttpContext.Request.Cookies["UserId"];
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
-
             if (string.IsNullOrEmpty(bearerToken))
             {
                 return RedirectToAction("Login", "User");

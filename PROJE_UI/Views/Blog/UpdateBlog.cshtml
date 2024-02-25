@@ -8,7 +8,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            height: 150vh;
         }
 
         .rounded-form-container {
@@ -23,6 +23,11 @@
 <div class="rounded-form-container">
     <center><h1 class="text-danger">BLOG YAZISINI GÜNCELLE</h1></center>
     <form class="position-sticky" method="post" action="/Blog/UpdateBlog">
+        <div class="input-group text-center mt-1 mb-4">
+            <div class="d-flex justify-content-center w-100">
+                <img src="~/Uploads/StaticContent/@Model.ImagePath" width="100%"/>
+            </div>
+        </div>
         <div class="mb-3">
             <label for="Title" class="form-label">Blog Başlığı:</label>
             <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
@@ -31,12 +36,114 @@
             <label for="Content" class="form-label">Blog Yazısı:</label>
             <textarea class="form-control" id="Content" name="Content" rows="15">@Model.Content</textarea>
         </div>
-        <input type="hidden" id="BlogId" name="BlogId" value="@Model.BlogId" />
-        <input type="hidden" id="UserId" name="UserId" value="@Model.UserId" />
+        <input type="hidden" id="ModelId" name="ModelId" value="@Model.BlogId" />
+        <input type="hidden" id="ModelId" name="ModelId" value="@Model.MediaId" />
 
         <center>
-            <button type="submit" class="btn btn-danger">Bloğu Güncelle</button>
+            <button type="submit" class="btn btn-danger fw-bold mx-1">Bloğu Güncelle</button>
+            <button type="button" class="btn btn-danger fw-bold mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Blog Resimini Güncelle
+            </button>
+            <a href="javascript:void(0);" onclick="ShowModal('@Model.MediaId','@Model.BlogId')" class="btn btn-danger fw-bold mx-1">Fotoğrafı Sil</a>
         </center>
     </form>
 </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Profil Fotoğrafını Güncelle</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="pictureForm" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <input type="file" name="ImagePath" class="form-control" multiple="multiple" id="inputGroupFile02">
+                        <input type="hidden" id="BlogId" name="BlogId" value="@Model.BlogId" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
+                        <button type="button" class="btn btn-danger" id="savePictureBtn">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="deleteForm" method="post" action="@Url.Action("DeleteBlogMedia","BlogMedia")">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="BlogId" name="BlogId" value="@Model.BlogId" />
+    <input type="hidden" id="MediaId" name="MediaId" value="@Model.MediaId"/>
+</form>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Dikkat</h4>
+            </div>
+            <div class="modal-body">
+                <p>Bu bloğun resimini silmek istediğinize emin misiniz?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="CloseModal()">İptal</button>
+                <button type="button" class="btn btn-danger" onclick="Delete()">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section script{
+    <script>
+    $('#savePictureBtn').click(function () {
+        var formData = new FormData($('#pictureForm')[0]);
 
+        $.ajax({
+            url: '/BlogMedia/UpdateBlogMedia',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $('#exampleModal').modal('hide');
+                window.location.href = '/UserEdit/Index';
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+        function ShowModal(mediaId, blogId) {
+            $("#MediaId").val(mediaId);
+            $("#BlogId").val(blogId);
+            $("#myModal").modal("show");
+        }
+
+        $('#savePictureBtn').click(function () {
+            var formData = new FormData($('#pictureForm')[0]);
+
+            // BlogId'yi set et
+            formData.append('BlogId', $("#BlogId").val());
+
+            $.ajax({
+                url: '/BlogMedia/UpdateBlogMedia',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('#exampleModal').modal('hide');
+                    window.location.href = '/UserEdit/Index';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        function Delete() {
+            $("#BlogId").val($("#deleteForm").find("#BlogId").val());
+            document.getElementById("deleteForm").submit();
+        }
+        
+        
+    </script>
+}

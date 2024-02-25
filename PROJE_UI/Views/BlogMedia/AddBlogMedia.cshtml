@@ -1,0 +1,34 @@
+﻿@using PROJE_UI.Models;
+@model BlogMedia
+@section css
+{
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            margin: auto;
+            padding: auto;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+}
+
+<div class="rounded-form-container">
+    <center><h1 class="text-danger">BLOĞA FOTOĞRAF EKLE</h1></center>
+    <form class="position-sticky" method="post" action="/BlogMedia/AddBlogMedia" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="ImagePath" class="form-label">Resim seçiniz</label>
+            <input type="file" name="ImagePath" class="form-control" id="inputGroupFile02">
+        </div>
+        <center><button type="submit" class="btn btn-danger">Kaydet</button></center>
+    </form>
+</div>
+
