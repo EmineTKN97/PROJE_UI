@@ -40,13 +40,21 @@ namespace PROJE_UI.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
-            model.UserId=Guid.Parse(userId);
-            model.BlogDate=DateTime.Now;
+            model.UserId = Guid.Parse(userId);
+            model.BlogDate = DateTime.Now;
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
             var response = await _client.PostAsync($"https://localhost:7185/api/Blogs/AddBlog?UserId={model.UserId}", content);
-            var apiResponse = await response.Content.ReadAsStringAsync();
-            return RedirectToAction("AddBlogMedia", "BlogMedia");
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessAddBlog"] = apiResponse;
+                return RedirectToAction("AddBlogMedia", "BlogMedia");
+            }
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorAddBlog"] = errorResponse;
+            return RedirectToAction("Blog", "Blog");
+
         }
         [HttpPost]
         public async Task<IActionResult> Delete(Guid blogId, Guid userId)
@@ -55,6 +63,7 @@ namespace PROJE_UI.Controllers
 
             if (string.IsNullOrEmpty(bearerToken))
             {
+
                 return RedirectToAction("Login", "User");
             }
 
@@ -63,12 +72,15 @@ namespace PROJE_UI.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessDeleteBlog"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
-            else
-            {
-                return View("Error");
-            }
+
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorDeletelog"] = errorResponse;
+            return RedirectToAction("Index", "UserEdit");
+
         }
         [HttpGet]
         public async Task<IActionResult> UpdateBlog(Guid blogId)
@@ -95,18 +107,20 @@ namespace PROJE_UI.Controllers
             }
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"https://localhost:7185/api/Blogs/UpdateBlog?id={model.BlogId}&UserId={userId}",content);
+            var response = await _client.PutAsync($"https://localhost:7185/api/Blogs/UpdateBlog?id={model.BlogId}&UserId={userId}", content);
             if (response.IsSuccessStatusCode)
             {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessUpdateBlog"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
-            else
-            {
-                return View("Error");
-            }
+
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorUpdateBlog"] = errorResponse;
+            return RedirectToAction("Index", "UserEdit");
         }
     }
- }
+}
 
 
 

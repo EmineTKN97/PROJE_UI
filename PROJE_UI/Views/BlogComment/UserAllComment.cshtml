@@ -84,7 +84,30 @@
     <input type="hidden" id="CommentId" name="CommentId" />
     <input type="hidden" id="UserId" name="UserId" />
 </form>
-
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="viewToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-danger">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-danger">
+            @TempData["ErrorDeleteComment"]
+        </div>
+    </div>
+</div>
+@if (TempData["ErrorDeleteComment"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('.toast').toast({
+                animation: false,
+                delay: 5000
+            });
+            $('.toast').toast('show');
+        });
+    </script>
+}
 @section script {
     <script>
         function ShowModal(id) {
@@ -113,5 +136,6 @@
         function CloseModal() {
             $('#myModal').modal('hide');
         }
+       
     </script>
 }

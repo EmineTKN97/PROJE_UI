@@ -28,10 +28,34 @@
                             <textarea class="form-control" id="CommentDetail" name="CommentDetail" placeholder="Yorum İçeriğiniz" rows="15">@Model.CommentDetail</textarea>
                         </div>
                         <input type="hidden" id="CommentId" name="CommentId" value="@Model.CommentId" />
-                        <center> <button type="submit" class="btn btn-danger">Yorum Güncelle</button></center>
+                        <center> <button type="submit" class="btn btn-danger fw-bold mx-1">Yorum Güncelle</button></center>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="viewToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-danger">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-danger">
+            @TempData["ErrorUpdateComment"]
+        </div>
+    </div>
+</div>
+@if (TempData["ErrorUpdateComment"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('.toast').toast({
+                animation: false,
+                delay: 5000
+            });
+            $('.toast').toast('show');
+        });
+    </script>
+}

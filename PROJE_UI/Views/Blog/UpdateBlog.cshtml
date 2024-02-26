@@ -36,15 +36,15 @@
             <label for="Content" class="form-label">Blog Yazısı:</label>
             <textarea class="form-control" id="Content" name="Content" rows="15">@Model.Content</textarea>
         </div>
-        <input type="hidden" id="ModelId" name="ModelId" value="@Model.BlogId" />
-        <input type="hidden" id="ModelId" name="ModelId" value="@Model.MediaId" />
+        <input type="hidden" id="BlogId" name="BlogId" value="@Model.BlogId" />
+        <input type="hidden" id="MediaId" name="MediaId" value="@Model.MediaId" />
 
         <center>
             <button type="submit" class="btn btn-danger fw-bold mx-1">Bloğu Güncelle</button>
             <button type="button" class="btn btn-danger fw-bold mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
               Blog Resimini Güncelle
             </button>
-            <a href="javascript:void(0);" onclick="ShowModal('@Model.MediaId','@Model.BlogId')" class="btn btn-danger fw-bold mx-1">Fotoğrafı Sil</a>
+            <a href="javascript:void(0);" onclick="ShowModal('@Model.MediaId','@Model.BlogId')" class="btn btn-danger fw-bold mx-1">Blog Resimini Sil</a>
         </center>
     </form>
 </div>
@@ -52,7 +52,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Profil Fotoğrafını Güncelle</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Blog Fotoğrafını Güncelle</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

@@ -36,9 +36,13 @@ namespace PROJE_UI.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessAddComment"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
-            return RedirectToAction("Index","UserEdit");
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorAddComment"] = errorResponse;
+            return RedirectToAction("Index", "UserEdit");
         }
         [HttpGet]
         public async Task<IActionResult> UserAllComment()
@@ -73,12 +77,14 @@ namespace PROJE_UI.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessDeleteComment"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
-            else
-            {
-                return View("Error");
-            }
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorDeleteComment"] = errorResponse;
+            return RedirectToAction("UserAllComment", "BlogComment");
+
         }
         [HttpGet]
         public async Task<IActionResult> UpdateBlogComment(Guid CommentId)
@@ -109,12 +115,15 @@ namespace PROJE_UI.Controllers
             var response = await _client.PutAsync($"https://localhost:7185/api/BlogComments/UpdateBlogComment?id={model.CommentId}&UserId={userId}", content);
             if (response.IsSuccessStatusCode)
             {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+
+                TempData["SuccessUpdateComment"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
-            else
-            {
-                return View("Error");
-            }
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorUpdateComment"] = errorResponse;
+            return RedirectToAction("UpdateBlogComment", "BlogComment");
+
         }
     }
 }

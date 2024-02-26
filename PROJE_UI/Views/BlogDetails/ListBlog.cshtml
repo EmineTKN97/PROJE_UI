@@ -53,7 +53,7 @@
                             
                             <div class="read-more">
                                 <div class="read-more">
-                                    <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.BlogId" id="readMoreBtn">Detayını Gör</a>
+                                    <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.BlogId" id="readMoreBtn" class="btn btn-danger fw-bold mx-1">Detayını Gör</a>
                                 </div>
                             </div>
                         </div>
@@ -65,6 +65,28 @@
 
     </div>
 </section>
-
-
-
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-danger">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-danger">
+            <strong> @TempData["ErrorListBlog"]</strong>
+           
+        </div>
+    </div>
+</div>
+@if (TempData["ErrorListBlog"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#errorToast').toast({
+                animation: false,
+                delay: 5000
+            });
+            $('#errorToast').toast('show');
+        });
+    </script>
+}

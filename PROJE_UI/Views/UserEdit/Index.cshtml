@@ -28,8 +28,8 @@
                                 @item.Content
                             </p>
                             <div class="read-more">
-                                <a href="javascript:void(0);" onclick="ShowModal('@item.BlogId')" class="btn btn-danger">Sil</a>
-                                <a asp-controller="Blog" asp-action="UpdateBlog" asp-route-blogId="@item.BlogId" class="btn btn-danger">Güncelle</a>
+                                <a href="javascript:void(0);" onclick="ShowModal('@item.BlogId')" class="btn btn-danger fw-bold mx-1">Sil</a>
+                                <a asp-controller="Blog" asp-action="UpdateBlog" asp-route-blogId="@item.BlogId" class="btn btn-danger fw-bold mx-1">Güncelle</a>
                             </div>
                         </div>
                     </article>
@@ -60,7 +60,61 @@
     <input type="hidden" id="blogId" name="blogId" />
     <input type="hidden" id="UserId" name="UserId" />
 </form>
-
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-success">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-success">
+            <strong> @TempData["SuccessDeleteComment"]</strong>
+            <strong> @TempData["SuccessAddComment"]</strong>
+            <strong> @TempData["SuccessUpdateComment"]</strong>
+            <strong> @TempData["SuccessDeleteBlog"]</strong>
+            <strong> @TempData["SuccessUpdateBlog"]</strong>
+            <strong> @TempData["SuccessBlogMedia"] </strong>
+        </div>
+    </div>
+</div>
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-danger">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-danger">
+            <strong> @TempData["ErrorAddComment"]</strong>
+            <strong> @TempData["ErrorDeleteBlog"]</strong>
+            <strong> @TempData["ErrorUpdateBlog"]</strong>
+        </div>
+    </div>
+</div>
+@if (TempData["SuccessDeleteComment"] != null || TempData["SuccessAddComment"] != null || TempData["SuccessUpdateComment"] != null || TempData["SuccessDeleteBlog"] != null || TempData["SuccessUpdateBlog"] != null || TempData["SuccessBlogMedia"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#successToast').toast({
+                animation: true,
+                delay: 3000
+            });
+            $('#successToast').toast('show');
+        });
+    </script>
+}
+@if (TempData["ErrorAddComment"] != null || TempData["ErrorDeleteBlog"] != null || TempData["ErrorUpdateBlog"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#errorToast').toast({
+                animation: false,
+                delay: 5000
+            });
+            $('#errorToast').toast('show');
+        });
+    </script>
+}
 @section script {
     <script>
         function ShowModal(id) {

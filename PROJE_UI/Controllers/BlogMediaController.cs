@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Newtonsoft.Json;
+using NuGet.Protocol.Plugins;
 using PROJE_UI.Models;
 using System.Net.Http.Headers;
 
@@ -22,9 +23,9 @@ namespace PROJE_UI.Controllers
 
             if (!blogResponse.IsSuccessStatusCode)
             {
+
                 return RedirectToAction("Error", new { message = "Blog bulunamadı." });
             }
-
             var ApiResponse = await blogResponse.Content.ReadAsStringAsync();
             var blogResult = JsonConvert.DeserializeObject<AddBlog>(ApiResponse);
             return View(blogResult);
@@ -56,10 +57,18 @@ namespace PROJE_UI.Controllers
                 var response = await _client.PostAsync($"https://localhost:7185/api/Medias/AddBlogMedia?BlogId={BlogId}&UserId={userId}", formContent);
                 if (response.IsSuccessStatusCode)
                 {
+                    var apiResponse = await response.Content.ReadAsStringAsync();
+                    TempData["SuccessBlogMedia"] = apiResponse;
                     return RedirectToAction("Index", "UserEdit");
                 }
+                else 
+                {
+                    var errorResponse = await response.Content.ReadAsStringAsync();
+                    TempData["ErrorBlogMedia"] = errorResponse;
+                    return View("AddBlogMedia","BlogMedia");
+                }
             }
-            return View("Error");
+          
 
         }
         [HttpPost]
