@@ -32,8 +32,8 @@ namespace PROJE_UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBlogMedia(BlogMedia model,Guid BlogId)
-        { 
+        public async Task<IActionResult> AddBlogMedia(BlogMedia model, Guid BlogId)
+        {
             var userId = HttpContext.Request.Cookies["UserId"];
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
             if (string.IsNullOrEmpty(bearerToken))
@@ -61,14 +61,14 @@ namespace PROJE_UI.Controllers
                     TempData["SuccessBlogMedia"] = apiResponse;
                     return RedirectToAction("Index", "UserEdit");
                 }
-                else 
-                {
-                    var errorResponse = await response.Content.ReadAsStringAsync();
-                    TempData["ErrorBlogMedia"] = errorResponse;
-                    return View("AddBlogMedia","BlogMedia");
-                }
+
+
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorBlogMedia"] = errorResponse;
+                return View("AddBlogMedia", "BlogMedia");
+
             }
-          
+
 
         }
         [HttpPost]
@@ -88,19 +88,23 @@ namespace PROJE_UI.Controllers
             {
                 using (var formContent = new MultipartFormDataContent())
                 {
-
                     formContent.Add(new StringContent(model.ImagePath.FileName), "ImagePath");
-                    formContent.Add(new StreamContent(model.ImagePath.OpenReadStream())
+
+                    var streamContent = new StreamContent(model.ImagePath.OpenReadStream())
                     {
                         Headers =
-                    {
+                {
                     ContentLength = model.ImagePath.Length,
-                    ContentType= new MediaTypeHeaderValue(model.ImagePath.ContentType)
+                    ContentType = new MediaTypeHeaderValue(model.ImagePath.ContentType)
+                }
+                    };
 
-                    }
-                    }, "file", model.ImagePath.FileName);
+                    formContent.Add(streamContent, "file", model.ImagePath.FileName);
 
-                    var response = await _client.PostAsync($"https://localhost:7185/api/Medias/UpdateBlogMedia?BlogId={model.BlogId}&UserId={userId}", formContent);
+                    var apiUrl = $"https://localhost:7185/api/Medias/UpdateBlogMedia?BlogId={model.BlogId}&UserId={userId}";
+
+                    var response = await _client.PostAsync(apiUrl, formContent);
+
                     if (response.IsSuccessStatusCode)
                     {
                         return RedirectToAction("Index", "UserEdit");
@@ -110,12 +114,14 @@ namespace PROJE_UI.Controllers
 
             return View("Error");
         }
+
+    
         [HttpPost]
         public async Task<IActionResult> DeleteBlogMedia(Guid MediaId, Guid BlogId)
         {
             var userId = HttpContext.Request.Cookies["UserId"];
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
-   
+
             if (string.IsNullOrEmpty(bearerToken))
             {
                 return RedirectToAction("Login", "User");
@@ -126,12 +132,14 @@ namespace PROJE_UI.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessDeleteBlogMedia"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
-            else
-            {
-                return View("Error");
-            }
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorDeleteBlogMedia"] = errorResponse;
+            return RedirectToAction("Index", "UserEdit");
+
         }
 
     }

@@ -13,7 +13,7 @@
                 {
                     <article class="entry entry-single">
                         <div class="entry-img">
-                            <img src="/Uploads/StaticContent/@item.ImagePath" width="1920px" height="430px" alt="BlogResimleri" class="img-fluid">
+                            <img src="https://localhost:7185/Uploads/StaticContent/@item.ImagePath" width="1920px" height="430px" alt="BlogResimleri" class="img-fluid">
                         </div>
                         <h2 class="entry-title">
                             @item.Title.ToUpper()
@@ -74,6 +74,8 @@
             <strong> @TempData["SuccessDeleteBlog"]</strong>
             <strong> @TempData["SuccessUpdateBlog"]</strong>
             <strong> @TempData["SuccessBlogMedia"] </strong>
+            <strong> @TempData["SuccessUpdateBlogMedia"] </strong>
+            <strong> @TempData["SuccessDeleteBlogMedia"] </strong>
         </div>
     </div>
 </div>
@@ -88,10 +90,12 @@
             <strong> @TempData["ErrorAddComment"]</strong>
             <strong> @TempData["ErrorDeleteBlog"]</strong>
             <strong> @TempData["ErrorUpdateBlog"]</strong>
+            <strong> @TempData["ErrorUpdateBlogMedia"]</strong>
+            <strong>@TempData["ErrorDeleteBlogMedia"]</strong>
         </div>
     </div>
 </div>
-@if (TempData["SuccessDeleteComment"] != null || TempData["SuccessAddComment"] != null || TempData["SuccessUpdateComment"] != null || TempData["SuccessDeleteBlog"] != null || TempData["SuccessUpdateBlog"] != null || TempData["SuccessBlogMedia"] != null)
+@if (TempData["SuccessDeleteComment"] != null || TempData["SuccessAddComment"] != null || TempData["SuccessUpdateComment"] != null || TempData["SuccessDeleteBlog"] != null || TempData["SuccessUpdateBlog"] != null || TempData["SuccessBlogMedia"] != null || TempData["SuccessUpdateBlogMedia"] != null || TempData["SuccessDeleteBlogMedia"] != null)
 {
     <script>
         $(document).ready(function () {
@@ -103,7 +107,7 @@
         });
     </script>
 }
-@if (TempData["ErrorAddComment"] != null || TempData["ErrorDeleteBlog"] != null || TempData["ErrorUpdateBlog"] != null)
+@if (TempData["ErrorAddComment"] != null || TempData["ErrorDeleteBlog"] != null || TempData["ErrorUpdateBlog"] != null || TempData["ErrorUpdateBlogMedia"] != null ||TempData["ErrorDeleteBlogMedia"] != null)
 {
     <script>
         $(document).ready(function () {

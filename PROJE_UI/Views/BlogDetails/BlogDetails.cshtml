@@ -35,7 +35,7 @@
             <div class="col-lg-8 entries">
                 <article class="entry entry-single">
                     <div class="entry-img">
-                        <img src="/Uploads/StaticContent/@Model.Blogs.ImagePath" alt="BlogResimi" class="img-fluid" with="100%">
+                        <img src="https://localhost:7185/Uploads/StaticContent/@Model.Blogs.ImagePath" alt="BlogResimi" class="img-fluid" with="100%">
                     </div>
                     <h2 class="entry-title">
                         @Model.Blogs.Title.ToUpper()
@@ -44,7 +44,7 @@
                         <ul>
                             <li class="d-flex align-items-center">
                                 <div class="comment-img">
-                                    <img src="/Uploads/StaticContent/@Model.Blogs.UserImagePath" alt="BlogYazarResimi" height="30">
+                                    <img src="https://localhost:7185/Uploads/StaticContent/@Model.Blogs.UserImagePath" alt="BlogYazarResimi" height="30">
                                     @Model.Blogs.Name.ToUpper()  @Model.Blogs.SurName.ToUpper()
                                 </div>
                             </li>
@@ -71,7 +71,7 @@
                     {
                         <div id="comment-1" class="comment">
                             <div class="d-flex">
-                                <div class="comment-img"><img src="/Uploads/StaticContent/@item.UserİmagePath" alt="KullanıcıResimi"></div>
+                                <div class="comment-img"><img src="https://localhost:7185/Uploads/StaticContent/@item.UserİmagePath" alt="KullanıcıResimi"></div>
                                 <div>
                                     <h5><a href="#">@item.UserName.ToUpper() @item.UserSurname.ToUpper()</a> </h5>
                                     <time datetime="2020-01-01">@item.CommentDate</time>

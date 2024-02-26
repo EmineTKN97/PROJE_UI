@@ -3,36 +3,68 @@
   "WorkspaceRootPath": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\user\\deleteuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\user\\deleteuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\proje_ui\\controllers\\blogmediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\controllers\\blogmediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\proje_ui\\controllers\\blogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\controllers\\blogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\proje_ui\\views\\blogmedia\\addblogmedia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\blogmedia\\addblogmedia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\proje_ui\\controllers\\blogdetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\controllers\\blogdetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\user\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\user\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\user\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\user\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\useredit\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\useredit\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\controllers\\blogmediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\controllers\\blogmediacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\shared\\components\\slidebar\\default.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\shared\\components\\slidebar\\default.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\blogdetails\\blogdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\blogdetails\\blogdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\shared\\components\\editprofile\\default.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\shared\\components\\editprofile\\default.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\controllers\\blogdetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\controllers\\blogdetailscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\blogmedia\\addblogmedia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\blogmedia\\addblogmedia.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\blogdetails\\listblog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\proje_ui\\views\\blogdetails\\listblog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\blogdetails\\listblog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\blog\\updateblog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\proje_ui\\views\\blogdetails\\blogdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\blogdetails\\blogdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\views\\blogcomment\\userallcomment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\blogcomment\\userallcomment.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\proje_ui\\views\\blog\\updateblog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\views\\blog\\updateblog.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\controllers\\blogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\controllers\\blogcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|c:\\users\\emine\\onedrive\\masa\u00FCst\u00FC\\yazilimkursu\\projeodev\\proje_ui\\proje_ui\\apiresponsemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB4061F0-33ED-404F-B97A-28A7CB3A8E7B}|PROJE_UI\\PROJE_UI.csproj|solutionrelative:proje_ui\\apiresponsemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,13 +82,117 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\User\\Register.cshtml",
+              "RelativeDocumentMoniker": "PROJE_UI\\Views\\User\\Register.cshtml",
+              "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\User\\Register.cshtml",
+              "RelativeToolTip": "PROJE_UI\\Views\\User\\Register.cshtml",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAACQAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-02-26T22:08:51.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Profile.cshtml",
+              "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\User\\Profile.cshtml",
+              "RelativeDocumentMoniker": "PROJE_UI\\Views\\User\\Profile.cshtml",
+              "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\User\\Profile.cshtml",
+              "RelativeToolTip": "PROJE_UI\\Views\\User\\Profile.cshtml",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAAB0AAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-02-26T22:08:23.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DeleteUser.cshtml",
+              "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\User\\DeleteUser.cshtml",
+              "RelativeDocumentMoniker": "PROJE_UI\\Views\\User\\DeleteUser.cshtml",
+              "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\User\\DeleteUser.cshtml",
+              "RelativeToolTip": "PROJE_UI\\Views\\User\\DeleteUser.cshtml",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAABkAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-02-26T22:07:57.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Default.cshtml",
+              "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\Shared\\Components\\Slidebar\\Default.cshtml",
+              "RelativeDocumentMoniker": "PROJE_UI\\Views\\Shared\\Components\\Slidebar\\Default.cshtml",
+              "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\Shared\\Components\\Slidebar\\Default.cshtml",
+              "RelativeToolTip": "PROJE_UI\\Views\\Shared\\Components\\Slidebar\\Default.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-02-26T22:07:20.831Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Default.cshtml",
+              "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\Shared\\Components\\EditProfile\\Default.cshtml",
+              "RelativeDocumentMoniker": "PROJE_UI\\Views\\Shared\\Components\\EditProfile\\Default.cshtml",
+              "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\Shared\\Components\\EditProfile\\Default.cshtml",
+              "RelativeToolTip": "PROJE_UI\\Views\\Shared\\Components\\EditProfile\\Default.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-02-26T22:06:39.107Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UserAllComment.cshtml",
+              "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\BlogComment\\UserAllComment.cshtml",
+              "RelativeDocumentMoniker": "PROJE_UI\\Views\\BlogComment\\UserAllComment.cshtml",
+              "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\BlogComment\\UserAllComment.cshtml",
+              "RelativeToolTip": "PROJE_UI\\Views\\BlogComment\\UserAllComment.cshtml",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAACIAAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-02-26T22:00:09.858Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Program.cs",
+              "RelativeDocumentMoniker": "PROJE_UI\\Program.cs",
+              "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Program.cs",
+              "RelativeToolTip": "PROJE_UI\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-26T21:41:44.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ApiResponseModel.cs",
+              "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\ApiResponseModel.cs",
+              "RelativeDocumentMoniker": "PROJE_UI\\ApiResponseModel.cs",
+              "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\ApiResponseModel.cs",
+              "RelativeToolTip": "PROJE_UI\\ApiResponseModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-26T21:41:09.5Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "AddBlogMedia.cshtml",
               "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\BlogMedia\\AddBlogMedia.cshtml",
               "RelativeDocumentMoniker": "PROJE_UI\\Views\\BlogMedia\\AddBlogMedia.cshtml",
               "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\BlogMedia\\AddBlogMedia.cshtml",
               "RelativeToolTip": "PROJE_UI\\Views\\BlogMedia\\AddBlogMedia.cshtml",
-              "ViewState": "AQIAADYAAAAAAAAAAAAAAGYAAAAbAAAA",
+              "ViewState": "AQIAAFEAAAAAAAAAAAAAAB4AAABLAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-02-26T01:51:32.532Z",
               "EditorCaption": ""
@@ -69,85 +205,85 @@
               "RelativeDocumentMoniker": "PROJE_UI\\Controllers\\BlogMediaController.cs",
               "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Controllers\\BlogMediaController.cs",
               "RelativeToolTip": "PROJE_UI\\Controllers\\BlogMediaController.cs",
-              "ViewState": "AQIAADoAAAAAAAAAAAASwEgAAAAIAAAA",
+              "ViewState": "AQIAAD0AAAAAAAAAAAAiwEsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-26T01:45:19.998Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "BlogDetails.cshtml",
               "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\BlogDetails\\BlogDetails.cshtml",
               "RelativeDocumentMoniker": "PROJE_UI\\Views\\BlogDetails\\BlogDetails.cshtml",
               "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\BlogDetails\\BlogDetails.cshtml",
               "RelativeToolTip": "PROJE_UI\\Views\\BlogDetails\\BlogDetails.cshtml",
-              "ViewState": "AQIAACQAAAAAAAAAAAAAACsAAAAcAAAA",
+              "ViewState": "AQIAAHIAAAAAAAAAAAAAAEkAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-02-26T01:35:00.848Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "ListBlog.cshtml",
               "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\BlogDetails\\ListBlog.cshtml",
               "RelativeDocumentMoniker": "PROJE_UI\\Views\\BlogDetails\\ListBlog.cshtml",
               "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\BlogDetails\\ListBlog.cshtml",
               "RelativeToolTip": "PROJE_UI\\Views\\BlogDetails\\ListBlog.cshtml",
-              "ViewState": "AQIAABMAAAAAAAAAAAAgwCcAAAAlAAAA",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAgwCUAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-02-26T01:25:50.982Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "BlogDetailsController.cs",
               "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Controllers\\BlogDetailsController.cs",
               "RelativeDocumentMoniker": "PROJE_UI\\Controllers\\BlogDetailsController.cs",
               "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Controllers\\BlogDetailsController.cs",
               "RelativeToolTip": "PROJE_UI\\Controllers\\BlogDetailsController.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAawDMAAABRAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADMAAABRAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-26T01:21:52.179Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\UserEdit\\Index.cshtml",
               "RelativeDocumentMoniker": "PROJE_UI\\Views\\UserEdit\\Index.cshtml",
               "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\UserEdit\\Index.cshtml",
               "RelativeToolTip": "PROJE_UI\\Views\\UserEdit\\Index.cshtml",
-              "ViewState": "AQIAADUAAAAAAAAAAAAAAAsAAAAaAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-02-26T01:04:49.95Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "BlogController.cs",
               "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Controllers\\BlogController.cs",
               "RelativeDocumentMoniker": "PROJE_UI\\Controllers\\BlogController.cs",
               "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Controllers\\BlogController.cs",
               "RelativeToolTip": "PROJE_UI\\Controllers\\BlogController.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAAvwDEAAAAOAAAA",
+              "ViewState": "AQIAADQAAAAAAAAAAAAcwFkAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-26T01:00:19.387Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 13,
               "Title": "UpdateBlog.cshtml",
               "DocumentMoniker": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\Blog\\UpdateBlog.cshtml",
               "RelativeDocumentMoniker": "PROJE_UI\\Views\\Blog\\UpdateBlog.cshtml",
               "ToolTip": "C:\\Users\\emine\\OneDrive\\Masa\u00FCst\u00FC\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\Views\\Blog\\UpdateBlog.cshtml",
               "RelativeToolTip": "PROJE_UI\\Views\\Blog\\UpdateBlog.cshtml",
-              "ViewState": "AQIAAHUAAAAAAAAAAAAAACcAAAAmAAAA",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAABsAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-02-26T00:58:28.238Z",
               "EditorCaption": ""

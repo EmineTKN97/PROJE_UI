@@ -6,7 +6,7 @@ builder.Services.Configure<ApiServiceOptions>(options =>
     options.BaseUrl = new Uri("https://localhost:7185/");
 });
 
-builder.Services.AddHttpClient<IApiService, ApiService>();
+builder.Services.AddHttpClient();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
      .AddCookie(options =>
      {
