@@ -20,5 +20,30 @@
     </div>
   
 </section>
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-success">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-success">
+            <strong> @TempData["SuccessDeleteUser"]</strong>
+
+        </div>
+    </div>
+</div>
+@if (TempData["SuccessDeleteUser"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#successToast').toast({
+                animation: true,
+                delay: 3000
+            });
+            $('#successToast').toast('show');
+        });
+    </script>
+}
 
 

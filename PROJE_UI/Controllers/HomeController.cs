@@ -10,11 +10,14 @@ namespace PROJE_UI.Controllers
     {
         
         private readonly HttpClient _client;
+        private readonly ApiServiceOptions _apiServiceOptions;
 
-        public HomeController(HttpClient client)
+        public HomeController(HttpClient client, ApiServiceOptions apiServiceOptions)
         {
             _client = client;
+            _apiServiceOptions = apiServiceOptions;
         }
+        private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -25,7 +28,7 @@ namespace PROJE_UI.Controllers
         [HttpGet]
         public async Task<IActionResult> AnnouncementDetails(Guid id)
         {
-            var response = await _client.GetAsync($"https://localhost:7185/api/Announcements/GetById?id={id}");
+            var response = await _client.GetAsync($"{BaseUrl}api/Announcements/GetById?id={id}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -35,13 +38,16 @@ namespace PROJE_UI.Controllers
             }
             else
             {
-                return RedirectToAction("Error", new { message = "API ile iletişim sırasında bir hata oluştu." });
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorAnnouncementDetails"] = errorResponse;
+                return View();
+
             }
         }
         [HttpGet]
         public async Task<IActionResult> AllAnnouncementDetails()
         {
-            var response = await _client.GetAsync("https://localhost:7185/api/Announcements/GetAllAnnouncement");
+            var response = await _client.GetAsync($"{BaseUrl}api/Announcements/GetAllAnnouncement");
 
             if (response.IsSuccessStatusCode)
             {
@@ -51,7 +57,9 @@ namespace PROJE_UI.Controllers
             }
             else
             {
-                return RedirectToAction("Error", new { message = "API ile iletişim sırasında bir hata oluştu." });
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorAllAnnouncementDetails"] = errorResponse;
+                return View();
             }
         }
 

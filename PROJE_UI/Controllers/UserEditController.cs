@@ -7,16 +7,19 @@ namespace PROJE_UI.Controllers
     public class UserEditController : Controller
     {
         private readonly HttpClient _client;
+        private readonly ApiServiceOptions _apiServiceOptions;
 
-        public UserEditController(HttpClient client)
+        public UserEditController(HttpClient client, ApiServiceOptions apiServiceOptions)
         {
             _client = client;
+            _apiServiceOptions = apiServiceOptions;
         }
+        private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpGet]
         public async Task <IActionResult> Index()
         {
             var userId = HttpContext.Request.Cookies["UserId"];
-            var response = await _client.GetAsync($"https://localhost:7185/api/Blogs/GetByUserId?UserId={userId}");
+            var response = await _client.GetAsync($"{BaseUrl}api/Blogs/GetByUserId?UserId={userId}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -26,7 +29,9 @@ namespace PROJE_UI.Controllers
             }
             else
             {
-                return RedirectToAction("Error", new { message = "API ile iletişim sırasında bir hata oluştu." });
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorUserData"] = apiResponse;
+                return RedirectToAction("Register","User");
             }
         }
     }

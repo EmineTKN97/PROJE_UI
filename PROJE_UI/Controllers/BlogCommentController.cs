@@ -12,14 +12,17 @@ namespace PROJE_UI.Controllers
     public class BlogCommentController : Controller
     {
         private readonly HttpClient _client;
+       private readonly  ApiServiceOptions _apiServiceOptions;
 
-        public BlogCommentController(HttpClient client)
+        public BlogCommentController(HttpClient client, ApiServiceOptions apiServiceOptions)
         {
             _client = client;
+            _apiServiceOptions = apiServiceOptions;
         }
+        private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpPost]
         public async Task<IActionResult> AddComment(BlogComment model)
-        {
+        { 
             var userId = HttpContext.Request.Cookies["UserId"];
             var userRole = HttpContext.Request.Cookies["UserRole"];
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
@@ -32,7 +35,7 @@ namespace PROJE_UI.Controllers
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             var blogId = model.BlogId;
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync($"https://localhost:7185/api/BlogComments/AddComment?blogId={blogId}&UserId={userId}", content);
+            var response = await _client.PostAsync($"{BaseUrl}api/BlogComments/AddComment?blogId={blogId}&UserId={userId}", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -49,13 +52,22 @@ namespace PROJE_UI.Controllers
         {
 
             var userId = HttpContext.Request.Cookies["UserId"];
-            var response = await _client.GetAsync($"https://localhost:7185/api/BlogComments/GetByUserId?UserId={userId}");
+            var response = await _client.GetAsync($"{BaseUrl}api/BlogComments/GetByUserId?UserId={userId}");
 
             if (response.IsSuccessStatusCode)
             {
                 var apiResponse = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<List<BlogComment>>(apiResponse);
-                return View(result);
+                if (result != null && result.Any())
+                {
+                    return View(result);
+                }
+                else
+                {
+                    ViewData["NoCommentsMessage"] = "HENÜZ HİÇ YORUMUNUZ YOK.";
+                    return View();
+                }
+              
             }
             else
             {
@@ -73,7 +85,7 @@ namespace PROJE_UI.Controllers
             }
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-            var response = await _client.DeleteAsync($"https://localhost:7185/api/BlogComments/Delete?id={CommentId}&UserId={userId}");
+            var response = await _client.DeleteAsync($"{BaseUrl}api/BlogComments/Delete?id={CommentId}&UserId={userId}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -89,7 +101,7 @@ namespace PROJE_UI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateBlogComment(Guid CommentId)
         {
-            var blogResponse = await _client.GetAsync($"https://localhost:7185/api/BlogComments/GetById?CommentId={CommentId}");
+            var blogResponse = await _client.GetAsync($"{BaseUrl}api/BlogComments/GetById?CommentId={CommentId}");
 
             if (!blogResponse.IsSuccessStatusCode)
             {
@@ -112,7 +124,7 @@ namespace PROJE_UI.Controllers
             }
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"https://localhost:7185/api/BlogComments/UpdateBlogComment?id={model.CommentId}&UserId={userId}", content);
+            var response = await _client.PutAsync($"{BaseUrl}api/BlogComments/UpdateBlogComment?id={model.CommentId}&UserId={userId}", content);
             if (response.IsSuccessStatusCode)
             {
                 var apiResponse = await response.Content.ReadAsStringAsync();

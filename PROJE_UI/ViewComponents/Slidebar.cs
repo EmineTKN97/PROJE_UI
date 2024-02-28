@@ -6,22 +6,23 @@ namespace PROJE_UI.ViewComponents
     public class Slidebar : ViewComponent
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
-        public Slidebar(IHttpClientFactory httpClientFactory)
+        private readonly ApiServiceOptions _apiServiceOptions;
+        public Slidebar(IHttpClientFactory httpClientFactory, ApiServiceOptions apiServiceOptions)
         {
             _httpClientFactory = httpClientFactory;
+            _apiServiceOptions = apiServiceOptions;
         }
-
+        private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var httpClient = _httpClientFactory.CreateClient(); 
 
-            httpClient.BaseAddress = new Uri("https://localhost:7185/"); 
+       
 
-            var response = await httpClient.GetAsync("api/Blogs/GetLatestBlog"); 
+            var response = await httpClient.GetAsync($"{BaseUrl}api/Blogs/GetLatestBlog"); 
             if (response.IsSuccessStatusCode)
             {
-                var latestBlogs = await response.Content.ReadFromJsonAsync<List<Blog>>(); 
+                var latestBlogs = await response.Content.ReadFromJsonAsync<List<Blog>>();
                 return View(latestBlogs);
             }
             else

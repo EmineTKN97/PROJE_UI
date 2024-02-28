@@ -20,7 +20,12 @@
     <div class="container" data-aos="fade-up">
 
         <div class="row">
-
+            @if (ViewData["NoCommentsMessage"] != null)
+            {
+                <p>@ViewData["NoCommentsMessage"]</p>
+            }
+            else
+            {
             @foreach (BlogComment item in Model)
             {
                 <div class="col-lg-8">
@@ -47,9 +52,9 @@
 
                             <div class="read-more">
                                 <div class="read-more">
-                                    <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.BlogId" id="readMoreBtn">Bloğu Görüntüle</a>
-                                     <a href="javascript:void(0);" onclick="ShowModal('@item.CommentId')" class="btn btn-danger">Sil</a>
-                                      <a asp-controller="BlogComment" asp-action="UpdateBlogComment" asp-route-CommentId="@item.CommentId" class="btn btn-danger">Güncelle</a>
+                                    <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.BlogId" id="readMoreBtn" class="btn btn-danger fw-bold mx-1">Bloğu Görüntüle</a>
+                                    <a href="javascript:void(0);" onclick="ShowModal('@item.CommentId')" class="btn btn-danger fw-bold mx-1">Sil</a>
+                                    <a asp-controller="BlogComment" asp-action="UpdateBlogComment" asp-route-CommentId="@item.CommentId" class="btn btn-danger fw-bold mx-1">Güncelle</a>
                                    
                                 </div>
                             </div>
@@ -57,6 +62,7 @@
 
                     </article>
                 </div>
+            }
             }
         </div>
 

@@ -9,16 +9,19 @@ namespace PROJE_UI.Controllers
     public class BlogDetailsController : Controller
     {
         private readonly HttpClient _client;
+        private readonly ApiServiceOptions _apiServiceOptions;
 
-        public BlogDetailsController(HttpClient client)
+        public BlogDetailsController(HttpClient client, ApiServiceOptions apiServiceOptions)
         {
             _client = client;
+            _apiServiceOptions = apiServiceOptions;
         }
+        private Uri BaseUrl => _apiServiceOptions.BaseUrl;
 
         [HttpGet]
         public async Task<IActionResult> ListBlog()
         {
-            var response = await _client.GetAsync("https://localhost:7185/api/Blogs/GetBlogsByCommentAndLikeCount");
+            var response = await _client.GetAsync($"{BaseUrl}api/Blogs/GetBlogsByCommentAndLikeCount");
 
             if (response.IsSuccessStatusCode)
             {
@@ -40,7 +43,7 @@ namespace PROJE_UI.Controllers
         [HttpGet]
         public async Task<IActionResult> BlogDetails(Guid blogId)
         {
-            var blogResponse = await _client.GetAsync($"https://localhost:7185/api/Blogs/GetById?id={blogId}");
+            var blogResponse = await _client.GetAsync($"{BaseUrl}api/Blogs/GetById?id={blogId}");
 
             if (!blogResponse.IsSuccessStatusCode)
             {
@@ -57,7 +60,7 @@ namespace PROJE_UI.Controllers
                 return RedirectToAction("BlogDetails", "BlogDetails");
             }
 
-            var commentResponse = await _client.GetAsync($"https://localhost:7185/api/BlogComments/GetCommentsByBlogId?BlogId={blogId}");
+            var commentResponse = await _client.GetAsync($"{BaseUrl}api/BlogComments/GetCommentsByBlogId?BlogId={blogId}");
 
             if (!commentResponse.IsSuccessStatusCode)
             {

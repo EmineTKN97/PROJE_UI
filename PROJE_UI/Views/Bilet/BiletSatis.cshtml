@@ -42,16 +42,12 @@
     function redirectToMuseum() {
         var selectedCityName = document.getElementById('selectCity').value;
         var selectedDistrictName = document.getElementById('selectDistrict').value;
-
-        // AJAX kullanarak seçilen şehir adını ve ilçe id'sini post et
         var xhr = new XMLHttpRequest();
         var url = '/Bilet/MuseumDetails?city=' + selectedCityName + '&district=' + selectedDistrictName;
         xhr.open('GET', url, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
-                // İsteğiniz başarıyla tamamlandığında burada işlemlerinizi gerçekleştirebilirsiniz
                 console.log(xhr.responseText);
-                // Yönlendirme işlemi burada gerçekleştirilebilir
                 window.location.href = url;
             }
         };

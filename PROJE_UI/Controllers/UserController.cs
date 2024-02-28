@@ -15,12 +15,14 @@ namespace PROJE_UI.Controllers
     public class UserController : Controller
     {
         private readonly HttpClient _client;
+        private readonly ApiServiceOptions _apiServiceOptions;
 
-        public UserController(HttpClient client)
+        public UserController(HttpClient client, ApiServiceOptions apiServiceOptions)
         {
             _client = client;
+            _apiServiceOptions = apiServiceOptions;
         }
-
+        private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpGet]
         public IActionResult Register()
         {
@@ -33,20 +35,21 @@ namespace PROJE_UI.Controllers
            
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
             var handler = new JwtSecurityTokenHandler();
-            using (var response = await _client.PostAsync("https://localhost:7185/api/Auth/registerUser", content))
+            using (var response = await _client.PostAsync($"{BaseUrl}api/Auth/registerUser", content))
             {
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    var data = JsonConvert.DeserializeObject<Models.TokenOptions>(apiResponse);
-                    var token = handler.ReadJwtToken(data.Token);
+                    var data = JsonConvert.DeserializeObject<LoginApiResponseModel>(apiResponse);
+                    var token = handler.ReadJwtToken(data.Data.Token);
                     var userIdClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
                     var userRoleClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
-
+                    var userName = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
                     if (userIdClaim != null && userRoleClaim != null)
                     {
-                        SetUserCookies(userIdClaim.Value, userRoleClaim.Value, data.Token);
+                        SetUserCookies(userIdClaim.Value, userRoleClaim.Value, data.Data.Token);
                     }
+                    TempData["SuccessRegister"] = $"{data.Message} {userName.Value.ToUpperInvariant()}";
                     return RedirectToAction("AddPicture", "User");
                 }
                 else
@@ -67,26 +70,31 @@ namespace PROJE_UI.Controllers
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
             var handler = new JwtSecurityTokenHandler();
 
-            using (var response = await _client.PostAsync("https://localhost:7185/api/Auth/loginUser", content))
+            using (var response = await _client.PostAsync($"{BaseUrl}api/Auth/loginUser", content))
             {
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
-                    var data = JsonConvert.DeserializeObject<TokenOptions>(apiResponse);
-                    var token = handler.ReadJwtToken(data.Token);
+                    var data = JsonConvert.DeserializeObject<LoginApiResponseModel>(apiResponse);
+                    var token = handler.ReadJwtToken(data.Data.Token);
                     var userIdClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
                     var userRoleClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
+                    var userName = token?.Claims.FirstOrDefault(c=>c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
 
                     if (userIdClaim != null && userRoleClaim != null)
                     {
-                        SetUserCookies(userIdClaim.Value, userRoleClaim.Value, data.Token);
+                        SetUserCookies(userIdClaim.Value, userRoleClaim.Value, data.Data.Token);
+                      
                     }
+                    TempData["SuccessLogin"] = $"{data.Message} {userName.Value.ToUpperInvariant()}";
                     return RedirectToAction("Index", "UserEdit");
+
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Giriş Yapılamadı. Lütfen tekrar deneyin.");
-                    return View(model);
+                    var apiResponse = await response.Content.ReadAsStringAsync();
+                    TempData["ErrorLogin"] = apiResponse;
+                    return View();
                 }
             }
         }
@@ -94,7 +102,7 @@ namespace PROJE_UI.Controllers
         public async Task<IActionResult> Profile()
         {
             var userId = HttpContext.Request.Cookies["UserId"];
-            var userResponse = await _client.GetAsync($"https://localhost:7185/api/Users/GetById?UserId={userId}");
+            var userResponse = await _client.GetAsync($"{BaseUrl}api/Users/GetById?UserId={userId}");
 
             if (!userResponse.IsSuccessStatusCode)
             {
@@ -117,14 +125,18 @@ namespace PROJE_UI.Controllers
             }
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"https://localhost:7185/api/Users/UpdateUser?id={userId}", content);
+            var response = await _client.PutAsync($"{BaseUrl}api/Users/UpdateUser?id={userId}", content);
             if (response.IsSuccessStatusCode)
             {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessUpdateProfile"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
             else
             {
-                return View("Error");
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorUpdateProfile"] = errorResponse;
+                return RedirectToAction("Index", "UserEdit");
             }
         }
         [HttpGet]
@@ -145,14 +157,18 @@ namespace PROJE_UI.Controllers
             model.UserId = Guid.Parse(userId);
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"https://localhost:7185/api/Users/ChangePassword?currentPassword={model.currentPassword}&newPassword={model.newPassword}&UserId={userId}", content);
+            var response = await _client.PutAsync($"{BaseUrl}api/Users/ChangePassword?currentPassword={model.currentPassword}&newPassword={model.newPassword}&UserId={userId}", content);
             if (response.IsSuccessStatusCode)
             {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessUpdatePassword"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
             else
             {
-                return View("Error");
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorUpdatePassword"] = errorResponse;
+                return RedirectToAction("PasswordOperation", "User");
             }
         }
 
@@ -186,7 +202,7 @@ namespace PROJE_UI.Controllers
                 }
                     }, "file", model.ImagePath.FileName);
 
-                    var response = await _client.PostAsync($"https://localhost:7185/api/Medias/UpdateMedia?UserId={model.UserId}", formContent);
+                    var response = await _client.PostAsync($"{BaseUrl}api/Medias/UpdateMedia?UserId={model.UserId}", formContent);
                     if (response.IsSuccessStatusCode)
                     {
                         return RedirectToAction("Index", "UserEdit");
@@ -229,7 +245,7 @@ namespace PROJE_UI.Controllers
                 }
                 }, "file", model.ImagePath.FileName);
 
-                var response = await _client.PostAsync($"https://localhost:7185/api/Medias/AddUserMedia?UserId={model.UserId}", formContent);
+                var response = await _client.PostAsync($"{BaseUrl}Medias/AddUserMedia?UserId={model.UserId}", formContent);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index", "UserEdit");
@@ -250,15 +266,19 @@ namespace PROJE_UI.Controllers
             }
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-            var response = await _client.DeleteAsync($"https://localhost:7185/api/Medias/DeleteMedia?MediaId={MediaId}&UserId={userId}");
+            var response = await _client.DeleteAsync($"{BaseUrl}api/Medias/DeleteMedia?MediaId={MediaId}&UserId={userId}");
 
             if (response.IsSuccessStatusCode)
             {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessDeletePicture"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
             else
             {
-                return View("Error");
+                var errorapiResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorDeletePicture"] = errorapiResponse;
+                return RedirectToAction("Index", "UserEdit");
             }
         }
         public async Task<IActionResult> LogOut()
@@ -272,10 +292,11 @@ namespace PROJE_UI.Controllers
 
         }
         [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> DeleteUser()
         {
             var userId = HttpContext.Request.Cookies["UserId"];
-            var userResponse = await _client.GetAsync($"https://localhost:7185/api/Users/GetById?UserId={userId}");
+            var userResponse = await _client.GetAsync($"{BaseUrl}api/Users/GetById?UserId={userId}");
 
             if (!userResponse.IsSuccessStatusCode)
             {
@@ -286,6 +307,7 @@ namespace PROJE_UI.Controllers
             var userResult = JsonConvert.DeserializeObject<User>(ApiResponse);
             return View(userResult);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> DeleteUser(User model)
@@ -299,18 +321,23 @@ namespace PROJE_UI.Controllers
             }
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-            var response = await _client.DeleteAsync($"https://localhost:7185/api/Users/DeleteUser?id={userId}");
+            var response = await _client.DeleteAsync($"{BaseUrl}api/Users/DeleteUser?id={userId}");
 
             if (response.IsSuccessStatusCode)
             {
                 Response.Cookies.Delete("UserId");
                 Response.Cookies.Delete("UserRole");
                 Response.Cookies.Delete("Bearer");
+
+                var ApiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessDeleteUser"] = ApiResponse;    
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                return View("Error");
+                var ApiResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorDeleteUser"] = ApiResponse;
+                return View("Index","UserEdit");
             }
         }
         public void SetUserCookies(string userId, string userRole, string bearerToken)
@@ -324,6 +351,7 @@ namespace PROJE_UI.Controllers
             Response.Cookies.Append("UserId", userId, userCookieOptions);
             Response.Cookies.Append("UserRole", userRole, userCookieOptions);
             Response.Cookies.Append("Bearer", bearerToken, userCookieOptions);
+          
         }
     }
 }

@@ -11,17 +11,18 @@ namespace PROJE_UI.Controllers
     public class BiletController : Controller
     {
         private readonly HttpClient _client;
+        private readonly ApiServiceOptions _apiServiceOptions;
 
-
-        public BiletController(HttpClient client)
+        public BiletController(HttpClient client, ApiServiceOptions apiServiceOptions)
         {
             _client = client;
+            _apiServiceOptions = apiServiceOptions;
         }
-
+        private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpGet]
         public async Task<IActionResult> BiletSatis()
         {
-            var citiesResponse = await _client.GetAsync("https://localhost:7185/api/Cities/GetAllCities");
+            var citiesResponse = await _client.GetAsync($"{BaseUrl}api/Cities/GetAllCities");
 
             if (citiesResponse.IsSuccessStatusCode)
             {
@@ -30,7 +31,7 @@ namespace PROJE_UI.Controllers
 
                 if (citiesResult.Success)
                 {
-                    var districtsResponse = await _client.GetAsync("https://localhost:7185/api/Districts/GetAllDistricts");
+                    var districtsResponse = await _client.GetAsync($"{BaseUrl}api/Districts/GetAllDistricts");
 
                     if (districtsResponse.IsSuccessStatusCode)
                     {
@@ -69,7 +70,7 @@ namespace PROJE_UI.Controllers
         }
       
             [HttpGet]
-            public async Task<IActionResult> MuseumDetails(string city,string district)
+        public async Task<IActionResult> MuseumDetails(string city,string district)
             {
                 string apiKey = "93k9I6pzPzDC3Nnc4tsJLdK86pCLIUySdbmpxfHqTmnsQyWdQ1tipEf0AnQ7";
                 var museumResponse = await _client.GetAsync($" https://www.nosyapi.com/apiv2/service/museum?city={city}&district={district}&apiKey={apiKey}");
@@ -83,18 +84,18 @@ namespace PROJE_UI.Controllers
 
                     if (museumResult.status == "success")
                     {
-                        // MuseumDetails view'e modeli ileterek döndürme
-                        return View("MuseumDetails",  museumResult.data); // data, bir List<Museum>
+                        
+                        return View("MuseumDetails",  museumResult.data); 
                     }
                     else
                     {
-                        // Hata durumu için Error action'ına yönlendirme
+                      
                         return RedirectToAction("Error", new { message = museumResult.message });
                     }
                 }
                 else
                 {
-                    // API ile iletişim hatası durumu için Error action'ına yönlendirme
+                    
                     return RedirectToAction("Error", new { message = "Müze API ile iletişim sırasında bir hata oluştu." });
                 }
             }

@@ -73,9 +73,12 @@
             <strong> @TempData["SuccessUpdateComment"]</strong>
             <strong> @TempData["SuccessDeleteBlog"]</strong>
             <strong> @TempData["SuccessUpdateBlog"]</strong>
-            <strong> @TempData["SuccessBlogMedia"] </strong>
             <strong> @TempData["SuccessUpdateBlogMedia"] </strong>
             <strong> @TempData["SuccessDeleteBlogMedia"] </strong>
+            <strong> @TempData["SuccessLogin"] </strong>
+            <strong>@TempData["SuccessUpdateProfile"]</strong>
+            <strong>@TempData["SuccessUpdatePassword"]</strong>
+            <strong>@TempData["SuccessDeletePicture"]</strong>
         </div>
     </div>
 </div>
@@ -92,10 +95,13 @@
             <strong> @TempData["ErrorUpdateBlog"]</strong>
             <strong> @TempData["ErrorUpdateBlogMedia"]</strong>
             <strong>@TempData["ErrorDeleteBlogMedia"]</strong>
+            <strong>@TempData["ErrorUpdateProfile"]</strong>
+            <strong>@TempData["ErrorDeletePicture"]</strong>
+            <strong>@TempData["ErrorDeleteUser"]</strong>
         </div>
     </div>
 </div>
-@if (TempData["SuccessDeleteComment"] != null || TempData["SuccessAddComment"] != null || TempData["SuccessUpdateComment"] != null || TempData["SuccessDeleteBlog"] != null || TempData["SuccessUpdateBlog"] != null || TempData["SuccessBlogMedia"] != null || TempData["SuccessUpdateBlogMedia"] != null || TempData["SuccessDeleteBlogMedia"] != null)
+@if (TempData["SuccessDeleteComment"] != null || TempData["SuccessAddComment"] != null || TempData["SuccessUpdateComment"] != null || TempData["SuccessDeleteBlog"] != null || TempData["SuccessUpdateBlog"] != null || TempData["SuccessAddMediaBlog"] != null || TempData["SuccessUpdateBlogMedia"] != null || TempData["SuccessDeleteBlogMedia"] != null || TempData["SuccessLogin"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeletePicture"] != null)
 {
     <script>
         $(document).ready(function () {
@@ -107,7 +113,7 @@
         });
     </script>
 }
-@if (TempData["ErrorAddComment"] != null || TempData["ErrorDeleteBlog"] != null || TempData["ErrorUpdateBlog"] != null || TempData["ErrorUpdateBlogMedia"] != null ||TempData["ErrorDeleteBlogMedia"] != null)
+@if (TempData["ErrorAddComment"] != null || TempData["ErrorDeleteBlog"] != null || TempData["ErrorUpdateBlog"] != null || TempData["ErrorUpdateBlogMedia"] != null || TempData["ErrorDeleteBlogMedia"] != null || TempData["ErrorUpdateProfile"] != null ||TempData["ErrorDeletePicture"] != null || TempData["ErrorDeleteUser"] != null)
 {
     <script>
         $(document).ready(function () {

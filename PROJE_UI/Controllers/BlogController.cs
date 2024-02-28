@@ -18,11 +18,14 @@ namespace PROJE_UI.Controllers
     public class BlogController : Controller
     {
         private readonly HttpClient _client;
+        private readonly ApiServiceOptions _apiServiceOptions;
 
-        public BlogController(HttpClient client)
+        public BlogController(HttpClient client, ApiServiceOptions apiServiceOptions)
         {
             _client = client;
+            _apiServiceOptions = apiServiceOptions; 
         }
+        private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpGet]
         public IActionResult Blog()
         {
@@ -44,7 +47,7 @@ namespace PROJE_UI.Controllers
             model.BlogDate = DateTime.Now;
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync($"https://localhost:7185/api/Blogs/AddBlog?UserId={model.UserId}", content);
+            var response = await _client.PostAsync($"{BaseUrl}api/Blogs/AddBlog?UserId={model.UserId}", content);
             if (response.IsSuccessStatusCode)
             {
                 var apiResponse = await response.Content.ReadAsStringAsync();
@@ -68,7 +71,7 @@ namespace PROJE_UI.Controllers
             }
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-            var response = await _client.DeleteAsync($"https://localhost:7185/api/Blogs/DeleteBlog?id={blogId}&UserId={userId}");
+            var response = await _client.DeleteAsync($"{BaseUrl}api/Blogs/DeleteBlog?id={blogId}&UserId={userId}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -85,7 +88,7 @@ namespace PROJE_UI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateBlog(Guid blogId)
         {
-            var blogResponse = await _client.GetAsync($"https://localhost:7185/api/Blogs/GetById?id={blogId}");
+            var blogResponse = await _client.GetAsync($"{BaseUrl}api/Blogs/GetById?id={blogId}");
 
             if (!blogResponse.IsSuccessStatusCode)
             {
@@ -107,7 +110,7 @@ namespace PROJE_UI.Controllers
             }
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"https://localhost:7185/api/Blogs/UpdateBlog?id={model.BlogId}&UserId={userId}", content);
+            var response = await _client.PutAsync($"{BaseUrl}api/Blogs/UpdateBlog?id={model.BlogId}&UserId={userId}", content);
             if (response.IsSuccessStatusCode)
             {
                 var apiResponse = await response.Content.ReadAsStringAsync();

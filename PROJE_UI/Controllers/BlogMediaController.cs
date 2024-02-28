@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 using Newtonsoft.Json;
 using NuGet.Protocol.Plugins;
 using PROJE_UI.Models;
+using PROJE_UI.ViewModels;
 using System.Net.Http.Headers;
 
 namespace PROJE_UI.Controllers
@@ -10,16 +11,19 @@ namespace PROJE_UI.Controllers
     public class BlogMediaController : Controller
     {
         private readonly HttpClient _client;
+        private readonly ApiServiceOptions _apiServiceOptions;
 
-        public BlogMediaController(HttpClient client)
+        public BlogMediaController(HttpClient client, ApiServiceOptions apiServiceOptions)
         {
             _client = client;
+            _apiServiceOptions = apiServiceOptions;
         }
+        private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpGet]
         public async Task<IActionResult> AddBlogMedia()
         {
             var userId = HttpContext.Request.Cookies["UserId"];
-            var blogResponse = await _client.GetAsync($"https://localhost:7185/api/Blogs/GetLatestBlogByUserId?UserId={userId}");
+            var blogResponse = await _client.GetAsync($"{BaseUrl}api/Blogs/GetLatestBlogByUserId?UserId={userId}");
 
             if (!blogResponse.IsSuccessStatusCode)
             {
@@ -54,21 +58,13 @@ namespace PROJE_UI.Controllers
 
                 }
                 }, "file", model.ImagePath.FileName);
-                var response = await _client.PostAsync($"https://localhost:7185/api/Medias/AddBlogMedia?BlogId={BlogId}&UserId={userId}", formContent);
+                var response = await _client.PostAsync($"{BaseUrl}api/Medias/AddBlogMedia?BlogId={BlogId}&UserId={userId}", formContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    var apiResponse = await response.Content.ReadAsStringAsync();
-                    TempData["SuccessBlogMedia"] = apiResponse;
-                    return RedirectToAction("Index", "UserEdit");
+                    return View("Index","UserEdit");
                 }
-
-
-                var errorResponse = await response.Content.ReadAsStringAsync();
-                TempData["ErrorBlogMedia"] = errorResponse;
-                return View("AddBlogMedia", "BlogMedia");
-
             }
-
+            return View("Error");
 
         }
         [HttpPost]
@@ -88,23 +84,19 @@ namespace PROJE_UI.Controllers
             {
                 using (var formContent = new MultipartFormDataContent())
                 {
-                    formContent.Add(new StringContent(model.ImagePath.FileName), "ImagePath");
 
-                    var streamContent = new StreamContent(model.ImagePath.OpenReadStream())
+                    formContent.Add(new StringContent(model.ImagePath.FileName), "ImagePath");
+                    formContent.Add(new StreamContent(model.ImagePath.OpenReadStream())
                     {
                         Headers =
-                {
+                    {
                     ContentLength = model.ImagePath.Length,
-                    ContentType = new MediaTypeHeaderValue(model.ImagePath.ContentType)
-                }
-                    };
+                    ContentType= new MediaTypeHeaderValue(model.ImagePath.ContentType)
 
-                    formContent.Add(streamContent, "file", model.ImagePath.FileName);
+                    }
+                    }, "file", model.ImagePath.FileName);
 
-                    var apiUrl = $"https://localhost:7185/api/Medias/UpdateBlogMedia?BlogId={model.BlogId}&UserId={userId}";
-
-                    var response = await _client.PostAsync(apiUrl, formContent);
-
+                    var response = await _client.PostAsync($"{BaseUrl}api/Medias/UpdateBlogMedia?BlogId={model.BlogId}&UserId={userId}", formContent);
                     if (response.IsSuccessStatusCode)
                     {
                         return RedirectToAction("Index", "UserEdit");
@@ -115,7 +107,6 @@ namespace PROJE_UI.Controllers
             return View("Error");
         }
 
-    
         [HttpPost]
         public async Task<IActionResult> DeleteBlogMedia(Guid MediaId, Guid BlogId)
         {
@@ -128,7 +119,7 @@ namespace PROJE_UI.Controllers
             }
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-            var response = await _client.DeleteAsync($"https://localhost:7185/api/Medias/DeleteBlogMedia?MediaId={MediaId}&UserId={userId}&BlogId={BlogId}");
+            var response = await _client.DeleteAsync($"{BaseUrl}api/Medias/DeleteBlogMedia?MediaId={MediaId}&UserId={userId}&BlogId={BlogId}");
 
             if (response.IsSuccessStatusCode)
             {

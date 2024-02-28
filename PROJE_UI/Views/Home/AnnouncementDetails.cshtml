@@ -8,7 +8,7 @@
         <div class="container">
 
             <div class="d-flex justify-content-between align-items-center">
-                <h2>Blog Single</h2>
+                <h2>Duyurular</h2>
                 <ol>
                     <li><a href="/Home/Index"><i class="fas fa-home"></i> Anasayfa</a></li>
                     <li>Duyuru Detay</li>
@@ -45,5 +45,28 @@
     </div>
 </section>
 
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-danger">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-danger">
+            <strong> @TempData["ErrorAnnouncementDetails"]</strong>
+        </div>
+    </div>
+</div>
 
-
+@if (TempData["ErrorAnnouncementDetails"] != null)
+{
+<script>
+    $(document).ready(function () {
+        $('#errorToast').toast({
+            animation: false,
+            delay: 5000
+        });
+        $('#errorToast').toast('show');
+    });
+</script>
+}
