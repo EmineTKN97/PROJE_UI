@@ -1,5 +1,6 @@
 ﻿@{
-    var userRole = Context.Request.Cookies["UserRole"]; 
+    var userRole = Context.Request.Cookies["UserRole"];
+    var adminRole = Context.Request.Cookies["AdminRole"];
 }
 
 <nav id="navbar" class="navbar">
@@ -14,6 +15,7 @@
                     <li><a href="/UserEdit/Index">Bloglarını Listele</a></li>
                     <li><a href="/UserEdit/Index">Bloglarını Düzenle</a></li>
                     <li><a href="/BlogDetails/ListBlog">Diğer Blogları Görüntüle</a></li>
+                    <li><a href="/BlogLike/ListBlogUserLike">Beğendiğim Bloglar</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -27,6 +29,21 @@
             <li><a href="/Bilet/BiletSatis">Bilet Satış</a></li>
             @await Component.InvokeAsync("EditProfile")
             
+        }
+        else if (adminRole == "ADMİN")
+        {
+            <li><a href="/Admin/Index" class="active">Anasayfa</a></li>
+            <li class="dropdown">
+                <a href="#"><span>Blog İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="">Duyuru Ekle</a></li>
+                    <li><a href="">Duyuruları Listele</a></li>
+                    <li><a href="">Duyuruları Düzenle</a></li>
+                    <li><a href="">Kullanıcıları Görüntüle</a></li>
+                    <li><a href="">Tüm Yorumları Görüntüle</a></li>
+                </ul>
+            </li>
+            @await Component.InvokeAsync("EditAdminProfile")
         }
         else 
         {

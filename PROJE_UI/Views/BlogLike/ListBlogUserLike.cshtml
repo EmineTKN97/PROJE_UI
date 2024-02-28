@@ -1,0 +1,65 @@
+﻿@using PROJE_UI.Models;
+@model List<Blog>
+<section id="blog" class="blog">
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Beğenilen Bloglar</h2>
+                <ol>
+                    <li><a href="/Home/Index"><i class="fas fa-home"></i> Anasayfa</a></li>
+                </ol>
+            </div>
+
+        </div>
+    </section>
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+            @foreach (Blog item in Model)
+            {
+                <div class="col-lg-8">
+                    <article class="entry">
+
+                        <div class="entry-img">
+                            <img src="https://localhost:7185/Uploads/StaticContent/@item.ImagePath" width="1920px" height="430px" alt="Blog Resimi" class="img-fluid">
+
+                        </div>
+                        <h2 class="entry-title">
+                            @item.Title.ToUpper()
+                        </h2>
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center">
+                                    <div class="comment-img">
+                                        <img src="https://localhost:7185/Uploads/StaticContent/@item.UserImagePath" alt="BlogYazarResimi" height="30">
+                                        @item.Name.ToUpper()  @item.SurName.ToUpper()
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i>@item.BlogDate</li>
+                                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/Blog/BlogDetails">@item.BlogCommentCount</a></li>
+                                <li class="d-flex align-items-center">
+                                    <i class="bi bi-heart"></i> <a href="/Blog/BlogDetails">@item.BlogLikeCount</a>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="entry-content">
+                            <p>
+                                @item.Content
+                            </p>
+                        </div>
+                        <div class="read-more">
+                            <div class="read-more">
+                                <a asp-controller="BlogLike" asp-action="Delete" asp-route-LikeId="@item.LikeId" id="readMoreBtn" class="btn btn-danger fw-bold mx-1">Beğeni işlemini Geri Al</a>
+                                <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.BlogId" id="readMoreBtn" class="btn btn-danger fw-bold mx-1">Bloğun Detayını Gör</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            }
+        </div>
+
+    </div>
+</section>

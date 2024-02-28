@@ -14,6 +14,8 @@
         public string UserImagePath { get; set; }
         public Guid UserId { get; set; }
         public Guid? MediaId { get; set; }
+        public Guid? LikeId { get; set; }
+
 
     }
 }

@@ -79,6 +79,8 @@
             <strong>@TempData["SuccessUpdateProfile"]</strong>
             <strong>@TempData["SuccessUpdatePassword"]</strong>
             <strong>@TempData["SuccessDeletePicture"]</strong>
+            <strong>@TempData["SuccessDeleteLike"]</strong>
+            <strong>@TempData["SuccessLike"]</strong>
         </div>
     </div>
 </div>
@@ -98,22 +100,24 @@
             <strong>@TempData["ErrorUpdateProfile"]</strong>
             <strong>@TempData["ErrorDeletePicture"]</strong>
             <strong>@TempData["ErrorDeleteUser"]</strong>
+            <strong>@TempData["ErrorDeleteLike"]</strong>
+            <strong>@TempData["ErrorLike"]</strong>
         </div>
     </div>
 </div>
-@if (TempData["SuccessDeleteComment"] != null || TempData["SuccessAddComment"] != null || TempData["SuccessUpdateComment"] != null || TempData["SuccessDeleteBlog"] != null || TempData["SuccessUpdateBlog"] != null || TempData["SuccessAddMediaBlog"] != null || TempData["SuccessUpdateBlogMedia"] != null || TempData["SuccessDeleteBlogMedia"] != null || TempData["SuccessLogin"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeletePicture"] != null)
+@if (TempData["SuccessDeleteComment"] != null || TempData["SuccessAddComment"] != null || TempData["SuccessUpdateComment"] != null || TempData["SuccessDeleteBlog"] != null || TempData["SuccessUpdateBlog"] != null || TempData["SuccessAddMediaBlog"] != null || TempData["SuccessUpdateBlogMedia"] != null || TempData["SuccessDeleteBlogMedia"] != null || TempData["SuccessLogin"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeletePicture"] != null || TempData["SuccessDeleteLike"] != null || TempData["SuccessLike"] != null)
 {
     <script>
         $(document).ready(function () {
             $('#successToast').toast({
                 animation: true,
-                delay: 3000
+                delay: 5000
             });
             $('#successToast').toast('show');
         });
     </script>
 }
-@if (TempData["ErrorAddComment"] != null || TempData["ErrorDeleteBlog"] != null || TempData["ErrorUpdateBlog"] != null || TempData["ErrorUpdateBlogMedia"] != null || TempData["ErrorDeleteBlogMedia"] != null || TempData["ErrorUpdateProfile"] != null ||TempData["ErrorDeletePicture"] != null || TempData["ErrorDeleteUser"] != null)
+@if (TempData["ErrorAddComment"] != null || TempData["ErrorDeleteBlog"] != null || TempData["ErrorUpdateBlog"] != null || TempData["ErrorUpdateBlogMedia"] != null || TempData["ErrorDeleteBlogMedia"] != null || TempData["ErrorUpdateProfile"] != null || TempData["ErrorDeletePicture"] != null || TempData["ErrorDeleteUser"] != null || TempData["ErrorDeleteLike"] != null || TempData["ErrorLike"] != null)
 {
     <script>
         $(document).ready(function () {

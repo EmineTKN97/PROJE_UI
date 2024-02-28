@@ -50,20 +50,27 @@
                             </li>
                             
                             <li class="d-flex align-items-center"><i class="bi bi-clock"></i> @Model.Blogs.BlogDate</li>
-                            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="blog-single.html">@Model.Blogs.BlogCommentCount</a></li>
-                            <li class="d-flex align-items-center"><i class="bi bi-heart"></i> <a href="blog-single.html">@Model.Blogs.BlogLikeCount</a></li>
+                            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i>@Model.Blogs.BlogCommentCount</li>
+                            <li class="d-flex align-items-center"><i class="bi bi-heart"></i> @Model.Blogs.BlogLikeCount</li>
                         </ul>
                     </div>
                     <div class="entry-content">
                         <p>
                             @Model.Blogs.Content
                         </p>
-                        <button type="button" id="likeButton">
-                            <i class="bi bi-heart"></i> Beğen
-                        </button>
+                      
+                        <form id="likeForm" asp-action="AddLike" asp-controller="BlogLike" method="post">
+                            <input type="hidden" asp-for="Blogs.BlogId" name="blogId" />
+                            <button type="submit" id="likeButton">
+                                <i class="bi bi-heart"></i> Beğen
+                            </button>
+                      
+
                         <button type="button" id="commentButton">
                             <i class="bi bi-chat"></i> Yorum Ekle
                         </button>
+                        </form>
+                  
                     </div>
                 </article>
                 <div class="blog-comments">
@@ -116,6 +123,7 @@
         </div>
     </div>
 </section><!-- End Blog Single Section -->
+
 <div class="toast-container position-top  end-0 top-0 p-3">
     <!-- Second Toast -->
     <div id="viewToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -141,21 +149,55 @@
         });
     </script>
 }
+
 @section script {
     <script>
-        var likeButton = document.getElementById('likeButton');
-        likeButton.addEventListener('click', function () {
-            likeButton.style.color = 'red';
-        });
-       
-            document.addEventListener('DOMContentLoaded', function () {
-                var commentButton = document.getElementById('commentButton');
-                commentButton.addEventListener('click', function () {
-                    var replyForm = document.querySelector('.reply-form');
-                    if (replyForm) {
-                        replyForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
+        $(document).ready(function () {
+            var isLiked = false; // Yeni bir değişken ekleyerek like durumunu takip ediyoruz
+
+            $('#likeForm').submit(function (e) {
+                e.preventDefault();
+
+                if (!isLiked) {
+                    // Eğer daha önce like atılmamışsa
+                    $.ajax({
+                        url: '/BlogLike/AddLike',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            $('#likeButton').css('color', 'red');
+                            window.location.href = '/UserEdit/Index/';
+                            isLiked = true; // Like atıldı olarak işaretle
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                } else {
+                    // Eğer daha önce like atılmışsa
+                    $.ajax({
+                        url: '/BlogLike/DeleteLike', // Sileceğiniz endpoint'i belirtin
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            console.log(response);
+                            $('#likeButton').css('color', ''); // Renk sıfırlama veya istediğiniz şekilde düzenleme
+                            isLiked = false; // Like silindi olarak işaretle
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                }
             });
+
+            $('#commentButton').click(function () {
+                var replyForm = document.querySelector('.reply-form');
+                if (replyForm) {
+                    replyForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
     </script>
 }

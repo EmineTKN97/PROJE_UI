@@ -1,0 +1,64 @@
+﻿@using PROJE_UI.Models
+@model Admin
+
+@section css
+{
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            margin: auto;
+            padding: auto;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+}
+
+<div class="rounded-form-container">
+    <center><h1 class="text-danger">KULLANICI GİRİŞİ</h1></center>
+    <form class="position-sticky" method="post" action="/Admin/LoginAdmin">
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email adresi</label>
+            <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email">
+        </div>
+        <div class="mb-3">
+            <label for="Password" class="form-label">Şifre:</label>
+            <input type="password" class="form-control" id="Password" name="Password">
+        </div>
+        <center><button type="submit" class="btn btn-danger fw-bold mx-1">Giriş Yap</button></center>
+    </form>
+</div>
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-danger">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-danger">
+            <strong> @TempData["ErrorLogin"]</strong>
+        </div>
+    </div>
+</div>
+
+@if (TempData["ErrorLogin"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#errorToast').toast({
+                animation: false,
+                delay: 5000
+            });
+            $('#errorToast').toast('show');
+        });
+    </script>
+}
+
