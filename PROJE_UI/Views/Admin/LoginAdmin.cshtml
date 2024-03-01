@@ -8,7 +8,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 70vh;
+            height: 90vh;
             margin: auto;
             padding: auto;
         }
@@ -19,12 +19,22 @@
             padding: 20px;
             width: 700px;
         }
+
+            .rounded-form-container img {
+                border-radius: 50%;
+                overflow: hidden;
+            }
     </style>
 }
 
 <div class="rounded-form-container">
-    <center><h1 class="text-danger">KULLANICI GİRİŞİ</h1></center>
+    <center><h1 class="text-danger">YÖNETİCİ GİRİŞİ</h1></center>
     <form class="position-sticky" method="post" action="/Admin/LoginAdmin">
+        <div class="input-group text-center mt-1 mb-4">
+            <div class="d-flex justify-content-center w-100">
+                <img src="~/assets/img/admin.png" width="150" height="150" class="rounded-image" />
+            </div>
+        </div>
         <div class="mb-3">
             <label for="Email" class="form-label">Email adresi</label>
             <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email">

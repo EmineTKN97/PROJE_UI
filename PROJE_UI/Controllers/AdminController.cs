@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using PROJE_UI.Models;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace PROJE_UI.Controllers
@@ -73,6 +74,32 @@ namespace PROJE_UI.Controllers
             Response.Cookies.Append("AdminRole", adminRole, userCookieOptions);
             Response.Cookies.Append("Bearer", bearerToken, userCookieOptions);
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllUser()
+        {
+			var bearerToken = HttpContext.Request.Cookies["Bearer"];
+			var adminrole = HttpContext.Request.Cookies["AdminRole"];
+			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+			var response = await _client.GetAsync($"{BaseUrl}api/Users/GetAll");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<User>>(apiResponse);
+                if (result != null && result.Any())
+                {
+                    return View(result);
+                }
+                else
+                {
+                    ViewData["NotUser"] = "HENÜZ HİÇ Kullanıcı YOK.";
+                    return View();
+                }
+
+            }
+                return View();
+            
         }
     }
 }

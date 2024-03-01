@@ -1,0 +1,58 @@
+﻿@using PROJE_UI.Models
+@model Announcement
+@section css {
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 130vh;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+}
+<div class="rounded-form-container">
+    <center><h1 class="text-danger">DUYURU GÜNCELLE</h1></center>
+    <form class="position-sticky" method="post" action="/Announcement/UpdateAnnouncement">
+        <div class="mb-3">
+            <label for="AnnouncementTitle" class="form-label">Duyuru Başlığı:</label>
+            <input type="text" class="form-control" id="AnnouncementTitle" name="AnnouncementTitle" value="@Model.AnnouncementTitle">
+        </div>
+        <div class="mb-3">
+            <label for="AnnouncementContent" class="form-label">Duyuru Yazısı:</label>
+            <input type="hidden" id="AnnouncementId" name="AnnouncementId" value="@Model.AnnouncementId" />
+            <textarea class="form-control" id="AnnouncementContent" name="AnnouncementContent" rows="20">@Model.AnnouncementContent</textarea>
+        </div>
+        <center>
+            <button type="submit" class="btn btn-danger fw-bold mx-1">Duyuruyu Güncelle</button>
+            <button type="reset" class="btn btn-danger fw-bold mx-1">Temizle</button>
+        </center>
+    </form>
+</div>
+<div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header bg bg-danger">
+        <strong class="me-auto text-white">Mesaj</strong>
+        <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body text-bg-danger">
+        <strong> @TempData["ErrorGetAnnouncement"]</strong>
+    </div>
+</div>
+@if (TempData["ErrorGetAAnnouncement"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#errorToast').toast({
+                animation: false,
+                delay: 5000
+            });
+            $('#errorToast').toast('show');
+        });
+    </script>
+}

@@ -34,13 +34,25 @@
         {
             <li><a href="/Admin/Index" class="active">Anasayfa</a></li>
             <li class="dropdown">
-                <a href="#"><span>Blog İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
+                <a href="#"><span>Duyuru İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="">Duyuru Ekle</a></li>
-                    <li><a href="">Duyuruları Listele</a></li>
-                    <li><a href="">Duyuruları Düzenle</a></li>
-                    <li><a href="">Kullanıcıları Görüntüle</a></li>
-                    <li><a href="">Tüm Yorumları Görüntüle</a></li>
+                    <li><a href="/Announcement/AddAnnouncement">Duyuru Ekle</a></li>
+                    <li><a href="/Announcement/ListAnnouncement">Duyuruları Listele</a></li>
+                    <li><a href="/Announcement/ListAnnouncement">Duyuruları Düzenle</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#"><span>Kullanıcı İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="/Admin/GetAllUser">Kullanıcıları Görüntüle</a></li>
+                    <li><a href="">Kullanıcıları Yetkilendir</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#"><span>Blog Yorum İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="">Yorumları Görüntüle</a></li>
+                    <li><a href="">Yorumları Kaldır</a></li>
                 </ul>
             </li>
             @await Component.InvokeAsync("EditAdminProfile")

@@ -38,12 +38,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWJvdXRcV2hvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Admin/GetAllUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cR2V0QWxsVXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Admin/LoginAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTG9naW5BZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Announcement/AddAnnouncement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5ub3VuY2VtZW50XEFkZEFubm91bmNlbWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Announcement/ListAnnouncement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5ub3VuY2VtZW50XExpc3RBbm5vdW5jZW1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Announcement/UpdateAnnouncement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQW5ub3VuY2VtZW50XFVwZGF0ZUFubm91bmNlbWVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/emine/OneDrive/Masaüstü/yazilimkursu/ProjeOdev/PROJE_UI/PROJE_UI/Views/Bilet/BiletSatis.cshtml]

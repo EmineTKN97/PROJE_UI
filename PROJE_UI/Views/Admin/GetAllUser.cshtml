@@ -1,0 +1,58 @@
+﻿@using PROJE_UI.Models
+@model List<User>
+
+<section id="blog" class="blog">
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Tüm Kullanıcılar</h2>
+                <ol>
+                    <li><a href="/Admin/Index"><i class="fas fa-home"></i> Anasayfa</a></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table border text-nowrap text-md-nowrap table-striped mg-b-0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>AD-SOYAD</th>
+                                        <th>E-MAİL</th>
+                                        <th>İŞLEMLER</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        <tr>
+                                            <td><strong>@(i + 1)</strong></td>
+                                            <td><strong>@Model[i].Name.ToUpper()@(Model[i].SurName.ToUpper())</strong></td>
+                                            <td><strong>@Model[i].Email</strong></td>
+                                            <td>
+                                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Yetkilendir">
+                                                    <i class="fas fa-key"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Mesaj Gönder">
+                                                    <i class="fas fa-envelope"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="İşlemi Geri Al">
+                                                    <i class="fas fa-undo"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

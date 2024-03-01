@@ -1,10 +1,22 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@await Component.InvokeAsync("Slidebar")
+<section id="blog" class="blog">
 
-<h1>Index</h1>
+    <div class="container" data-aos="fade-up">
+
+        <div class="row">
+            <div class="col-lg-8 entries">
+                <article class="entry">
+                    <h1>Index</h1>
+                </article>
+            </div>
+
+
+
+            @await Component.InvokeAsync("AnnouncementDetails")
+        </div><!-- End sidebar -->
+    </div>
+
+</section>
 <div class="toast-container position-top  end-0 top-0 p-3">
     <!-- Second Toast -->
     <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -15,11 +27,26 @@
         <div class="toast-body text-bg-success">
             
             <strong> @TempData["SuccessLogin"] </strong>
-  
+            <strong> @TempData["SuccessAddAnnouncement"] </strong>
+            <strong> @TempData["SuccessDeleteAnnouncement"] </strong>
+            <strong> @TempData["SuccessUpdateAnnouncement"] </strong>
+
         </div>
     </div>
 </div>
-@if (TempData["SuccessLogin"] != null)
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-danger">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-danger">
+            <strong> @TempData["ErrorUpdateAnnouncement"]</strong>
+        </div>
+    </div>
+</div>
+@if (TempData["SuccessLogin"] != null || TempData["SuccessAddAnnouncement"] != null || TempData["SuccessDeleteAnnouncement"] != null || TempData["SuccessUpdateAnnouncement"] != null)
 {
     <script>
         $(document).ready(function () {
@@ -28,6 +55,18 @@
                 delay: 5000
             });
             $('#successToast').toast('show');
+        });
+    </script>
+}
+@if (TempData["ErrorUpdateAnnouncement"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#errorToast').toast({
+                animation: false,
+                delay: 5000
+            });
+            $('#errorToast').toast('show');
         });
     </script>
 }
