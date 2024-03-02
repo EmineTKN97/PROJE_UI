@@ -1,0 +1,50 @@
+﻿@using PROJE_UI.Models;
+@model Admin;
+@section css
+{
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+}
+
+<div class="rounded-form-container">
+    <center><h1 class="text-danger">PROFİLİNİZİ SİLMEK İSTEDİĞİNİZE EMİN MİSİNİZ?</h1></center>
+
+    <div class="input-group text-center mt-1 mb-4">
+        <div class="d-flex justify-content-center w-100">
+            <img src="~/assets/img/admin.png" width="150" height="150" class="rounded-image"/>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="FirstName" class="form-label">Ad:</label>
+        <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Model.FirstName">
+    </div>
+    <div class="mb-3">
+        <label for="LastName" class="form-label">Soyad:</label>
+        <input type="text" class="form-control" id="LastName" name="LastName" value="@Model.LastName">
+    </div>
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email adresi</label>
+        <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email" value="@Model.Email">
+    </div>
+    <center>
+        <form asp-action="DeleteAdmin" asp-controller="Admin" method="post">
+            <button type="submit" class="btn btn-danger fw-bold mx-1">Sil</button>
+            <a asp-controller="Admin" asp-action="Index" class="btn btn-danger fw-bold mx-1">İptal</a>
+        </form>
+    </center>
+
+
+</div>

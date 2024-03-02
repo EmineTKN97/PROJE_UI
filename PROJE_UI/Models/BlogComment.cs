@@ -12,5 +12,6 @@
         public string? UserİmagePath { get; set; }
         public Guid BlogId { get; set; }
         public string? BlogTitle { get; set; }
+        public string? Email { get; set; }
     }
 }

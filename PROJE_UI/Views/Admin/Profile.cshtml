@@ -1,0 +1,50 @@
+﻿@using PROJE_UI.Models;
+@model Admin;
+@section css
+{
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+}
+
+<div class="rounded-form-container">
+    <center><h1 class="text-danger">PROFİLİNİ GÜNCELLE</h1></center>
+    <form class="position-sticky" method="post" action="/Admin/UpdateProfile">
+        <div class="input-group text-center mt-1 mb-4">
+            <div class="d-flex justify-content-center w-100">
+                <img src="~/assets/img/admin.png" width="150" height="150" />
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="FirstName" class="form-label">Ad:</label>
+            <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Model.FirstName">
+        </div>
+        <div class="mb-3">
+            <label for="LastName" class="form-label">Soyad:</label>
+            <input type="text" class="form-control" id="LastName" name="LastName" value="@Model.LastName">
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email adresi</label>
+            <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email" value="@Model.Email">
+        </div>
+        <center>
+            <button type="submit" class="btn btn-danger fw-bold mx-1">Bilgilerini Güncelle</button>
+            <button type="button" class="btn btn-danger fw-bold mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Fotoğrafı Güncelle
+            </button>
+            <a href="javascript:void(0);" onclick="ShowModal('')" class="btn btn-danger fw-bold mx-1">Fotoğrafı Sil</a>
+        </center>
+    </form>
+</div>

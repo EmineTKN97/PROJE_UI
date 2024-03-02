@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PROJE_UI.Models;
 using System.IdentityModel.Tokens.Jwt;
@@ -62,6 +64,189 @@ namespace PROJE_UI.Controllers
                 }
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllUser()
+        {
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+            var adminrole = HttpContext.Request.Cookies["AdminRole"];
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.GetAsync($"{BaseUrl}api/Users/GetAll");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<User>>(apiResponse);
+                if (result != null && result.Any())
+                {
+                    return View(result);
+                }
+                else
+                {
+                    TempData["NotUser"] = "HENÜZ HİÇ KULLANICI YOK.";
+                    return View();
+                }
+
+            }
+            return View();
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            var adminId = HttpContext.Request.Cookies["AdminId"];
+            var adminResponse = await _client.GetAsync($"{BaseUrl}api/Admins/GetById?AdminId={adminId}");
+
+            if (!adminResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Error", new { message = "Admin bulunamadı." });
+            }
+
+            var ApiResponse = await adminResponse.Content.ReadAsStringAsync();
+            var adminResult = JsonConvert.DeserializeObject<Admin>(ApiResponse);
+            return View(adminResult);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfile(Admin model)
+        {
+            var adminId = HttpContext.Request.Cookies["adminId"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"{BaseUrl}api/Admins/UpdateAdmin?id={adminId}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessUpdateProfile"] = apiResponse;
+                return RedirectToAction("Index", "Admin");
+            }
+            else
+            {
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorUpdateProfile"] = errorResponse;
+                return RedirectToAction("Index", "Admin");
+            }
+        }
+        [HttpGet]
+        public IActionResult PasswordOperation()
+        {
+            return View(new AdminPasswordChange());
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdatePassword(AdminPasswordChange model)
+        {
+            var adminId = HttpContext.Request.Cookies["AdminId"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"{BaseUrl}api/Admins/ChangeAdminPassword?currentPassword={model.currentPassword}&newPassword={model.newPassword}&AdminId={adminId}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessUpdatePassword"] = apiResponse;
+                return RedirectToAction("Index", "Admin");
+            }
+            else
+            {
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorUpdatePassword"] = errorResponse;
+                return RedirectToAction("Index", "Admin");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> DeleteAdmin()
+        {
+            var adminId = HttpContext.Request.Cookies["AdminId"];
+            var adminResponse = await _client.GetAsync($"{BaseUrl}api/Admins/GetById?AdminId={adminId}");
+
+            if (!adminResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Error", new { message = "Kullanıcı bulunamadı." });
+            }
+
+            var ApiResponse = await adminResponse.Content.ReadAsStringAsync();
+            var adminResult = JsonConvert.DeserializeObject<Admin>(ApiResponse);
+            return View(adminResult);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteAdmin(Admin model)
+        {
+            var adminId = HttpContext.Request.Cookies["AdminId"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.DeleteAsync($"{BaseUrl}api/Admins/DeleteAdmin?id={adminId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                Response.Cookies.Delete("AdminId");
+                Response.Cookies.Delete("AdminRole");
+                Response.Cookies.Delete("Bearer");
+
+                var ApiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessDeleteAdmin"] = ApiResponse;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                var ApiResponse = await response.Content.ReadAsStringAsync();
+                TempData["ErrorDeleteAdmin"] = ApiResponse;
+                return View("Index", "Admin");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllComment()
+        {
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+            var adminrole = HttpContext.Request.Cookies["AdminRole"];
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.GetAsync($"{BaseUrl}api/BlogComments/GetCommentsDetails");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<BlogComment>>(apiResponse);
+                if (result != null && result.Any())
+                {
+                    return View(result);
+                }
+                else
+                {
+                    TempData["NotComment"] = "HENÜZ HİÇ YORUM YOK.";
+                    return View();
+                }
+
+            }
+            return View();
+
+        }
+        public async Task<IActionResult> LogOut()
+        {
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            Response.Cookies.Delete("AdminId");
+            Response.Cookies.Delete("AdminRole");
+            Response.Cookies.Delete("Bearer");
+            return RedirectToAction("Index", "Home");
+
+        }
+
         public void SetUserCookies(string adminId, string adminRole, string bearerToken)
         {
             var userCookieOptions = new CookieOptions
@@ -75,31 +260,6 @@ namespace PROJE_UI.Controllers
             Response.Cookies.Append("Bearer", bearerToken, userCookieOptions);
 
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAllUser()
-        {
-			var bearerToken = HttpContext.Request.Cookies["Bearer"];
-			var adminrole = HttpContext.Request.Cookies["AdminRole"];
-			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-			var response = await _client.GetAsync($"{BaseUrl}api/Users/GetAll");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var apiResponse = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<List<User>>(apiResponse);
-                if (result != null && result.Any())
-                {
-                    return View(result);
-                }
-                else
-                {
-                    ViewData["NotUser"] = "HENÜZ HİÇ Kullanıcı YOK.";
-                    return View();
-                }
-
-            }
-                return View();
-            
-        }
     }
 }

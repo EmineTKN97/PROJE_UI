@@ -292,7 +292,6 @@ namespace PROJE_UI.Controllers
 
         }
         [HttpGet]
-        [HttpGet]
         public async Task<IActionResult> DeleteUser()
         {
             var userId = HttpContext.Request.Cookies["UserId"];

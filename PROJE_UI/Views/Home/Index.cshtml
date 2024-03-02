@@ -29,11 +29,12 @@
         </div>
         <div class="toast-body text-bg-success">
             <strong> @TempData["SuccessDeleteUser"]</strong>
+            <strong> @TempData["SuccessDeleteAdmin"]</strong>
 
         </div>
     </div>
 </div>
-@if (TempData["SuccessDeleteUser"] != null)
+@if (TempData["SuccessDeleteAdmin"] != null)
 {
     <script>
         $(document).ready(function () {

@@ -1,0 +1,47 @@
+﻿@using PROJE_UI.Models;
+@model List<BlogComment>
+
+<!-- ======= Blog Single Section ======= -->
+<section id="blog" class="blog">
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Tüm Yorumlar</h2>
+                <ol>
+                    <li><a href="/Admin/Index"><i class="fas fa-home"></i> Anasayfa</a></li>
+                </ol>
+            </div>
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <div class="container" data-aos="fade-up">
+        <div class="row g-3">
+            @foreach (BlogComment item in Model)
+            {
+                <div class="col-md-6 col-xl-6 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title" style="color: red;">@item.BlogTitle.ToUpper()</h3>
+                            <div class="card-options">
+                                <i class="bi bi-clock"> @item.CommentDate</i>
+                                <div class="user-info">
+                                    <div class="comment-img">
+                                        <img src="https://localhost:7185/Uploads/StaticContent/@item.UserİmagePath" alt="BlogYorumKullanıcıResimi" height="30" />
+                                        <span>
+                                            <strong>@item.UserName.ToUpper() @item.UserSurname.ToUpper()</strong>
+                                            <em>@item.Email</em>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="height: 200px; overflow: auto;">
+                            <h2>@item.CommentTitle</h2>
+                            <p>@item.CommentDetail</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
