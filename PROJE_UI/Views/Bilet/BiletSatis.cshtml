@@ -10,17 +10,19 @@
                     <center><h1 class="text-danger">MÜZE BİLETİ SATIN AL</h1></center>
                     <label>Şehir Seçiniz:</label>
                     <select id="selectCity" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                        <option selected disabled>Bir İl Seçiniz</option>
                         @foreach (var item in Model.Cities)
                         {
-                            <option value="@item.CityName.ToLower()">@item.CityName.ToLower()</option>
+                            <option value="@item.CityName.ToLower()">@item.CityName.ToUpper()</option>
                         }
                     </select>
 
                     <label>İlçe Seçiniz:</label>
                     <select id="selectDistrict" class="form-select form-select-lg mb-3" aria-label="Large select example">
+                        <option selected disabled>Bir İlçe Seçiniz</option>
                         @foreach (var item in Model.Districts)
                         {
-                            <option value="@item.DistrictName.ToLower()">@item.DistrictName.ToLower()</option>
+                            <option value="@item.DistrictName.ToLower()">@item.DistrictName.ToUpper()</option>
                         }
                     </select>
 

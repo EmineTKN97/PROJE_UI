@@ -13,5 +13,6 @@
         public Guid BlogId { get; set; }
         public string? BlogTitle { get; set; }
         public string? Email { get; set; }
+        public Guid? UserId { get; set; }
     }
 }

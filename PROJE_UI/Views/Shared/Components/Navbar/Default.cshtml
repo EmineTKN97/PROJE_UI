@@ -7,52 +7,52 @@
     <ul>
         @if (userRole == "USER")
         {
-            <li><a href="/UserEdit/Index" class="active">Anasayfa</a></li>
+            <li><a href="/UserEdit/Index/" class="active">Anasayfa</a></li>
             <li class="dropdown">
                 <a href="#"><span>Blog İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="/Blog/Blog">Blog Ekle</a></li>
-                    <li><a href="/UserEdit/Index">Bloglarını Listele</a></li>
-                    <li><a href="/UserEdit/Index">Bloglarını Düzenle</a></li>
-                    <li><a href="/BlogDetails/ListBlog">Diğer Blogları Görüntüle</a></li>
-                    <li><a href="/BlogLike/ListBlogUserLike">Beğendiğim Bloglar</a></li>
+                    <li><a href="/Blog/Blog/">Blog Ekle</a></li>
+                    <li><a href="/UserEdit/Index/">Bloglarını Listele</a></li>
+                    <li><a href="/UserEdit/Index/">Bloglarını Düzenle</a></li>
+                    <li><a href="/BlogDetails/ListBlog/">Diğer Blogları Görüntüle</a></li>
+                    <li><a href="/BlogLike/ListBlogUserLike/">Beğendiğim Bloglar</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#"><span>Blog Yorum İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="/BlogDetails/ListBlog">Yorum Ekle</a></li>
-                    <li><a href="/BlogComment/UserAllComment">Yorumları Listele</a></li>
-                    <li><a href="/BlogComment/UserAllComment">Yorumları Düzenle</a></li>
+                    <li><a href="/BlogDetails/ListBlog/">Yorum Ekle</a></li>
+                    <li><a href="/BlogComment/UserAllComment/">Yorumları Listele</a></li>
+                    <li><a href="/BlogComment/UserAllComment/">Yorumları Düzenle</a></li>
                 </ul>
             </li>
-            <li><a href="/Bilet/BiletSatis">Bilet Satış</a></li>
+            <li><a href="/Bilet/BiletSatis/">Bilet Satış</a></li>
             @await Component.InvokeAsync("EditProfile")
             
         }
         else if (adminRole == "ADMİN")
         {
-            <li><a href="/Admin/Index" class="active">Anasayfa</a></li>
+            <li><a href="/Admin/Index/" class="active">Anasayfa</a></li>
             <li class="dropdown">
                 <a href="#"><span>Duyuru İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="/Announcement/AddAnnouncement">Duyuru Ekle</a></li>
-                    <li><a href="/Announcement/ListAnnouncement">Duyuruları Listele</a></li>
-                    <li><a href="/Announcement/ListAnnouncement">Duyuruları Düzenle</a></li>
+                    <li><a href="/Announcement/AddAnnouncement/">Duyuru Ekle</a></li>
+                    <li><a href="/Announcement/ListAnnouncement/">Duyuruları Listele</a></li>
+                    <li><a href="/Announcement/ListAnnouncement/">Duyuruları Düzenle</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#"><span>Kullanıcı İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="/Admin/GetAllUser">Kullanıcıları Görüntüle</a></li>
+                    <li><a href="/Admin/GetAllUser/">Kullanıcıları Görüntüle</a></li>
                     <li><a href="">Kullanıcıları Yetkilendir</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#"><span>Blog Yorum İşlemleri</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="Admin/GetAllComment">Yorumları Görüntüle</a></li>
-                    <li><a href="">Yorumları Kaldır</a></li>
+                    <li><a href="/Admin/GetAllComment/">Yorumları Görüntüle</a></li>
+                    <li><a href="/Admin/GetAllComment/">Yorumları Düzenle</a></li>
                 </ul>
             </li>
             @await Component.InvokeAsync("EditAdminProfile")
@@ -63,15 +63,16 @@
          <li class="dropdown">
             <a href="#"><span>Hakkımızda</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-                <li><a href="/About/Mission">Misyonumuz</a></li>
-                <li><a href="/About/Vision">Vizyonumuz</a></li>
-                <li><a href="/About/Who">Biz Kimiz?</a></li>
+                <li><a href="/About/Mission/">Misyonumuz</a></li>
+                <li><a href="/About/Vision/">Vizyonumuz</a></li>
+                <li><a href="/About/Who/">Biz Kimiz?</a></li>
             </ul>
         </li>
-        <li><a href="/Bilet/BiletSatis">Bilet Satış</a></li>
-        <li><a href="/BlogDetails/ListBlog">Blog</a></li>
-        <li><a href="/User/Register" class="getstarted">Üye Ol</a></li>
-        <li><a href="/User/Login" class="getstarted">Giriş Yap</a></li>
+        <li><a href="/Bilet/BiletSatis/">Bilet Satış</a></li>
+        <li><a href="/BlogDetails/ListBlog/">Blog</a></li>
+            <li><a href="/User/Register/" class="getstarted"><i class="fas fa-user-plus fa-lg"></i> Üye Ol</a></li>
+            <li><a href="/User/Login/" class="getstarted"><i class="fas fa-sign-in-alt fa-lg"></i> Giriş Yap</a></li>
+             <li><a href="/Admin/LoginAdmin/" class="getstarted"><i class="fas fa-cogs fa-lg"></i>Yönetici Girişi</a> </li>
     
         }
     </ul>

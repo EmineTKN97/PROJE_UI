@@ -21,8 +21,28 @@ namespace PROJE_UI.Controllers
         }
         private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+            var adminrole = HttpContext.Request.Cookies["AdminRole"];
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.GetAsync($"{BaseUrl}api/Blogs/GetAllBlogsDetails");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<Blog>>(apiResponse);
+                if (result != null && result.Any())
+                {
+                    return View(result);
+                }
+                else
+                {
+                    ViewData["NoCommentsMessage"] = "HENÜZ HİÇ Blog YOK.";
+                    return View();
+                }
+
+            }
             return View();
         }
         [HttpGet]
@@ -178,7 +198,6 @@ namespace PROJE_UI.Controllers
             return View(adminResult);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> DeleteAdmin(Admin model)
         {
@@ -228,12 +247,30 @@ namespace PROJE_UI.Controllers
                 }
                 else
                 {
-                    TempData["NotComment"] = "HENÜZ HİÇ YORUM YOK.";
+                    ViewData["NoCommentsMessage"] = "HENÜZ HİÇ YORUM YOK.";
                     return View();
                 }
 
             }
             return View();
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteBlogComment(Guid CommentId, Guid userId)
+        {
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.DeleteAsync($"{BaseUrl}api/BlogComments/Delete?id={CommentId}&UserId={userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessDeleteBlogComment"] = apiResponse;
+                return RedirectToAction("Index", "Admin");
+            }
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorDeleteBlogComment"] = errorResponse;
+            return RedirectToAction("GetAllComment", "Admin");
 
         }
         public async Task<IActionResult> LogOut()

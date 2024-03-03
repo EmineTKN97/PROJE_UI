@@ -16,6 +16,12 @@
     </section><!-- End Breadcrumbs -->
     <div class="container" data-aos="fade-up">
         <div class="row g-3">
+             @if (ViewData["NoCommentsMessage"] != null)
+            {
+                <p>@ViewData["NoCommentsMessage"]</p>
+            }
+            else
+            {
             @foreach (BlogComment item in Model)
             {
                 <div class="col-md-6 col-xl-6 mb-3">
@@ -35,13 +41,93 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body" style="height: 200px; overflow: auto;">
+                        <div class="card-body" style="height: 150px; overflow: auto;">
                             <h2>@item.CommentTitle</h2>
                             <p>@item.CommentDetail</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="javascript:void(0);" onclick="ShowModal('@item.CommentId','@item.UserId')" class="btn btn-danger fw-bold mx-1">
+                                <i class="fas fa-trash"></i> Kaldır </a>
+                                <a href="mailto:@item.Email" class="btn btn-danger fw-bold mx-1">
+                                    <i class="fas fa-envelope"></i> Uyarı Mesajı Gönder
+                                </a>
                         </div>
                     </div>
                 </div>
             }
+            }
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Dikkat</h4>
+            </div>
+            <div class="modal-body">
+                <p>Bu yorumu silmek istediğinize emin misiniz?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="CloseModal()">İptal</button>
+                <button type="button" class="btn btn-danger" onclick="Delete()">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="deleteForm" method="post" action="@Url.Action("DeleteBlogComment","Admin")">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="CommentId" name="CommentId"/>
+    <input type="hidden" id="UserId" name="UserId" />
+</form>
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-danger">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-danger">
+            <strong> @TempData["ErrorDeleteBlogComment"]</strong>
+        </div>
+    </div>
+</div>
+@if (TempData["ErrorDeleteBlogComment"] != null)
+{
+    <script>
+        $(document).ready(function () {
+            $('#errorToast').toast({
+                animation: false,
+                delay: 5000
+            });
+            $('#errorToast').toast('show');
+        });
+    </script>
+}
+@section script{
+<script>
+
+    function ShowModal(commentId, userId) {
+        $("#CommentId").val(commentId);
+        $("#UserId").val(userId);
+        $("#myModal").modal("show");
+    }
+
+    function Delete() {
+        console.log("CommentId: " + $("#CommentId").val());
+        document.getElementById("deleteForm").submit();
+        var userId = $("#UserId").val();
+
+        $.ajax({
+            url: "/Admin/DeleteBlogComment",
+            type: "POST",
+            data: { CommentId: $("#CommentId").val(), UserId: userId },
+        });
+    }
+    function CloseModal() {
+        $('#myModal').modal('hide');
+    }
+
+</script>
+}

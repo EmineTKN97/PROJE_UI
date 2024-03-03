@@ -7,20 +7,20 @@
             <div class="col-lg-8 entries">
                 <article class="entry">
                     <center><h1 class="text-danger">MÜZE BİLETİ SATIN AL</h1></center>
-                    @foreach (Museum item in Model)
-                    {
-                        <div>
-                            <h2>@item.name</h2>
-                            <p><strong>Description:</strong> @item.description</p>
-                            <p><strong>Address:</strong> @item.address</p>
-                            <p><strong>Working Time:</strong> @item.workingTime</p>
-                            <p><strong>Details:</strong> @item.details</p>
-                            <p><strong>Location:</strong> Latitude @item.latitude, Longitude @item.longitude</p>
-                            <p><strong>Contact:</strong> Phone:@item.phone, Email: @item.email</p>
-                            <p><strong>Website:</strong> @item.website</p>
-                            <p><strong>City:</strong> @item.city, District: @item.district</p>
-                        </div>
-                    }
+
+                    <label for="museumSelect">Müze Seçiniz:</label>
+                    <select id="museumSelect" class="form-select" aria-label="Select museum">
+                        <option selected disabled>Bir Müze Seçiniz</option>
+                        @foreach (Museum item in Model)
+                        {
+                            <option value="@item.name.ToLower()">@item.name</option>
+                        }
+                    </select>
+
+                    <div id="museumDetails">
+                        <!-- Seçilen müze detayları burada gösterilecek -->
+                    </div>
+
                 </article>
             </div>
 
@@ -29,3 +29,33 @@
     </div>
 </section>
 
+@section script {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var museumSelect = document.getElementById('museumSelect');
+            var museumDetails = document.getElementById('museumDetails');
+
+            var museums = @Html.Raw(Json.Serialize(Model));
+
+            museumSelect.addEventListener('change', function () {
+                var selectedMuseumName = this.value;
+                showMuseumDetails(selectedMuseumName);
+            });
+
+            function showMuseumDetails(selectedMuseumName) {
+                museumDetails.innerHTML = ""; 
+                var selectedMuseum = museums.find(m => m.name.toLowerCase() === selectedMuseumName.toLowerCase());
+                if (selectedMuseum) {
+                    museumDetails.innerHTML += "<h2>" + selectedMuseum.name + "</h2>";
+                    museumDetails.innerHTML += "<p>" + selectedMuseum.description + "</p>";
+                    museumDetails.innerHTML += "<p><strong>Adresi:</strong> " + selectedMuseum.address + "</p>";
+                    museumDetails.innerHTML += "<p><strong>Çalışma Saatleri:</strong> " + selectedMuseum.workingTime + "</p>";
+                    museumDetails.innerHTML += "<p><strong>Konumu:</strong> Latitude " + selectedMuseum.latitude + ", Longitude " + selectedMuseum.longitude + "</p>";
+                    museumDetails.innerHTML += "<p><strong>İletişim:</strong> Phone:" + selectedMuseum.phone + ", Email: " + selectedMuseum.email + "</p>";
+                    museumDetails.innerHTML += "<p><strong>Website:</strong> " + selectedMuseum.website + "</p>";
+                    museumDetails.innerHTML += "<p><strong>Şehir:</strong> " + selectedMuseum.city + ", <strong>İlçe:</strong> " + selectedMuseum.district + "</p>";
+                }
+            }
+        });
+    </script>
+}

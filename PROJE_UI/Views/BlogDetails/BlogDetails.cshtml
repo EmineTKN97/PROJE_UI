@@ -23,8 +23,8 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h2>Blog Detayı</h2>
                 <ol>
-                    <li><a href="/Home/Index"><i class="fas fa-home"></i> Anasayfa</a></li>
-                    <li><a href="/BlogDetails/ListBlog">Bloglar</a></li>
+                    <li><a href="/Home/Index/"><i class="fas fa-home"></i> Anasayfa</a></li>
+                    <li><a href="/BlogDetails/ListBlog/">Bloglar</a></li>
                 </ol>
             </div>
         </div>
@@ -175,7 +175,6 @@
                         }
                     });
                 } else {
-                    // Eğer daha önce like atılmışsa
                     $.ajax({
                         url: '/BlogLike/DeleteLike', // Sileceğiniz endpoint'i belirtin
                         type: 'POST',

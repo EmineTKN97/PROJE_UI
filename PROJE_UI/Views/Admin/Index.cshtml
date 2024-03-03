@@ -1,20 +1,71 @@
-﻿@await Component.InvokeAsync("Slidebar")
+﻿@using PROJE_UI.Models;
+@model List<Blog>
+@await Component.InvokeAsync("Slidebar")
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>TÜM BLOGLAR</h2>
+        </div>
+    </div>
+</section>
 <section id="blog" class="blog">
 
     <div class="container" data-aos="fade-up">
 
         <div class="row">
-            <div class="col-lg-8 entries">
-                <article class="entry">
-                    <h1>Index</h1>
-                </article>
-            </div>
 
 
 
-            @await Component.InvokeAsync("AnnouncementDetails")
-        </div><!-- End sidebar -->
-    </div>
+            @foreach (Blog item in Model)
+            {
+                <div class="col-lg-10 entries">
+                    <article class="entry">
+
+
+                        <div class="entry-img">
+                            <img src="https://localhost:7185/Uploads/StaticContent/@item.ImagePath" width="1920px" height="430px" alt="Blog Resimi" class="img-fluid">
+
+                        </div>
+                        <h2 class="entry-title">
+                            @item.Title.ToUpper()
+                        </h2>
+                        <div class="entry-meta">
+                            <ul>
+                                <li class="d-flex align-items-center">
+                                    <div class="comment-img">
+                                        <img src="https://localhost:7185/Uploads/StaticContent/@item.UserImagePath" alt="BlogYazarResimi" height="30">
+                                        @item.Name.ToUpper()  @item.SurName.ToUpper()
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center"><i class="bi bi-clock"></i>@item.BlogDate</li>
+                                <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="/Blog/BlogDetails">@item.BlogCommentCount</a></li>
+                                <li class="d-flex align-items-center">
+                                    <i class="bi bi-heart"></i> <a href="/Blog/BlogDetails">@item.BlogLikeCount</a>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="entry-content" style="height: auto; overflow: auto;">
+                            <p>
+                                @item.Content
+                            </p>
+
+                            <div class="read-more">
+
+                                <a asp-controller="BlogDetails" asp-action="BlogDetails" asp-route-blogId="@item.BlogId" id="readMoreBtn" class="btn btn-danger fw-bold mx-1">Detayını Gör</a>
+
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+
+            }
+
+
+        </div>
+    </div><!-- End sidebar -->
+
 
 </section>
 <div class="toast-container position-top  end-0 top-0 p-3">
@@ -25,13 +76,14 @@
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body text-bg-success">
-            
+
             <strong> @TempData["SuccessLogin"] </strong>
             <strong> @TempData["SuccessAddAnnouncement"] </strong>
             <strong> @TempData["SuccessDeleteAnnouncement"] </strong>
             <strong> @TempData["SuccessUpdateAnnouncement"] </strong>
             <strong> @TempData["SuccessUpdateProfile"]</strong>
             <strong> @TempData["SuccessUpdatePassword"]</strong>
+            <strong> @TempData["SuccessDeleteBlogComment"]</strong>
 
         </div>
     </div>
@@ -51,7 +103,7 @@
         </div>
     </div>
 </div>
-@if (TempData["SuccessLogin"] != null || TempData["SuccessAddAnnouncement"] != null || TempData["SuccessDeleteAnnouncement"] != null || TempData["SuccessUpdateAnnouncement"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null)
+@if (TempData["SuccessLogin"] != null || TempData["SuccessAddAnnouncement"] != null || TempData["SuccessDeleteAnnouncement"] != null || TempData["SuccessUpdateAnnouncement"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeleteBlogComment"] != null)
 {
     <script>
         $(document).ready(function () {
