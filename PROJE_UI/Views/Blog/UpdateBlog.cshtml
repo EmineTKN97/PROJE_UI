@@ -14,7 +14,7 @@
         .rounded-form-container {
             border: 1px solid #ccc;
             border-radius: 10px;
-            padding: 20px;
+            padding: 10px;
             width: 700px;
         }
     </style>
@@ -59,7 +59,6 @@
                 <form id="pictureForm" enctype="multipart/form-data">
                     <div class="input-group mb-3">
                         <input type="file" name="ImagePath" class="form-control" multiple="multiple" id="inputGroupFile02">
-                        <input type="hidden" id="BlogId" name="BlogId" value="@Model.BlogId" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
@@ -92,58 +91,43 @@
     </div>
 </div>
 @section script{
-    <script>
-    $('#savePictureBtn').click(function () {
-        var formData = new FormData($('#pictureForm')[0]);
+        <script>
+            $(document).ready(function () {
+                $('#savePictureBtn').click(function () {
+                    var formData = new FormData($('#pictureForm')[0]);
 
-        $.ajax({
-            url: '/BlogMedia/UpdateBlogMedia',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                $('#exampleModal').modal('hide');
-                window.location.href = '/UserEdit/Index';
-            },
-            error: function (error) {
-                console.log(error);
+                    // BlogId'yi set et
+                    formData.append('BlogId', $("#BlogId").val());
+
+                    $.ajax({
+                        url: '/BlogMedia/UpdateBlogMedia',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            $('#exampleModal').modal('hide');
+                            window.location.href = '/UserEdit/Index';
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    });
+                });
+
+            function ShowModal(id) {
+                $("#MediaId").val(id);
+                $("#BlogId").val('BlogId');
+                $("#myModal").modal("show");
             }
-        });
-    });
-        function ShowModal(mediaId, blogId) {
-            $("#MediaId").val(mediaId);
-            $("#BlogId").val(blogId);
-            $("#myModal").modal("show");
-        }
 
-        $('#savePictureBtn').click(function () {
-            var formData = new FormData($('#pictureForm')[0]);
-
-            // BlogId'yi set et
-            formData.append('BlogId', $("#BlogId").val());
-
-            $.ajax({
-                url: '/BlogMedia/UpdateBlogMedia',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    $('#exampleModal').modal('hide');
-                    window.location.href = '/UserEdit/Index';
-                },
-                error: function (error) {
-                    console.log(error);
-                }
+            function Delete() {
+                document.getElementById("deleteForm").submit();
+            }
+            function CloseModal() {
+                $('#myModal').modal('hide');
+            }
             });
-        });
-
-        function Delete() {
-            $("#BlogId").val($("#deleteForm").find("#BlogId").val());
-            document.getElementById("deleteForm").submit();
-        }
-        
-        
     </script>
 }
+   

@@ -32,7 +32,7 @@
                                     {
                                         <tr>
                                             <td><strong>@(i + 1)</strong></td>
-                                            <td><strong>@Model[i].Name.ToUpper()@(Model[i].SurName.ToUpper())</strong></td>
+                                            <td><strong>@(Model[i].Name.ToUpper() + " " + Model[i].SurName.ToUpper())</strong></td>
                                             <td><strong>@Model[i].Email</strong></td>
                                             <td>
                                                 <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Yetkilendir">

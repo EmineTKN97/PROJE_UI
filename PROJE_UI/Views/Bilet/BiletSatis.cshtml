@@ -25,11 +25,10 @@
                             <option value="@item.DistrictName.ToLower()">@item.DistrictName.ToUpper()</option>
                         }
                     </select>
-
-                    <button asp-controller="Bilet" asp-action="BlogDetails" class="btn btn-danger">
+                    <a href="#" class="btn btn-danger">
                         <i class="fas fa-arrow-left"></i> Geri
-                    </button>
-                    <button onclick="redirectToMuseum()" class="btn btn-danger float-end">
+                    </a>
+                    <button onclick="redirectToMuseum()" class="btn btn-danger fw-bold mx-1 float-end">
                         İleri <i class="fas fa-arrow-right"></i>
                     </button>
                 </article>

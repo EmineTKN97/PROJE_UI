@@ -69,7 +69,7 @@ namespace PROJE_UI.Controllers
             }
         }
       
-            [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> MuseumDetails(string city,string district)
             {
                 string apiKey = "93k9I6pzPzDC3Nnc4tsJLdK86pCLIUySdbmpxfHqTmnsQyWdQ1tipEf0AnQ7";
@@ -99,8 +99,17 @@ namespace PROJE_UI.Controllers
                     return RedirectToAction("Error", new { message = "Müze API ile iletişim sırasında bir hata oluştu." });
                 }
             }
-
-
-
+        [HttpGet]
+        public async Task<IActionResult> UserDetails(User user)
+        {
+            return View(new User());
         }
+        [HttpPost]
+        public async Task<IActionResult> UserDetails()
+        {
+            return View(new User());
+        }
+
+
+    }
 }

@@ -61,7 +61,7 @@ namespace PROJE_UI.Controllers
                 var response = await _client.PostAsync($"{BaseUrl}api/Medias/AddBlogMedia?BlogId={BlogId}&UserId={userId}", formContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    return View("Index","UserEdit");
+                    return RedirectToAction("Index","UserEdit");
                 }
             }
             return View("Error");
@@ -89,14 +89,14 @@ namespace PROJE_UI.Controllers
                     formContent.Add(new StreamContent(model.ImagePath.OpenReadStream())
                     {
                         Headers =
-                    {
+                {
                     ContentLength = model.ImagePath.Length,
                     ContentType= new MediaTypeHeaderValue(model.ImagePath.ContentType)
 
-                    }
+                }
                     }, "file", model.ImagePath.FileName);
 
-                    var response = await _client.PostAsync($"{BaseUrl}api/Medias/UpdateBlogMedia?BlogId={model.BlogId}&UserId={userId}", formContent);
+                    var response = await _client.PutAsync($"{BaseUrl}api/Medias/UpdateBlogMedia?BlogId={model.BlogId}&UserId={userId}", formContent);
                     if (response.IsSuccessStatusCode)
                     {
                         return RedirectToAction("Index", "UserEdit");
@@ -107,7 +107,7 @@ namespace PROJE_UI.Controllers
             return View("Error");
         }
 
-        [HttpPost]
+            [HttpPost]
         public async Task<IActionResult> DeleteBlogMedia(Guid MediaId, Guid BlogId)
         {
             var userId = HttpContext.Request.Cookies["UserId"];

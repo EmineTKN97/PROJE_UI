@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.DataProtection;
+
 using PROJE_UI;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ApiServiceOptions>(options =>
@@ -10,7 +10,10 @@ var apiServiceOptions = new ApiServiceOptions
 {
     BaseUrl = new Uri("https://localhost:7185")
 };
+
+
 builder.Services.AddSingleton(apiServiceOptions);
+builder.Services.AddSession();
 builder.Services.AddHttpClient();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
      .AddCookie(options =>
@@ -23,5 +26,6 @@ var app = builder.Build();
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 app.MapDefaultControllerRoute(); 
 app.Run();

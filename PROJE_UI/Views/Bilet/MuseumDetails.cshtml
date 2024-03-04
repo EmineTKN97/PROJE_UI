@@ -9,7 +9,7 @@
                     <center><h1 class="text-danger">MÜZE BİLETİ SATIN AL</h1></center>
 
                     <label for="museumSelect">Müze Seçiniz:</label>
-                    <select id="museumSelect" class="form-select" aria-label="Select museum">
+                    <select id="museumSelect" class="form-select form-select-lg mb-3" aria-label="Select museum">
                         <option selected disabled>Bir Müze Seçiniz</option>
                         @foreach (Museum item in Model)
                         {
@@ -20,8 +20,14 @@
                     <div id="museumDetails">
                         <!-- Seçilen müze detayları burada gösterilecek -->
                     </div>
-
+                    <a asp-controller="Bilet" asp-action="BiletSatis" class="btn btn-danger fw-bold mx-1">
+                        <i class="fas fa-arrow-left"></i> Geri
+                    </a>
+                    <a asp-controller="Bilet" asp-action="UserDetails" class="btn btn-danger fw-bold mx-1 float-end">
+                        <i class="fas fa-arrow-right"></i> İleri
+                    </a>
                 </article>
+            
             </div>
 
             @await Component.InvokeAsync("AnnouncementDetails")
@@ -43,17 +49,17 @@
             });
 
             function showMuseumDetails(selectedMuseumName) {
-                museumDetails.innerHTML = ""; 
+                museumDetails.innerHTML = "";
                 var selectedMuseum = museums.find(m => m.name.toLowerCase() === selectedMuseumName.toLowerCase());
                 if (selectedMuseum) {
-                    museumDetails.innerHTML += "<h2>" + selectedMuseum.name + "</h2>";
-                    museumDetails.innerHTML += "<p>" + selectedMuseum.description + "</p>";
-                    museumDetails.innerHTML += "<p><strong>Adresi:</strong> " + selectedMuseum.address + "</p>";
-                    museumDetails.innerHTML += "<p><strong>Çalışma Saatleri:</strong> " + selectedMuseum.workingTime + "</p>";
-                    museumDetails.innerHTML += "<p><strong>Konumu:</strong> Latitude " + selectedMuseum.latitude + ", Longitude " + selectedMuseum.longitude + "</p>";
-                    museumDetails.innerHTML += "<p><strong>İletişim:</strong> Phone:" + selectedMuseum.phone + ", Email: " + selectedMuseum.email + "</p>";
-                    museumDetails.innerHTML += "<p><strong>Website:</strong> " + selectedMuseum.website + "</p>";
-                    museumDetails.innerHTML += "<p><strong>Şehir:</strong> " + selectedMuseum.city + ", <strong>İlçe:</strong> " + selectedMuseum.district + "</p>";
+                    museumDetails.innerHTML += "<h2 style='font-size: 24px; font-weight: bold;'>" + selectedMuseum.name + "</h2>";
+                    museumDetails.innerHTML += "<p style='font-size: 22px;'>" + selectedMuseum.description + "</p>";
+                    museumDetails.innerHTML += "<p style='font-size: 22px;'><strong>Adresi:</strong> " + selectedMuseum.address + "</p>";
+                    museumDetails.innerHTML += "<p style='font-size: 22px;'><strong>Çalışma Saatleri:</strong> " + selectedMuseum.workingTime + "</p>";
+                    museumDetails.innerHTML += "<p style='font-size: 22px;'><strong>Konumu:</strong> Latitude " + selectedMuseum.latitude + ", Longitude " + selectedMuseum.longitude + "</p>";
+                    museumDetails.innerHTML += "<p style='font-size: 22px;'><strong>İletişim:</strong> Phone:" + selectedMuseum.phone + ", Email: " + selectedMuseum.email + "</p>";
+                    museumDetails.innerHTML += "<p style='font-size: 22px;'><strong>Website:</strong> " + selectedMuseum.website + "</p>";
+                    museumDetails.innerHTML += "<p style='font-size: 22px;'><strong>Şehir:</strong> " + selectedMuseum.city + ", <strong>İlçe:</strong> " + selectedMuseum.district + "</p>";
                 }
             }
         });

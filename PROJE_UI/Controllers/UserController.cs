@@ -245,7 +245,7 @@ namespace PROJE_UI.Controllers
                 }
                 }, "file", model.ImagePath.FileName);
 
-                var response = await _client.PostAsync($"{BaseUrl}Medias/AddUserMedia?UserId={model.UserId}", formContent);
+                var response = await _client.PostAsync($"{BaseUrl}api/Medias/AddUserMedia?UserId={model.UserId}", formContent);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index", "UserEdit");
