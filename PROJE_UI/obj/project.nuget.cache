@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LDic2rnIPlHNxk6Qm2jN5M+EyFlbrfiaV+aaaeN2ShD3nYfOkHCOsIiOsSZqiE+wg4QLad6PxRskNSLf7phrdA==",
+  "dgSpecHash": "8ah075gIt00G7IySdVcoaMa58BuAlk/EzP5Jo5QNeO1jiehs5gpnyEx6mYOX71Px0hLyMbiYz/kscvgi4Nh/2g==",
   "success": true,
   "projectFilePath": "C:\\Users\\emine\\OneDrive\\Masaüstü\\yazilimkursu\\ProjeOdev\\PROJE_UI\\PROJE_UI\\PROJE_UI.csproj",
   "expectedPackageFiles": [
@@ -119,6 +119,7 @@
     "C:\\Users\\emine\\.nuget\\packages\\nuget.projectmodel\\6.3.1\\nuget.projectmodel.6.3.1.nupkg.sha512",
     "C:\\Users\\emine\\.nuget\\packages\\nuget.protocol\\6.3.1\\nuget.protocol.6.3.1.nupkg.sha512",
     "C:\\Users\\emine\\.nuget\\packages\\nuget.versioning\\6.3.1\\nuget.versioning.6.3.1.nupkg.sha512",
+    "C:\\Users\\emine\\.nuget\\packages\\stripe.net\\43.17.0\\stripe.net.43.17.0.nupkg.sha512",
     "C:\\Users\\emine\\.nuget\\packages\\system.codedom\\5.0.0\\system.codedom.5.0.0.nupkg.sha512",
     "C:\\Users\\emine\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",
     "C:\\Users\\emine\\.nuget\\packages\\system.composition\\7.0.0\\system.composition.7.0.0.nupkg.sha512",

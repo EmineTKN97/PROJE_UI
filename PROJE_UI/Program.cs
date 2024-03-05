@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-
 using PROJE_UI;
+using PROJE_UI.Models;
+using Stripe;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ApiServiceOptions>(options =>
 {
@@ -22,6 +24,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
          options.LogoutPath = "/Admin/Logout";
      });
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
+builder.Services.AddScoped<StripeSettings>();
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseAuthentication();

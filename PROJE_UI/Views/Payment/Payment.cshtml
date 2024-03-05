@@ -1,0 +1,61 @@
+﻿@using PROJE_UI.Models;
+@model Ticket;
+
+@await Component.InvokeAsync("Slidebar")
+<section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-lg-8 entries">
+                <article class="entry">
+                    <form action="/Payment/Payment" method="post">
+                        <center><h1 class="text-danger">ÖDEME YAPMADAN ÖNCE BİLGİLERİNİZİ KONTROL EDİNİZ!</h1></center>
+
+                        <div class="mb-3">
+                            <label for="CityName" class="form-label">İl:</label>
+                            <input type="text" class="form-control" id="CityName" name="CityName" value="@Model.CityName">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="DistrictName" class="form-label">İlçe:</label>
+                            <input type="text" class="form-control" id="DistrictName" name="CityName" value="@Model.DistrictName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="MuseumName" class="form-label">Müze:</label>
+                            <input type="text" class="form-control" id="MuseumName" name="CityName" value="@Model.MuseumName">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="UserName" class="form-label">Adınız:</label>
+                            <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="UserSurname" class="form-label">Soyadınız:</label>
+                            <input type="text" class="form-control" id="UserSurname" name="UserSurname" vakue="@Model.UserName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Time" class="form-label">Bilet Tarihi ve Saati</label>
+                            <input type="datetime-local" class="form-control" id="Time" name="Time" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Quantity" class="form-label">Bilet Adetiniz:</label>
+                            <input type="text" class="form-control" id="Quantity" name="Quantity" value="@Model.Quantity">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Price" class="form-label">Toplam Fiyat (TL):</label>
+                            <input type="text" class="form-control" id="TotalPrice" name="Price" value="@Model.Price" readonly>
+                        </div>
+                        <input type="hidden" class="form-control" id="Price" name="Price" value="@Model.Price" >
+                        <center>
+                            <button type="submit" class="btn btn-danger fw-bold mx-1">Ödeme Yap</button>
+                            <a asp-action="AddBilet" asp-controller="Bilet" class="btn btn-danger fw-bold mx-1">İptal</a>
+                            <input type="hidden" id="selectedCityId" name="CityId">
+                            <input type="hidden" id="selectedDistrictId" name="DistrictId">
+                        </center>
+                    </form>
+                </article>
+            </div>
+
+            @await Component.InvokeAsync("AnnouncementDetails")
+        </div>
+    </div>
+</section>

@@ -1,36 +1,89 @@
-﻿@using PROJE_UI.Models;
+﻿
+@using PROJE_UI.Models;
 @model PROJE_UI.ViewModels.BiletSatisViewModel;
-
+@{
+    var userRole = Context.Request.Cookies["UserRole"];
+}
 @await Component.InvokeAsync("Slidebar")
 <section id="blog" class="blog">
     <div class="container" data-aos="fade-up">
         <div class="row">
             <div class="col-lg-8 entries">
                 <article class="entry">
-                    <center><h1 class="text-danger">MÜZE BİLETİ SATIN AL</h1></center>
-                    <label>Şehir Seçiniz:</label>
-                    <select id="selectCity" class="form-select form-select-lg mb-3" aria-label="Large select example">
-                        <option selected disabled>Bir İl Seçiniz</option>
-                        @foreach (var item in Model.Cities)
-                        {
-                            <option value="@item.CityName.ToLower()">@item.CityName.ToUpper()</option>
-                        }
-                    </select>
+                    @if (userRole != "USER")
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <bold> <h3 class="mb-0">Bilet İşlemleri için Lütfen Önce Üye Olunuz Veya Giriş Yapınız!!!</h3></bold>
+                            <center>
+                            <div class="mb-3">
+                                <a asp-controller="User" asp-action="Login" class="btn btn-danger fw-bold mx-1">Giriş Yap</a>
+                                <a asp-controller="User" asp-action="Register" class="btn btn-danger fw-bold mx-1">Üye Ol</a>
+                            </div>
+                            </center>
+                        </div>
+                     
+                    }
+                    <form action="/Bilet/AddBilet" method="post">
+                        <center><h1 class="text-danger">MÜZE BİLETİ SATIN AL</h1></center>
 
-                    <label>İlçe Seçiniz:</label>
-                    <select id="selectDistrict" class="form-select form-select-lg mb-3" aria-label="Large select example">
-                        <option selected disabled>Bir İlçe Seçiniz</option>
-                        @foreach (var item in Model.Districts)
-                        {
-                            <option value="@item.DistrictName.ToLower()">@item.DistrictName.ToUpper()</option>
-                        }
-                    </select>
-                    <a href="#" class="btn btn-danger">
-                        <i class="fas fa-arrow-left"></i> Geri
-                    </a>
-                    <button onclick="redirectToMuseum()" class="btn btn-danger fw-bold mx-1 float-end">
-                        İleri <i class="fas fa-arrow-right"></i>
-                    </button>
+                        <label>Şehir Seçiniz:</label>
+                        <select id="selectCity" class="form-select form-select-lg mb-3" name="CityName" aria-label="Large select example">
+                            <option selected disabled>Bir İl Seçiniz</option>
+                            @foreach (var item in Model.Cities)
+                            {
+
+
+                                <option value="@item.CityName.ToLower()" data-CityId="@item.CityId">@item.CityName.ToUpper()</option>
+                            }
+                        </select>
+
+                        <label>İlçe Seçiniz:</label>
+                        <select id="selectDistrict" class="form-select form-select-lg mb-3" name="DistrictName" aria-label="Large select example">
+                            <option selected disabled>Bir İlçe Seçiniz</option>
+                            @foreach (var item in Model.Districts)
+                            {
+
+                                <option value="@item.DistrictName.ToLower()" data-DistrictId="@item.DistrictId">@item.DistrictName.ToUpper()</option>
+                            }
+                        </select>
+                        <label for="museumSelect">Müze Seçiniz:</label>
+                        <select id="museumSelect" class="form-select form-select-lg mb-3" name="MuseumName" aria-label="Select museum">
+                            <option selected disabled>Bir Müze Seçiniz</option>
+                            @foreach (Museum item in Model.Museums)
+                            {
+                                <option value="@item.name.ToLower()">@item.name</option>
+                            }
+                        </select>
+
+               
+                        <div class="mb-3">
+                            <label for="UserName" class="form-label">Adınız:</label>
+                            <input type="text" class="form-control" id="UserName" name="UserName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="UserSurname" class="form-label">Soyadınız:</label>
+                            <input type="text" class="form-control" id="UserSurname" name="UserSurname">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Time" class="form-label">Bilet Tarihi ve Saati Seçiniz:</label>
+                            <input type="datetime-local" class="form-control" id="Time" name="Time" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Quantity" class="form-label">Bilet Adetiniz:</label>
+                            <input type="text" class="form-control" id="Quantity" name="Quantity">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Price" class="form-label">Toplam Fiyat (TL):</label>
+                            <input type="text" class="form-control" id="TotalPrice" name="Price" readonly>
+                        </div>
+
+                        <center>
+                        <button type="submit" class="btn btn-danger fw-bold mx-1">Bilet Satın Al</button>
+                        <a asp-action="Index" asp-controller="UserEdit" class="btn btn-danger fw-bold mx-1">İptal</a>
+                        <input type="hidden" id="selectedCityId" name="CityId">
+                        <input type="hidden" id="selectedDistrictId" name="DistrictId">
+                        </center>
+                    </form>
                 </article>
             </div>
 
@@ -38,22 +91,115 @@
         </div>
     </div>
 </section>
-@section script{
-<script>
-    function redirectToMuseum() {
-        var selectedCityName = document.getElementById('selectCity').value;
-        var selectedDistrictName = document.getElementById('selectDistrict').value;
-        var xhr = new XMLHttpRequest();
-        var url = '/Bilet/MuseumDetails?city=' + selectedCityName + '&district=' + selectedDistrictName;
-        xhr.open('GET', url, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                console.log(xhr.responseText);
-                window.location.href = url;
-            }
-        };
 
-        xhr.send();
-    }
-</script>
-}
+       @section script {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var selectCity = document.getElementById('selectCity');
+            var selectDistrict = document.getElementById('selectDistrict');
+            var museumSelect = document.getElementById('museumSelect');
+            var selectedCityIdInput = document.getElementById('selectedCityId');
+            var selectedDistrictIdInput = document.getElementById('selectedDistrictId');
+
+            selectCity.addEventListener('change', function () {
+                updateCityId();
+            });
+
+            selectDistrict.addEventListener('change', function () {
+                updateMuseums();
+                updateDistrictId();
+            });
+
+            function updateCityId() {
+                var selectedCityId = selectCity.options[selectCity.selectedIndex].getAttribute('data-CityId');
+                selectedCityIdInput.value = selectedCityId;
+            }
+
+            function updateDistrictId() {
+                var selectedDistrictId = selectDistrict.options[selectDistrict.selectedIndex].getAttribute('data-DistrictId');
+                selectedDistrictIdInput.value = selectedDistrictId;
+            }
+            document.getElementById('Quantity').addEventListener('input', function () {
+                var quantity = parseInt(this.value) || 1; // Default değer: 1
+                var basePrice = 50; // Sabit bilet fiyatı
+
+                var totalPrice = quantity * basePrice;
+
+                // Toplam fiyatı görüntüleme
+                document.getElementById('TotalPrice').value = totalPrice.toString();
+            });
+
+
+            // BiletSatisViewModel tanımlanmış mı kontrol et
+            var viewModel = @Html.Raw(Json.Serialize(Model));
+
+
+            museumSelect.addEventListener('change', function () {
+                var selectedMuseumName = this.value;
+
+            });
+            
+            function updateDistrictOptions(districts) {
+                selectDistrict.innerHTML = "<option selected disabled>Bir İlçe Seçiniz</option>";
+                districts.forEach(function (item) {
+                    selectDistrict.innerHTML += "<option value='" + item.DistrictName.toLowerCase() + "'>" + item.DistrictName + "</option>";
+                });
+            }
+
+            function updateMuseums() {
+                var selectedCityName = selectCity.value;
+                var selectedDistrictName = selectDistrict.value;
+
+                var xhr = new XMLHttpRequest();
+                var apiKey = '93k9I6pzPzDC3Nnc4tsJLdK86pCLIUySdbmpxfHqTmnsQyWdQ1tipEf0AnQ7';
+                var url = 'https://www.nosyapi.com/apiv2/service/museum?city=' + selectedCityName + '&district=' + selectedDistrictName + '&apiKey=' + apiKey;
+
+                console.log(url);
+
+                xhr.open('GET', url, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            // Parse edilen veriyi kontrol et
+                            var response = JSON.parse(xhr.responseText);
+
+                            if (response.status === 'success') {
+                                var museums = response.data;
+
+                                // Log museums variable
+                                console.log('museums:', museums);
+
+                                // viewModel'i kontrol et ve null veya undefined ise başlat
+                                if (!viewModel || typeof viewModel.Museums === 'undefined') {
+                                    viewModel = { Museums: [] };
+                                }
+
+                                updateMuseumOptions(museums);
+                            } else {
+                                console.error('API response status is not success. Message:', response.message);
+                            }
+                        } else {
+                            console.error('Failed to fetch museums. Status code:', xhr.status);
+                        }
+                    }
+                };
+
+                xhr.send();
+            }
+
+            function updateMuseumOptions(museums) {
+                museumSelect.innerHTML = "<option selected disabled>Bir Müze Seçiniz</option>";
+                museums.forEach(function (item) {
+                    if (viewModel && Array.isArray(viewModel.Museums)) {
+                        viewModel.Museums.push(item);
+                        museumSelect.innerHTML += "<option value='" + item.name.toLowerCase() + "'>" + item.name + "</option>";
+                    } else {
+                        console.error('viewModel or viewModel.Museums is not defined properly.');
+                    }
+                });
+            }
+
+
+        });
+    </script>
+} 

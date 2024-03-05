@@ -4,6 +4,8 @@ using PROJE_UI.Models;
 using PROJE_UI.ViewModels;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace PROJE_UI.Controllers
@@ -99,15 +101,32 @@ namespace PROJE_UI.Controllers
                     return RedirectToAction("Error", new { message = "Müze API ile iletişim sırasında bir hata oluştu." });
                 }
             }
-        [HttpGet]
-        public async Task<IActionResult> UserDetails(User user)
-        {
-            return View(new User());
-        }
+        
         [HttpPost]
-        public async Task<IActionResult> UserDetails()
+        public async Task<IActionResult> AddBilet(Ticket model)
         {
-            return View(new User());
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var userRole = HttpContext.Request.Cookies["UserRole"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userRole))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            model.UserId = Guid.Parse(userId);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync($"{BaseUrl}api/Tickets/AddTicket?UserId={userId}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessAddTicket"] = apiResponse;
+                return RedirectToAction("Payment", "Payment");
+            }
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorAddTicket"] = errorResponse;
+            return RedirectToAction("Index", "UserEdit");
+
         }
 
 
