@@ -128,6 +128,31 @@ namespace PROJE_UI.Controllers
             return RedirectToAction("Index", "UserEdit");
 
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteBilet(Guid Id)
+        {
+            var userId = HttpContext.Request.Cookies["UserId"];
+            var userRole = HttpContext.Request.Cookies["UserRole"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userRole))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.DeleteAsync($"{BaseUrl}api/Tickets/DeleteTicket?id={Id}&UserId={userId}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessDeleteTicket"] = apiResponse;
+                return RedirectToAction("Index", "UserEdit");
+            }
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorDeleteTicket"] = errorResponse;
+            return RedirectToAction("Index", "UserEdit");
+
+        }
 
 
     }

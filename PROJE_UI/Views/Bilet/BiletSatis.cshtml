@@ -119,17 +119,17 @@
                 var selectedDistrictId = selectDistrict.options[selectDistrict.selectedIndex].getAttribute('data-DistrictId');
                 selectedDistrictIdInput.value = selectedDistrictId;
             }
-            document.getElementById('Quantity').addEventListener('input', function () {
-                var quantity = parseInt(this.value) || 1; // Default değer: 1
-                var basePrice = 50; // Sabit bilet fiyatı
+            
+                document.getElementById('Quantity').addEventListener('input', function () {
+                    var quantity = parseInt(this.value) || 1; // Default değer: 1
+                    var basePrice = 50; // Sabit bilet fiyatı
 
-                var totalPrice = quantity * basePrice;
+                    var totalPrice = quantity * basePrice;
 
-                // Toplam fiyatı görüntüleme
-                document.getElementById('TotalPrice').value = totalPrice.toString();
-            });
-
-
+                    // Toplam fiyatı görüntüleme
+                    document.getElementById('TotalPrice').value = totalPrice.toFixed(2).replace(".", ",");
+                });
+    
             // BiletSatisViewModel tanımlanmış mı kontrol et
             var viewModel = @Html.Raw(Json.Serialize(Model));
 

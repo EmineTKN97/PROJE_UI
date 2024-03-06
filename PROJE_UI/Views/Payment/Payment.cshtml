@@ -12,42 +12,43 @@
 
                         <div class="mb-3">
                             <label for="CityName" class="form-label">İl:</label>
-                            <input type="text" class="form-control" id="CityName" name="CityName" value="@Model.CityName">
+                            <input type="text" class="form-control" id="CityName" name="CityName" value="@Model.CityName" readonly>
                         </div>
 
                         <div class="mb-3">
                             <label for="DistrictName" class="form-label">İlçe:</label>
-                            <input type="text" class="form-control" id="DistrictName" name="CityName" value="@Model.DistrictName">
+                            <input type="text" class="form-control" id="DistrictName" name="DistrictName" value="@Model.DistrictName" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="MuseumName" class="form-label">Müze:</label>
-                            <input type="text" class="form-control" id="MuseumName" name="CityName" value="@Model.MuseumName">
+                            <input type="text" class="form-control" id="MuseumName" name="MuseumName" value="@Model.MuseumName.ToUpper()" readonly>
                         </div>
 
                         <div class="mb-3">
                             <label for="UserName" class="form-label">Adınız:</label>
-                            <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName">
+                            <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName"  readonly>
                         </div>
                         <div class="mb-3">
                             <label for="UserSurname" class="form-label">Soyadınız:</label>
-                            <input type="text" class="form-control" id="UserSurname" name="UserSurname" vakue="@Model.UserName">
+                            <input type="text" class="form-control" id="UserSurname" name="UserSurname" value="@Model.UserSurname" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="Time" class="form-label">Bilet Tarihi ve Saati</label>
-                            <input type="datetime-local" class="form-control" id="Time" name="Time" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")">
+                            <input type="datetime-local" class="form-control" id="Time" name="Time" value="@Model.Time.ToString("yyyy-MM-ddTHH:mm")" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="Quantity" class="form-label">Bilet Adetiniz:</label>
-                            <input type="text" class="form-control" id="Quantity" name="Quantity" value="@Model.Quantity">
+                            <input type="text" class="form-control" id="Quantity" name="Quantity" value="@Model.Quantity" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="Price" class="form-label">Toplam Fiyat (TL):</label>
-                            <input type="text" class="form-control" id="TotalPrice" name="Price" value="@Model.Price" readonly>
+                            <input type="text" class="form-control" id="Price" name="Price" value="@Model.Price" readonly>
                         </div>
                         <input type="hidden" class="form-control" id="Price" name="Price" value="@Model.Price" >
+
                         <center>
                             <button type="submit" class="btn btn-danger fw-bold mx-1">Ödeme Yap</button>
-                            <a asp-action="AddBilet" asp-controller="Bilet" class="btn btn-danger fw-bold mx-1">İptal</a>
+                            <a href="javascript:void(0);" onclick="ShowModal('@Model.Id')" class="btn btn-danger fw-bold mx-1">İptal</a>
                             <input type="hidden" id="selectedCityId" name="CityId">
                             <input type="hidden" id="selectedDistrictId" name="DistrictId">
                         </center>
@@ -59,3 +60,65 @@
         </div>
     </div>
 </section>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Dikkat</h4>
+            </div>
+            <div class="modal-body">
+                <p>Biletinizi silmek istediğinize emin misiniz?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="CloseModal()">İptal</button>
+                <button type="button" class="btn btn-danger" onclick="Delete()">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="deleteForm" method="post" action="@Url.Action("DeleteBilet","Bilet")">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="Id" name="Id" />
+</form>
+<div class="toast-container position-top  end-0 top-0 p-3">
+    <!-- Second Toast -->
+    <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg bg-success">
+            <strong class="me-auto text-white">Mesaj</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-bg-success">
+            <strong> @TempData["SuccessAddTicket"]</strong>
+            
+        </div>
+    </div>
+    @if (TempData["SuccessAddTicket"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#successToast').toast({
+                    animation: true,
+                    delay: 3000
+                });
+                $('#successToast').toast('show');
+            });
+        </script>
+    }
+    }
+    @section script {
+        <script>
+            function ShowModal(id) {
+                $("#Id").val(id);
+                $("#myModal").modal("show");
+            }
+
+            function Delete() {
+                console.log("Id: " + $("#Id").val());
+                document.getElementById("deleteForm").submit();
+            }
+
+            function CloseModal() {
+                $('#myModal').modal('hide');
+            }
+        </script>
+    }

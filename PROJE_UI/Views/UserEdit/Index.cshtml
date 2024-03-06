@@ -89,7 +89,7 @@
             <strong>@TempData["SuccessDeletePicture"]</strong>
             <strong>@TempData["SuccessDeleteLike"]</strong>
             <strong>@TempData["SuccessLike"]</strong>
-            <strong>@TempData["SuccessAddTicket"]</strong>
+            <strong>@TempData["SuccessDeleteTicket"]</strong>
         </div>
     </div>
 </div>
@@ -112,11 +112,11 @@
             <strong>@TempData["ErrorDeleteLike"]</strong>
             <strong>@TempData["ErrorLike"]</strong>
             <strong>@TempData["ErrorAddTicket"]</strong>
-
+            <strong>@TempData["ErrorDeleteTicket"]</strong>
         </div>
     </div>
 </div>
-@if (TempData["SuccessDeleteComment"] != null || TempData["SuccessAddComment"] != null || TempData["SuccessUpdateComment"] != null || TempData["SuccessDeleteBlog"] != null || TempData["SuccessUpdateBlog"] != null || TempData["SuccessAddMediaBlog"] != null || TempData["SuccessUpdateBlogMedia"] != null || TempData["SuccessDeleteBlogMedia"] != null || TempData["SuccessLogin"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeletePicture"] != null || TempData["SuccessDeleteLike"] != null || TempData["SuccessLike"] != null || TempData["SuccessAddTicket"] != null)
+@if (TempData["SuccessDeleteComment"] != null || TempData["SuccessAddComment"] != null || TempData["SuccessUpdateComment"] != null || TempData["SuccessDeleteBlog"] != null || TempData["SuccessUpdateBlog"] != null || TempData["SuccessAddMediaBlog"] != null || TempData["SuccessUpdateBlogMedia"] != null || TempData["SuccessDeleteBlogMedia"] != null || TempData["SuccessLogin"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeletePicture"] != null || TempData["SuccessDeleteLike"] != null || TempData["SuccessLike"] != null || TempData["SuccessDeleteTicket"] != null)
 {
     <script>
         $(document).ready(function () {
@@ -128,7 +128,7 @@
         });
     </script>
 }
-@if (TempData["ErrorAddComment"] != null || TempData["ErrorDeleteBlog"] != null || TempData["ErrorUpdateBlog"] != null || TempData["ErrorUpdateBlogMedia"] != null || TempData["ErrorDeleteBlogMedia"] != null || TempData["ErrorUpdateProfile"] != null || TempData["ErrorDeletePicture"] != null || TempData["ErrorDeleteUser"] != null || TempData["ErrorDeleteLike"] != null || TempData["ErrorLike"] != null || TempData["ErrorAddTicket"] != null)
+@if (TempData["ErrorAddComment"] != null || TempData["ErrorDeleteBlog"] != null || TempData["ErrorUpdateBlog"] != null || TempData["ErrorUpdateBlogMedia"] != null || TempData["ErrorDeleteBlogMedia"] != null || TempData["ErrorUpdateProfile"] != null || TempData["ErrorDeletePicture"] != null || TempData["ErrorDeleteUser"] != null || TempData["ErrorDeleteLike"] != null || TempData["ErrorLike"] != null || TempData["ErrorAddTicket"] != null || TempData["ErrorDeleteTicket"] != null)
 {
     <script>
         $(document).ready(function () {

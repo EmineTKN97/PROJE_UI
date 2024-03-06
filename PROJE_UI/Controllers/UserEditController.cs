@@ -34,5 +34,17 @@ namespace PROJE_UI.Controllers
                 return RedirectToAction("Register","User");
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> Success()
+        {
+           
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Error()
+        {
+          
+            return View();
+        }
     }
 }

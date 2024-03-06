@@ -16,9 +16,9 @@ namespace PROJE_UI.Controllers
         private readonly StripeSettings _stripeSettings;
         private readonly ApiServiceOptions _apiServiceOptions;
         public string SessionId { get; set; }
-        public PaymentController(StripeSettings stripeSettings, ApiServiceOptions apiServiceOptions, HttpClient client)
+        public PaymentController(IOptions<StripeSettings> stripeSettings, ApiServiceOptions apiServiceOptions, HttpClient client)
         {
-            _stripeSettings = stripeSettings;
+            _stripeSettings = stripeSettings.Value;
             _apiServiceOptions = apiServiceOptions;
             _client = client;   
         }
@@ -42,45 +42,54 @@ namespace PROJE_UI.Controllers
             return RedirectToAction("BiletSatis", "Bilet");
         }
         [HttpPost]
-        public IActionResult Payment(string Price)
+        public IActionResult Payment(decimal Price, string MuseumName, int Quantity,string UserName,string UserSurName)
         {
-           
-                string currency = "usd";
-                string successUrl = "http://localhost:5131/Home/Success";
-                string cancelUrl = "http://localhost:5131/Home/Cancel";
 
-                StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
+            string currency = "usd";
+            string successUrl = "https://localhost:7019/UserEdit/Success";
+            string cancelUrl = "https://localhost:7019/UserEdit/Error";
 
-                SessionCreateOptions options = new()
-                {
-                    PaymentMethodTypes = new List<string>()
+            StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
+
+            SessionCreateOptions options = new()
+            {
+                PaymentMethodTypes = new List<string>()
                 {
                     "card"
                 },
-                    LineItems = new List<SessionLineItemOptions> {
+                LineItems = new List<SessionLineItemOptions> {
                     new SessionLineItemOptions()
                     {
                         PriceData = new SessionLineItemPriceDataOptions()
                         {
                             Currency = currency,
                             UnitAmount = Convert.ToInt32(Price) * 100,
-                            
+                            ProductData = new SessionLineItemPriceDataProductDataOptions()
+                            {
+
+                                Name =$"{UserName} {UserSurName}",
+                                Description= MuseumName
+                               
+                            }
+
+                            },
+                            Quantity =1,
                         },
-                        Quantity = 1
+
                     },
-                    
-                },
                     Mode = "payment",
                     SuccessUrl = successUrl,
                     CancelUrl = cancelUrl
                 };
 
-                SessionService sessionService = new();
 
-                Session session = sessionService.Create(options);
-                SessionId = session.Id;
+            SessionService sessionService = new();
 
-                return Redirect(session.Url);
+            Session session = sessionService.Create(options);
+            SessionId = session.Id;
+
+            return Redirect(session.Url);
+        
             
 
 

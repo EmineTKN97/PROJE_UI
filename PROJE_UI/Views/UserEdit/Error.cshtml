@@ -1,0 +1,14 @@
+﻿@await Component.InvokeAsync("Slidebar")
+<div class="container" data-aos="fade-up">
+    <div class="row">
+        <div class="col-lg-8 entries">
+            <div class="alert alert-danger mx-auto mt-5" role="alert">
+                <h4 class="alert-heading">Başarısız</h4>
+                <i class="bi bi-x-octagon"></i>
+                <p>Ödeme işleminiz gerçekleştirilemedi. Lütfen tekrar deneyiniz.</p>
+                <hr>
+                <a asp-controller="UserEdit" asp-action="Index" class="btn btn-danger fw-bold mt-3">Anasayfaya Dön</a>
+            </div>
+        </div>
+    </div>
+</div>
