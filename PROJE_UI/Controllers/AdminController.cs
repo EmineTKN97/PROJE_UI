@@ -6,6 +6,7 @@ using PROJE_UI.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Text;
+using NuGet.Protocol.Plugins;
 
 namespace PROJE_UI.Controllers
 {
@@ -271,6 +272,50 @@ namespace PROJE_UI.Controllers
             var errorResponse = await response.Content.ReadAsStringAsync();
             TempData["ErrorDeleteBlogComment"] = errorResponse;
             return RedirectToAction("GetAllComment", "Admin");
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> AddTicketPrice()
+        {
+            var id = "e7c37d57-4a9b-44fb-90ae-d9a20937ea14";
+
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+            var adminrole = HttpContext.Request.Cookies["AdminRole"];
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.GetAsync($"{BaseUrl}api/Costs/GetById?id={id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Error", new { message = "Fiyat bulunamadı." });
+            }
+
+            var ApiResponse = await response.Content.ReadAsStringAsync();
+            var Result = JsonConvert.DeserializeObject<Cost>(ApiResponse);
+            return View(Result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddTicketPrice(Cost model)
+        {
+            var adminId = HttpContext.Request.Cookies["AdminId"];
+            var adminRole = HttpContext.Request.Cookies["AdminRole"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(adminId) || string.IsNullOrEmpty(adminRole))
+            {
+                return RedirectToAction("Login", "User");
+            }
+        
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"{BaseUrl}api/Costs/UpdateTicketPrice?id={model.Id}", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                TempData["SuccessAddPrice"] = apiResponse;
+                return RedirectToAction("Index", "Admin");
+            }
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorAddPrice"] = errorResponse;
+            return RedirectToAction("Index", "Admin");
 
         }
         public async Task<IActionResult> LogOut()

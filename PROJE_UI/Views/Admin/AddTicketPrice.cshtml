@@ -1,0 +1,37 @@
+﻿@using PROJE_UI.Models;
+@model Cost
+@section css
+{
+    <style>
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            margin: auto;
+            padding: auto;
+        }
+
+        .rounded-form-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 700px;
+        }
+    </style>
+}
+
+    <div class="rounded-form-container">
+        <center><h1 class="text-danger">BİLET FİYATINI DÜZENLE</h1></center>
+    <form class="position-sticky" method="post" action="/Admin/AddTicketPrice" >
+            <div class="mb-3">
+                <label for="Price" class="form-label">Fiyat Giriniz: </label>
+            <input type="text" name="Price" class="form-control"  id="Price" value="@Model.Price">
+            </div>
+        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+            <center>
+             <button type="submit" class="btn btn-danger fw-bold mx-1">Güncelle</button>
+            <button type="reset" class="btn btn-danger fw-bold mx-1">Sil</button>
+        </center>
+        </form>
+    </div>

@@ -108,6 +108,7 @@ namespace PROJE_UI.Controllers
             var userId = HttpContext.Request.Cookies["UserId"];
             var userRole = HttpContext.Request.Cookies["UserRole"];
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
+            model.CostId = new Guid("E7C37D57-4A9B-44FB-90AE-D9A20937EA14");
 
             if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userRole))
             {

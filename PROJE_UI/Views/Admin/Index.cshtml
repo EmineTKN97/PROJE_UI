@@ -84,6 +84,7 @@
             <strong> @TempData["SuccessUpdateProfile"]</strong>
             <strong> @TempData["SuccessUpdatePassword"]</strong>
             <strong> @TempData["SuccessDeleteBlogComment"]</strong>
+            <strong> @TempData["SuccessAddPrice"]</strong>
 
         </div>
     </div>
@@ -100,10 +101,11 @@
             <strong> @TempData["ErrorUpdateProfile"]</strong>
             <strong> @TempData["ErrorUpdatePassword"]</strong>
             <strong> @TempData["ErrorDeleteAdmin"]</strong>
+            <strong> @TempData["ErrorAddPrice"]</strong>
         </div>
     </div>
 </div>
-@if (TempData["SuccessLogin"] != null || TempData["SuccessAddAnnouncement"] != null || TempData["SuccessDeleteAnnouncement"] != null || TempData["SuccessUpdateAnnouncement"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeleteBlogComment"] != null)
+@if (TempData["SuccessLogin"] != null || TempData["SuccessAddAnnouncement"] != null || TempData["SuccessDeleteAnnouncement"] != null || TempData["SuccessUpdateAnnouncement"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeleteBlogComment"] != null || TempData["SuccessAddPrice"] != null)
 {
     <script>
         $(document).ready(function () {
@@ -115,7 +117,7 @@
         });
     </script>
 }
-@if (TempData["ErrorUpdateAnnouncement"] != null || TempData["ErrorUpdateProfile"] != null || TempData["ErrorUpdatePassword"] != null || TempData["ErrorDeleteAdmin"] != null)
+@if (TempData["ErrorUpdateAnnouncement"] != null || TempData["ErrorUpdateProfile"] != null || TempData["ErrorUpdatePassword"] != null || TempData["ErrorDeleteAdmin"] != null || TempData["ErrorAddPrice"] != null)
 {
     <script>
         $(document).ready(function () {
