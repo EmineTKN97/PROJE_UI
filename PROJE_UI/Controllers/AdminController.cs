@@ -339,7 +339,7 @@ namespace PROJE_UI.Controllers
                 return RedirectToAction("LoginAdmin", "Admin");
             }
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
-            var response = await _client.PutAsync($"{BaseUrl}api/Auth/ChangeRole?UserId={UserId}", null);
+            var response = await _client.PostAsync($"{BaseUrl}api/Auth/ChangeRole?UserId={UserId}", null);
             if (response.IsSuccessStatusCode)
             {
                 var apiResponse = await response.Content.ReadAsStringAsync();
@@ -348,11 +348,11 @@ namespace PROJE_UI.Controllers
                 return RedirectToAction("Index", "Admin");
             }
             var errorResponse = await response.Content.ReadAsStringAsync();
-       Console.WriteLine(errorResponse);
+            TempData["ErrorUpdateRoles"] = errorResponse;
             return RedirectToAction("Index", "Admin");
 
         }
-
+       
         public void SetUserCookies(string adminId, string adminRole, string bearerToken)
         {
             var userCookieOptions = new CookieOptions

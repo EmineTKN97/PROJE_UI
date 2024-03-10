@@ -9,7 +9,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Text;
 using PROJE_UI.ViewModels;
-using PROJE_UI.Validation;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using FluentValidation;
 
@@ -35,52 +34,47 @@ namespace PROJE_UI.Controllers
         }
 
         [HttpPost]
+
+        [HttpPost]
         public async Task<IActionResult> Register(User model)
         {
-            try
-            {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-                var handler = new JwtSecurityTokenHandler();
-                using (var response = await _client.PostAsync($"{BaseUrl}api/Auth/registerUser", content))
-                {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var apiResponse = await response.Content.ReadAsStringAsync();
-                        var data = JsonConvert.DeserializeObject<LoginApiResponseModel>(apiResponse);
-                        var token = handler.ReadJwtToken(data.Data.Token);
-                        var userIdClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-                        var userRoleClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
-                        var userName = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
 
-                        if (userIdClaim != null && userRoleClaim != null)
-                        {
-                            SetUserCookies(userIdClaim.Value, userRoleClaim.Value, data.Data.Token);
-                        }
-                        TempData["SuccessRegister"] = $"{data.Message} {userName.Value.ToUpperInvariant()}";
-                        return RedirectToAction("AddPicture", "User");
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var handler = new JwtSecurityTokenHandler();
+            using (var response = await _client.PostAsync($"{BaseUrl}api/Auth/registerUser", content))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var apiResponse = await response.Content.ReadAsStringAsync();
+                    var data = JsonConvert.DeserializeObject<LoginApiResponseModel>(apiResponse);
+                    var token = handler.ReadJwtToken(data.Data.Token);
+                    var userIdClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                    var userRoleClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
+                    var userName = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
+                    if (userIdClaim != null && userRoleClaim != null)
+                    {
+                        SetUserCookies(userIdClaim.Value, userRoleClaim.Value, data.Data.Token);
                     }
+                    TempData["SuccessRegister"] = $"{data.Message} {userName.Value.ToUpperInvariant()}";
+                    return RedirectToAction("AddPicture", "User");
                 }
-            }
-            catch (FluentValidation.ValidationException ex)
-            {
-                var errors = TempData["FluentValidationErrors"] as List<FluentValidationExceptionFilter.ValidationError>;
-
-
-                if (errors != null)
+                else
                 {
-                    foreach (var error in errors)
-                    {
-                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                    }
-              
+                    var errorResponse = await ValidateResponse(response);
+                    TempData["Message"] = string.Join(", ", errorResponse.ValidationErrors.Select(x => x.ErrorMessage));
+                    TempData["Success"] = true;
+                    return View(errorResponse);
+
                 }
 
             }
+        }
 
-                return View(model);
-       }
-            
-        
+        private async Task<ApiErrorResponse> ValidateResponse(HttpResponseMessage responseMessage)
+        {
+            var responseContent = await responseMessage.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ApiErrorResponse>(responseContent);
+        }
         [HttpGet]
         public IActionResult Login()
         {

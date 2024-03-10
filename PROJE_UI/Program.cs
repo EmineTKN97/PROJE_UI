@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using PROJE_UI;
 using PROJE_UI.Models;
-using PROJE_UI.Validation;
 using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,10 +25,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
          options.ExpireTimeSpan = TimeSpan.FromDays(1);
      });
 builder.Services.AddControllersWithViews();
-builder.Services.AddControllersWithViews(options =>
-{
-    options.Filters.Add(new FluentValidationExceptionFilter());
-});
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
 builder.Services.AddScoped<StripeSettings>();
 

@@ -35,18 +35,19 @@
                                             <td><strong>@(Model[i].Name.ToUpper() + " " + Model[i].SurName.ToUpper())</strong></td>
                                             <td><strong>@Model[i].Email</strong></td>
                                             <td>
-                                                <form id="changeRolesForm_@(Model[i].UserId)" asp-action="ChangeRoles" asp-controller="Admin" method="Post">
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Yetkilendir" onclick="changeRoles('@Model[i].UserId')">
-                                                        <i class="fas fa-key"></i>
-                                                    </a>
-                                                    <input type="hidden" id="userIdInput_@(Model[i].UserId)" name="UserId" value="@Model[i].UserId" />
+                                                <form id="changeRolesForm_@(Model[i].UserId)" asp-action="ChangeRoles" asp-controller="Admin" method="post">
+                                                    <div class="btn-group" role="group" aria-label="İşlemler">
+                                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Yetkilendir" onclick="changeRoles('@Model[i].UserId')">
+                                                            <i class="fas fa-key"></i> Yetkilendir
+                                                        </a>
+                                                        <input type="hidden" id="userIdInput_@(Model[i].UserId)" name="UserId" value="@Model[i].UserId" />
+
+                                                        <a href="mailto:@Model[i].Email" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Mesaj Gönder">
+                                                            <i class="fas fa-envelope"></i> Mesaj Gönder
+                                                        </a>
+                                                        
+                                                    </div>
                                                 </form>
-                                                <a href="mailto:@Model[i].Email" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Mesaj Gönder">
-                                                    <i class="fas fa-envelope"></i>
-                                                </a>
-                                                <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="İşlemi Geri Al">
-                                                    <i class="fas fa-undo"></i>
-                                                </a>
                                             </td>
                                         </tr>
                                     }
@@ -59,6 +60,27 @@
         </div>
     </div>
 </section>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Dikkat</h4>
+            </div>
+            <div class="modal-body">
+                <p>Kullanıcının yetkisini geri almak  istediğinize emin misiniz?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" onclick="CloseModal()">Hayır</button>
+                <button type="button" class="btn btn-danger" onclick="Delete()">Evet</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="deleteForm" method="post" action="@Url.Action("DeleteRole","Admin")">
+    @Html.AntiForgeryToken()
+    <input type="hidden" id="UserId" n name="UserId"/>
+</form>
 <div class="toast-container position-top  end-0 top-0 p-3">
     <!-- Second Toast -->
     <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -86,10 +108,7 @@
 @section script{
     <script>
         function changeRoles(userId) {
-            // Kullanıcının UserId bilgisini al
             var userIdInput = document.getElementById('userIdInput_' + userId);
-
-            // Formu gönder
             document.getElementById('changeRolesForm_' + userId).submit();
         }
     </script>

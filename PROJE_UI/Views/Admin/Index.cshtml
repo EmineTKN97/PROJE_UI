@@ -86,6 +86,7 @@
             <strong> @TempData["SuccessDeleteBlogComment"]</strong>
             <strong> @TempData["SuccessAddPrice"]</strong>
             <strong> @TempData["SuccessUpdateRoles"]</strong>
+            <strong> @TempData["SuccessDeleteRoles"]</strong>
         </div>
     </div>
 </div>
@@ -103,10 +104,11 @@
             <strong> @TempData["ErrorDeleteAdmin"]</strong>
             <strong> @TempData["ErrorAddPrice"]</strong>
             <strong> @TempData["ErrorUpdateRoles"]</strong>
+            <strong> @TempData["ErrorDeleteRoles"]</strong>
         </div>
     </div>
 </div>
-@if (TempData["SuccessLogin"] != null || TempData["SuccessAddAnnouncement"] != null || TempData["SuccessDeleteAnnouncement"] != null || TempData["SuccessUpdateAnnouncement"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeleteBlogComment"] != null || TempData["SuccessAddPrice"] != null || TempData["SuccessUpdateRoles"] != null)
+@if (TempData["SuccessLogin"] != null || TempData["SuccessAddAnnouncement"] != null || TempData["SuccessDeleteAnnouncement"] != null || TempData["SuccessUpdateAnnouncement"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeleteBlogComment"] != null || TempData["SuccessAddPrice"] != null || TempData["SuccessUpdateRoles"] != null || TempData["SuccessDeleteRoles"] != null)
 {
     <script>
         $(document).ready(function () {
@@ -118,7 +120,7 @@
         });
     </script>
 }
-@if (TempData["ErrorUpdateAnnouncement"] != null || TempData["ErrorUpdateProfile"] != null || TempData["ErrorUpdatePassword"] != null || TempData["ErrorDeleteAdmin"] != null || TempData["ErrorAddPrice"] != null || TempData["ErrorAdminRoles"] != null)
+@if (TempData["ErrorUpdateAnnouncement"] != null || TempData["ErrorUpdateProfile"] != null || TempData["ErrorUpdatePassword"] != null || TempData["ErrorDeleteAdmin"] != null || TempData["ErrorAddPrice"] != null || TempData["ErrorAdminRoles"] != null || TempData["ErrorDeleteRoles"] != null)
 {
     <script>
         $(document).ready(function () {
