@@ -85,7 +85,7 @@
             <strong> @TempData["SuccessUpdatePassword"]</strong>
             <strong> @TempData["SuccessDeleteBlogComment"]</strong>
             <strong> @TempData["SuccessAddPrice"]</strong>
-
+            <strong> @TempData["SuccessUpdateRoles"]</strong>
         </div>
     </div>
 </div>
@@ -102,10 +102,11 @@
             <strong> @TempData["ErrorUpdatePassword"]</strong>
             <strong> @TempData["ErrorDeleteAdmin"]</strong>
             <strong> @TempData["ErrorAddPrice"]</strong>
+            <strong> @TempData["ErrorUpdateRoles"]</strong>
         </div>
     </div>
 </div>
-@if (TempData["SuccessLogin"] != null || TempData["SuccessAddAnnouncement"] != null || TempData["SuccessDeleteAnnouncement"] != null || TempData["SuccessUpdateAnnouncement"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeleteBlogComment"] != null || TempData["SuccessAddPrice"] != null)
+@if (TempData["SuccessLogin"] != null || TempData["SuccessAddAnnouncement"] != null || TempData["SuccessDeleteAnnouncement"] != null || TempData["SuccessUpdateAnnouncement"] != null || TempData["SuccessUpdateProfile"] != null || TempData["SuccessUpdatePassword"] != null || TempData["SuccessDeleteBlogComment"] != null || TempData["SuccessAddPrice"] != null || TempData["SuccessUpdateRoles"] != null)
 {
     <script>
         $(document).ready(function () {
@@ -117,7 +118,7 @@
         });
     </script>
 }
-@if (TempData["ErrorUpdateAnnouncement"] != null || TempData["ErrorUpdateProfile"] != null || TempData["ErrorUpdatePassword"] != null || TempData["ErrorDeleteAdmin"] != null || TempData["ErrorAddPrice"] != null)
+@if (TempData["ErrorUpdateAnnouncement"] != null || TempData["ErrorUpdateProfile"] != null || TempData["ErrorUpdatePassword"] != null || TempData["ErrorDeleteAdmin"] != null || TempData["ErrorAddPrice"] != null || TempData["ErrorAdminRoles"] != null)
 {
     <script>
         $(document).ready(function () {

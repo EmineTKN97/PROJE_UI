@@ -242,3 +242,7 @@ C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\bin\
 C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\obj\Debug\net8.0\PROJE_UI.sourcelink.json
 C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\obj\Debug\net8.0\PROJE_UI.csproj.Up2Date
 C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\bin\Debug\net8.0\Stripe.net.dll
+C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
+C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\emine\OneDrive\Masaüstü\yazilimkursu\ProjeOdev\PROJE_UI\PROJE_UI\obj\Debug\net8.0\PROJE_UI.MvcApplicationPartsAssemblyInfo.cs

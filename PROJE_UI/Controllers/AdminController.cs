@@ -77,7 +77,7 @@ namespace PROJE_UI.Controllers
                     return RedirectToAction("Index", "Admin");
 
                 }
-                else
+                else 
                 {
                     var apiResponse = await response.Content.ReadAsStringAsync();
                     TempData["ErrorLogin"] = apiResponse;
@@ -326,6 +326,30 @@ namespace PROJE_UI.Controllers
             Response.Cookies.Delete("AdminRole");
             Response.Cookies.Delete("Bearer");
             return RedirectToAction("Index", "Home");
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangeRoles(Guid UserId)
+        {
+            var adminId = HttpContext.Request.Cookies["AdminId"];
+            var bearerToken = HttpContext.Request.Cookies["Bearer"];
+
+            if (string.IsNullOrEmpty(bearerToken))
+            {
+                return RedirectToAction("LoginAdmin", "Admin");
+            }
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            var response = await _client.PutAsync($"{BaseUrl}api/Auth/ChangeRole?UserId={UserId}", null);
+            if (response.IsSuccessStatusCode)
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+
+                TempData["SuccessUpdateRoles"] = apiResponse;
+                return RedirectToAction("Index", "Admin");
+            }
+            var errorResponse = await response.Content.ReadAsStringAsync();
+       Console.WriteLine(errorResponse);
+            return RedirectToAction("Index", "Admin");
 
         }
 

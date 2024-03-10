@@ -44,6 +44,15 @@
                             <label for="Price" class="form-label">Toplam Fiyat (TL):</label>
                             <input type="text" class="form-control" id="Price" name="Price" value="@Model.Price" readonly>
                         </div>
+                        <div class="mb-3">
+                            <label for="UserIdentity" class="form-label">T.C. Kimlik Numaranız:</label>
+                            <input type="text" class="form-control" id="UserIdentity" name="UserIdentity" value="@Model.UserIdentity.ToString()" readonly>
+                        </div>
+                            <div class="mb-3">
+                                <label for="DateOfBirthYear" class="form-label">Doğum Yılınız:</label>
+                                <input type="text" class="form-control" id="DateOfBirthYear" name="DateOfBirthYear" value="@Model.DateOfBirthYear.ToString()" readonly>
+                            </div>
+                      
                         <input type="hidden" class="form-control" id="Price" name="Price" value="@Model.Price" >
 
                         <center>

@@ -34,22 +34,27 @@
         <div class="mb-3">
             <label for="Name" class="form-label">Ad:</label>
             <input type="text" class="form-control" id="Name" name="Name">
+            <span class="text-danger">@Html.ValidationMessageFor(model => model.Name)</span>
         </div>
         <div class="mb-3">
             <label for="SurName" class="form-label">Soyad:</label>
             <input type="text" class="form-control" id="SurName" name="SurName">
+            <span class="text-danger">@Html.ValidationMessageFor(model => model.SurName)</span>
         </div>
         <div class="mb-3">
             <label for="Email" class="form-label">Email adresi:</label>
             <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email">
+            <span class="text-danger">@Html.ValidationMessageFor(model => model.Email)</span>
         </div>
         <div class="mb-3">
             <label for="Password" class="form-label">Şifre:</label>
             <input type="password" class="form-control" id="Password" name="Password">
+            <span class="text-danger">@Html.ValidationMessageFor(model => model.Password)</span>
         </div>
         <div class="mb-3">
             <label for="Birthdate" class="form-label">Doğum Tarihi:</label>
             <input type="date" class="form-control" id="Birthdate" name="Birthdate">
+            <span class="text-danger">@Html.ValidationMessageFor(model => model.BirthDate)</span>
         </div>
             <center><button type="submit" class="btn btn-danger fw-bold mx-1">Kaydet</button>
             <button type="reset" class="btn btn-danger fw-bold mx-1">Temizle</button>

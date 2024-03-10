@@ -9,5 +9,6 @@
         public DateTime BirthDate { get; set; }
         public string? ImagePath { get; set; }
         public Guid? MediaId { get; set; }
+        public Guid? UserId { get; set; }
     }
 }

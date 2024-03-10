@@ -9,11 +9,15 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Text;
 using PROJE_UI.ViewModels;
+using PROJE_UI.Validation;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using FluentValidation;
 
 namespace PROJE_UI.Controllers
 {
     public class UserController : Controller
     {
+       
         private readonly HttpClient _client;
         private readonly ApiServiceOptions _apiServiceOptions;
 
@@ -21,6 +25,7 @@ namespace PROJE_UI.Controllers
         {
             _client = client;
             _apiServiceOptions = apiServiceOptions;
+         
         }
         private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpGet]
@@ -32,33 +37,50 @@ namespace PROJE_UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(User model)
         {
-           
-            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
-            var handler = new JwtSecurityTokenHandler();
-            using (var response = await _client.PostAsync($"{BaseUrl}api/Auth/registerUser", content))
+            try
             {
-                if (response.IsSuccessStatusCode)
+                StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+                var handler = new JwtSecurityTokenHandler();
+                using (var response = await _client.PostAsync($"{BaseUrl}api/Auth/registerUser", content))
                 {
-                    var apiResponse = await response.Content.ReadAsStringAsync();
-                    var data = JsonConvert.DeserializeObject<LoginApiResponseModel>(apiResponse);
-                    var token = handler.ReadJwtToken(data.Data.Token);
-                    var userIdClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-                    var userRoleClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
-                    var userName = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
-                    if (userIdClaim != null && userRoleClaim != null)
+                    if (response.IsSuccessStatusCode)
                     {
-                        SetUserCookies(userIdClaim.Value, userRoleClaim.Value, data.Data.Token);
+                        var apiResponse = await response.Content.ReadAsStringAsync();
+                        var data = JsonConvert.DeserializeObject<LoginApiResponseModel>(apiResponse);
+                        var token = handler.ReadJwtToken(data.Data.Token);
+                        var userIdClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+                        var userRoleClaim = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
+                        var userName = token?.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
+
+                        if (userIdClaim != null && userRoleClaim != null)
+                        {
+                            SetUserCookies(userIdClaim.Value, userRoleClaim.Value, data.Data.Token);
+                        }
+                        TempData["SuccessRegister"] = $"{data.Message} {userName.Value.ToUpperInvariant()}";
+                        return RedirectToAction("AddPicture", "User");
                     }
-                    TempData["SuccessRegister"] = $"{data.Message} {userName.Value.ToUpperInvariant()}";
-                    return RedirectToAction("AddPicture", "User");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Kullanıcı kaydedilemedi. Lütfen tekrar deneyin.");
-                    return View(model);
                 }
             }
-        }
+            catch (FluentValidation.ValidationException ex)
+            {
+                var errors = TempData["FluentValidationErrors"] as List<FluentValidationExceptionFilter.ValidationError>;
+
+
+                if (errors != null)
+                {
+                    foreach (var error in errors)
+                    {
+                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                    }
+              
+                }
+
+            }
+
+                return View(model);
+       }
+            
+        
         [HttpGet]
         public IActionResult Login()
         {

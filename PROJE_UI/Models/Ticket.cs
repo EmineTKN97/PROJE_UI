@@ -15,5 +15,7 @@
         public string UserSurname { get; set; }
         public string CityName { get; set; }
         public string DistrictName { get; set; }
+        public long UserIdentity { get; set; }
+        public int DateOfBirthYear { get; set; }
     }
 }
