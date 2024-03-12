@@ -1,6 +1,8 @@
 ﻿@using PROJE_UI.Models;
 @model BlogComment
 @await Component.InvokeAsync("Slidebar")
+@using (Html.BeginForm("UpdateBlogComment", "BlogComment", FormMethod.Post))
+{
 
 <div class="container m-5">
     <div class="row justify-content-center">
@@ -9,8 +11,20 @@
                 <div class="card-header bg-danger text-white">
                     <h4 class="mb-0">YORUM GÜNCELLE</h4>
                 </div>
+                    <div id="errorAlert" class="alert alert-danger" role="alert" style="display: none; margin-top: 20px;">
+                        <ul>
+                            @if (ViewBag.ErrorMessages != null && ViewBag.ErrorMessages.Count > 0)
+                            {
+                                @foreach (var errorMessage in ViewBag.ErrorMessages)
+                                {
+                                    <li>@errorMessage</li>
+
+                                }
+                            }
+                        </ul>
+                    </div>
                 <div class="card-body">
-                    <form method="post" action="/BlogComment/UpdateBlogComment">
+             
                         <div class="mb-3">
                             <label for="UserName" class="form-label">Adınız</label>
                             <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Adınız" value="@Model.UserName">
@@ -29,33 +43,25 @@
                         </div>
                         <input type="hidden" id="CommentId" name="CommentId" value="@Model.CommentId" />
                         <center> <button type="submit" class="btn btn-danger fw-bold mx-1">Yorum Güncelle</button></center>
-                    </form>
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="toast-container position-top  end-0 top-0 p-3">
-    <!-- Second Toast -->
-    <div id="viewToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg bg-danger">
-            <strong class="me-auto text-white">Mesaj</strong>
-            <button type="button" class="btn-close color-white" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body text-bg-danger">
-            @TempData["ErrorUpdateComment"]
-        </div>
-    </div>
-</div>
-@if (TempData["ErrorUpdateComment"] != null)
-{
+}
+@section script {
     <script>
         $(document).ready(function () {
-            $('.toast').toast({
-                animation: false,
-                delay: 5000
-            });
-            $('.toast').toast('show');
+            var errorMessages = @Html.Raw(Json.Serialize(ViewBag.ErrorMessages));
+
+            if (errorMessages != null && errorMessages.length > 0) {
+                var errorMessage = errorMessages.join('\n');
+                $('#errorAlert').html(errorMessage);
+                $('#errorAlert').show();
+            }
         });
     </script>
+
 }
+

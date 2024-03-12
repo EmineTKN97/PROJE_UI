@@ -19,15 +19,28 @@
         }
     </style>
 }
-
+@using (Html.BeginForm("UpdateBlog", "Blog", FormMethod.Post))
+{
 <div class="rounded-form-container">
     <center><h1 class="text-danger">BLOG YAZISINI GÜNCELLE</h1></center>
-    <form class="position-sticky" method="post" action="/Blog/UpdateBlog">
+    <form class="position-sticky">
         <div class="input-group text-center mt-1 mb-4">
             <div class="d-flex justify-content-center w-100">
-                <img src="https://localhost:7185/Uploads/StaticContent/@Model.ImagePath" width="100%" />
+                    <img src="https://localhost:7185/Uploads/StaticContent/@Model.ImagePath" width="100%" />
             </div>
         </div>
+            <div id="errorAlert" class="alert alert-danger" role="alert" style="display: none;">
+                <ul>
+                    @if (ViewBag.ErrorMessages != null && ViewBag.ErrorMessages.Count > 0)
+                    {
+                        @foreach (var errorMessage in ViewBag.ErrorMessages)
+                        {
+                            <li>@errorMessage</li>
+
+                        }
+                    }
+                </ul>
+            </div>
         <div class="mb-3">
             <label for="Title" class="form-label">Blog Başlığı:</label>
             <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
@@ -48,6 +61,7 @@
         </center>
     </form>
 </div>
+}
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -128,6 +142,15 @@
                 $('#myModal').modal('hide');
             }
             });
+        $(document).ready(function () {
+            var errorMessages = @Html.Raw(Json.Serialize(ViewBag.ErrorMessages));
+
+            if (errorMessages != null && errorMessages.length > 0) {
+                var errorMessage = errorMessages.join('\n');
+                $('#errorAlert').html(errorMessage);
+                $('#errorAlert').show();
+            }
+        });
     </script>
 }
-   
+

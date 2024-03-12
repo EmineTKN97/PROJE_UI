@@ -21,41 +21,58 @@
         }
     </style>
 }
+@using (Html.BeginForm("UpdateProfile", "User", FormMethod.Post))
+{
 
-<div class="rounded-form-container">
-    <center><h1 class="text-danger">PROFİLİNİ GÜNCELLE</h1></center>
-    <form class="position-sticky" method="post" action="/User/UpdateProfile">
-        <div class="input-group text-center mt-1 mb-4">
-            <div class="d-flex justify-content-center w-100">
-                <img src="https://localhost:7185/Uploads/StaticContent/@Model.ImagePath" width="150" height="150" />
+    <div class="rounded-form-container">
+        <center><h1 class="text-danger">PROFİLİNİ GÜNCELLE</h1></center>
+        <form class="position-sticky">
+            <div class="input-group text-center mt-1 mb-4">
+                <div class="d-flex justify-content-center w-100">
+                    <img src="https://localhost:7185/Uploads/StaticContent/@Model.ImagePath" width="150" height="150" />
+                </div>
             </div>
-        </div>
-        <div class="mb-3">
-            <label for="Name" class="form-label">Ad:</label>
-            <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name">
-        </div>
-        <div class="mb-3">
-            <label for="SurName" class="form-label">Soyad:</label>
-            <input type="text" class="form-control" id="SurName" name="SurName" value="@Model.SurName">
-        </div>
-        <div class="mb-3">
-            <label for="Email" class="form-label">Email adresi</label>
-            <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email" value="@Model.Email">
-        </div>
-        <div class="mb-3">
-            <label for="Birthdate" class="form-label">Doğum Tarihi:</label>
-            <input type="date" class="form-control" id="Birthdate" name="Birthdate" value="@Model.BirthDate.ToString("yyyy-MM-dd")">
-        </div>
-        <center>
-            <button type="submit" class="btn btn-danger fw-bold mx-1">Bilgileri Güncelle</button>
-            <button type="button" class="btn btn-danger fw-bold mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Fotoğrafı Güncelle
-            </button>
-            <a href="javascript:void(0);" onclick="ShowModal('@Model.MediaId')" class="btn btn-danger fw-bold mx-1">Fotoğrafı Sil</a>
-        </center>
-    </form>
-</div>
-
+            <div id="errorAlert" class="alert alert-danger" role="alert" style="display: none;">
+                <ul>
+                    @if (TempData["ErrorMessages"] != null)
+                    {
+                        var errorMessages = TempData["ErrorMessages"] as List<string>;
+                        if (errorMessages != null)
+                        {
+                            foreach (var errorMessage in errorMessages)
+                            {
+                                <li>@errorMessage</li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="mb-3">
+                <label for="Name" class="form-label">Ad:</label>
+                <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name">
+            </div>
+            <div class="mb-3">
+                <label for="SurName" class="form-label">Soyad:</label>
+                <input type="text" class="form-control" id="SurName" name="SurName" value="@Model.SurName">
+            </div>
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email adresi</label>
+                <input type="email" class="form-control" id="Email" aria-describedby="Email" name="Email" value="@Model.Email">
+            </div>
+            <div class="mb-3">
+                <label for="Birthdate" class="form-label">Doğum Tarihi:</label>
+                <input type="date" class="form-control" id="Birthdate" name="Birthdate" value="@Model.BirthDate.ToString("yyyy-MM-dd")">
+            </div>
+            <center>
+                <button type="submit" class="btn btn-danger fw-bold mx-1">Bilgileri Güncelle</button>
+                <button type="button" class="btn btn-danger fw-bold mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Fotoğrafı Güncelle
+                </button>
+                <a href="javascript:void(0);" onclick="ShowModal('@Model.MediaId')" class="btn btn-danger fw-bold mx-1">Fotoğrafı Sil</a>
+            </center>
+        </form>
+    </div>
+}
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -139,5 +156,25 @@
         function CloseModal() {
             $('#myModal').modal('hide');
         }
+        @{
+            var errorMessages = TempData["ErrorMessages"] as List<string>;
+        }
+
+        $(document).ready(function () {
+            var errorMessages = @Html.Raw(Json.Serialize(errorMessages));
+
+            if (errorMessages != null && errorMessages.length > 0) {
+                var errorMessageHTML = '<ul>';
+                errorMessages.forEach(function (errorMessage) {
+                    errorMessageHTML += '<li>' + errorMessage + '</li>';
+                });
+                errorMessageHTML += '</ul>';
+
+                $('#errorAlert').html(errorMessageHTML);
+                $('#errorAlert').show();
+            }
+        });
+
+
     </script>
 }

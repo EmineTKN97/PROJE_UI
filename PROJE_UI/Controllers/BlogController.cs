@@ -54,10 +54,23 @@ namespace PROJE_UI.Controllers
                 TempData["SuccessAddBlog"] = apiResponse;
                 return RedirectToAction("AddBlogMedia", "BlogMedia");
             }
-            var errorResponse = await response.Content.ReadAsStringAsync();
-            TempData["ErrorAddBlog"] = errorResponse;
-            return RedirectToAction("Blog", "Blog");
+            else
+            {
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                var errorModel = JsonConvert.DeserializeObject<ApiErrorResponse>(errorResponse);
+                foreach (var validationError in errorModel.ValidationErrors)
+                {
+                    ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                }
 
+                ViewBag.ErrorMessages = errorModel.ValidationErrors.Select(e => e.ErrorMessage).ToList();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Delete(Guid blogId, Guid userId)
@@ -118,12 +131,26 @@ namespace PROJE_UI.Controllers
                 return RedirectToAction("Index", "UserEdit");
             }
 
-            var errorResponse = await response.Content.ReadAsStringAsync();
-            TempData["ErrorUpdateBlog"] = errorResponse;
-            return RedirectToAction("Index", "UserEdit");
+            {
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                var errorModel = JsonConvert.DeserializeObject<ApiErrorResponse>(errorResponse);
+                foreach (var validationError in errorModel.ValidationErrors)
+                {
+                    ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                }
+
+                ViewBag.ErrorMessages = errorModel.ValidationErrors.Select(e => e.ErrorMessage).ToList();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return View(model);
         }
     }
 }
+
 
 
 

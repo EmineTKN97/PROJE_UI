@@ -23,6 +23,7 @@
                         </div>
                      
                     }
+
                     <form action="/Bilet/AddBilet" method="post">
                         <center><h1 class="text-danger">MÜZE BİLETİ SATIN AL</h1></center>
 
@@ -66,6 +67,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="Time" class="form-label">Bilet Tarihi ve Saati Seçiniz:</label>
+                            <p  class="text-danger">Çalışma saatleri arasında zaman seçiniz.(09:00/16:00)</p>
                             <input type="datetime-local" class="form-control" id="Time" name="Time" min="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")">
                         </div>
                         <div class="mb-3">

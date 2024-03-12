@@ -17,23 +17,38 @@
         }
     </style>
 }
-<div class="rounded-form-container">
-    <center><h1 class="text-danger">BLOG YAZISI EKLE</h1></center>
-    <form class="position-sticky" method="post" action="/Blog/Blog">
-        <div class="mb-3">
-            <label for="Title" class="form-label">Blog Başlığı:</label>
-            <input type="text" class="form-control" id="Title" name="Title">
-        </div>
-        <div class="mb-3">
-            <label for="Content" class="form-label">Blog Yazısı:</label>
-            <textarea class="form-control" id="Content" name="Content" rows="15"></textarea>
-        </div>
-        <center>
-            <button type="submit" class="btn btn-danger fw-bold mx-1">Bloğu Kaydet</button>
-            <button type="reset" class="btn btn-danger fw-bold mx-1">Temizle</button>
-        </center>
-    </form>
-</div>
+@using (Html.BeginForm("Blog", "Blog", FormMethod.Post))
+{
+    <div class="rounded-form-container">
+        <center><h1 class="text-danger">BLOG YAZISI EKLE</h1></center>
+        <form class="position-sticky">
+            <div id="errorAlert" class="alert alert-danger" role="alert" style="display: none;">
+                <ul>
+                    @if (ViewBag.ErrorMessages != null && ViewBag.ErrorMessages.Count > 0)
+                    {
+                        @foreach (var errorMessage in ViewBag.ErrorMessages)
+                        {
+                            <li>@errorMessage</li>
+
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="mb-3">
+                <label for="Title" class="form-label">Blog Başlığı:</label>
+                <input type="text" class="form-control" id="Title" name="Title">
+            </div>
+            <div class="mb-3">
+                <label for="Content" class="form-label">Blog Yazısı:</label>
+                <textarea class="form-control" id="Content" name="Content" rows="15"></textarea>
+            </div>
+            <center>
+                <button type="submit" class="btn btn-danger fw-bold mx-1">Bloğu Kaydet</button>
+                <button type="reset" class="btn btn-danger fw-bold mx-1">Temizle</button>
+            </center>
+        </form>
+    </div>
+}
 <div class="toast-container position-top  end-0 top-0 p-3">
     <!-- Second Toast -->
     <div id="viewToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -58,3 +73,18 @@
         });
     </script>
 }
+@section script {
+    <script>
+        $(document).ready(function () {
+            var errorMessages = @Html.Raw(Json.Serialize(ViewBag.ErrorMessages));
+
+            if (errorMessages != null && errorMessages.length > 0) {
+                var errorMessage = errorMessages.join('\n');
+                $('#errorAlert').html(errorMessage);
+                $('#errorAlert').show();
+            }
+        });
+    </script>
+
+}
+

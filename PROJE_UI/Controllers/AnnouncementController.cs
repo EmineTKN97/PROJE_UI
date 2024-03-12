@@ -18,14 +18,14 @@ namespace PROJE_UI.Controllers
         }
         private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpGet]
-        public  IActionResult AddAnnouncement()
+        public IActionResult AddAnnouncement()
         {
             return View(new Announcement());
         }
         [HttpPost]
         public async Task<IActionResult> AddAnnouncement(Announcement model)
-        { 
-        
+        {
+
             var adminId = HttpContext.Request.Cookies["AdminId"];
             var adminRole = HttpContext.Request.Cookies["AdminRole"];
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
@@ -44,10 +44,26 @@ namespace PROJE_UI.Controllers
                 TempData["SuccessAddAnnouncement"] = apiResponse;
                 return RedirectToAction("Index", "Admin");
             }
-            var errorResponse = await response.Content.ReadAsStringAsync();
-            TempData["ErrorAddAnnouncement"] = errorResponse;
-            return RedirectToAction("AddAnnouncement", "Announcement");
+            else
+            {
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                var errorModel = JsonConvert.DeserializeObject<ApiErrorResponse>(errorResponse);
+                foreach (var validationError in errorModel.ValidationErrors)
+                {
+                    ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                }
+
+                ViewBag.ErrorMessages = errorModel.ValidationErrors.Select(e => e.ErrorMessage).ToList();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return View(model);
         }
+
+
         [HttpGet]
         public async Task<IActionResult> ListAnnouncement()
         {
@@ -76,7 +92,7 @@ namespace PROJE_UI.Controllers
             {
                 return RedirectToAction("LoginAdmin", "Admin");
             }
-      
+
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             var response = await _client.DeleteAsync($"{BaseUrl}api/Announcements/DeleteAnnouncement?id={AnnouncementId}&adminİd={adminId}");
 
@@ -126,11 +142,27 @@ namespace PROJE_UI.Controllers
                 TempData["SuccessUpdateAnnouncement"] = apiResponse;
                 return RedirectToAction("Index", "Admin");
             }
-            var errorResponse = await response.Content.ReadAsStringAsync();
-            TempData["ErrorUpdateAnnouncement"] = errorResponse;
-            return RedirectToAction("Index", "Admin");
+            else
+            {
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                var errorModel = JsonConvert.DeserializeObject<ApiErrorResponse>(errorResponse);
+                foreach (var validationError in errorModel.ValidationErrors)
+                {
+                    ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                }
+
+                ViewBag.ErrorMessages = errorModel.ValidationErrors.Select(e => e.ErrorMessage).ToList();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return View(model);
 
         }
+
     }
 }
+
 

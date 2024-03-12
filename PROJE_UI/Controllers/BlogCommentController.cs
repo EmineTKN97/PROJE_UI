@@ -12,7 +12,7 @@ namespace PROJE_UI.Controllers
     public class BlogCommentController : Controller
     {
         private readonly HttpClient _client;
-       private readonly  ApiServiceOptions _apiServiceOptions;
+        private readonly ApiServiceOptions _apiServiceOptions;
 
         public BlogCommentController(HttpClient client, ApiServiceOptions apiServiceOptions)
         {
@@ -22,7 +22,7 @@ namespace PROJE_UI.Controllers
         private Uri BaseUrl => _apiServiceOptions.BaseUrl;
         [HttpPost]
         public async Task<IActionResult> AddComment(BlogComment model)
-        { 
+        {
             var userId = HttpContext.Request.Cookies["UserId"];
             var userRole = HttpContext.Request.Cookies["UserRole"];
             var bearerToken = HttpContext.Request.Cookies["Bearer"];
@@ -67,7 +67,7 @@ namespace PROJE_UI.Controllers
                     ViewData["NoCommentsMessage"] = "HENÜZ HİÇ YORUMUNUZ YOK.";
                     return View();
                 }
-              
+
             }
             else
             {
@@ -132,10 +132,25 @@ namespace PROJE_UI.Controllers
                 TempData["SuccessUpdateComment"] = apiResponse;
                 return RedirectToAction("Index", "UserEdit");
             }
-            var errorResponse = await response.Content.ReadAsStringAsync();
-            TempData["ErrorUpdateComment"] = errorResponse;
-            return RedirectToAction("UpdateBlogComment", "BlogComment");
+            else
+            {
+                var errorResponse = await response.Content.ReadAsStringAsync();
+                var errorModel = JsonConvert.DeserializeObject<ApiErrorResponse>(errorResponse);
+                foreach (var validationError in errorModel.ValidationErrors)
+                {
+                    ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                }
+
+                ViewBag.ErrorMessages = errorModel.ValidationErrors.Select(e => e.ErrorMessage).ToList();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return View(model);
 
         }
+
     }
 }
