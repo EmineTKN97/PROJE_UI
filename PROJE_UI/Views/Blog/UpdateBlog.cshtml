@@ -14,33 +14,20 @@
         .rounded-form-container {
             border: 1px solid #ccc;
             border-radius: 10px;
-            padding: 10px;
+            padding: 20px;
             width: 700px;
         }
     </style>
 }
-@using (Html.BeginForm("UpdateBlog", "Blog", FormMethod.Post))
-{
+
 <div class="rounded-form-container">
     <center><h1 class="text-danger">BLOG YAZISINI GÜNCELLE</h1></center>
-    <form class="position-sticky">
+    <form class="position-sticky" method="post" action="/Blog/UpdateBlog">
         <div class="input-group text-center mt-1 mb-4">
             <div class="d-flex justify-content-center w-100">
-                    <img src="https://localhost:7185/Uploads/StaticContent/@Model.ImagePath" width="100%" />
+                <img src="https://localhost:7185/Uploads/StaticContent/@Model.ImagePath" width="100%" />
             </div>
         </div>
-            <div id="errorAlert" class="alert alert-danger" role="alert" style="display: none;">
-                <ul>
-                    @if (ViewBag.ErrorMessages != null && ViewBag.ErrorMessages.Count > 0)
-                    {
-                        @foreach (var errorMessage in ViewBag.ErrorMessages)
-                        {
-                            <li>@errorMessage</li>
-
-                        }
-                    }
-                </ul>
-            </div>
         <div class="mb-3">
             <label for="Title" class="form-label">Blog Başlığı:</label>
             <input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
@@ -55,13 +42,12 @@
         <center>
             <button type="submit" class="btn btn-danger fw-bold mx-1">Bloğu Güncelle</button>
             <button type="button" class="btn btn-danger fw-bold mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Blog Resimini Güncelle
+                Blog Resimini Güncelle
             </button>
             <a href="javascript:void(0);" onclick="ShowModal('@Model.MediaId','@Model.BlogId')" class="btn btn-danger fw-bold mx-1">Blog Resimini Sil</a>
         </center>
     </form>
 </div>
-}
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -73,6 +59,7 @@
                 <form id="pictureForm" enctype="multipart/form-data">
                     <div class="input-group mb-3">
                         <input type="file" name="ImagePath" class="form-control" multiple="multiple" id="inputGroupFile02">
+                        <input type="hidden" id="BlogId" name="BlogId" value="@Model.BlogId" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">İptal</button>
@@ -86,7 +73,7 @@
 <form id="deleteForm" method="post" action="@Url.Action("DeleteBlogMedia","BlogMedia")">
     @Html.AntiForgeryToken()
     <input type="hidden" id="BlogId" name="BlogId" value="@Model.BlogId" />
-    <input type="hidden" id="MediaId" name="MediaId" value="@Model.MediaId"/>
+    <input type="hidden" id="MediaId" name="MediaId" value="@Model.MediaId" />
 </form>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -104,53 +91,59 @@
         </div>
     </div>
 </div>
-@section script{
-        <script>
-            $(document).ready(function () {
-                $('#savePictureBtn').click(function () {
-                    var formData = new FormData($('#pictureForm')[0]);
+@section script {
+    <script>
+        $('#savePictureBtn').click(function () {
+            var formData = new FormData($('#pictureForm')[0]);
 
-                    // BlogId'yi set et
-                    formData.append('BlogId', $("#BlogId").val());
-
-                    $.ajax({
-                        url: '/BlogMedia/UpdateBlogMedia',
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (response) {
-                            $('#exampleModal').modal('hide');
-                            window.location.href = '/UserEdit/Index';
-                        },
-                        error: function (error) {
-                            console.log(error);
-                        }
-                    });
-                });
-
-            function ShowModal(id) {
-                $("#MediaId").val(id);
-                $("#BlogId").val('BlogId');
-                $("#myModal").modal("show");
-            }
-
-            function Delete() {
-                document.getElementById("deleteForm").submit();
-            }
-            function CloseModal() {
-                $('#myModal').modal('hide');
-            }
+            $.ajax({
+                url: '/BlogMedia/UpdateBlogMedia',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('#exampleModal').modal('hide');
+                    window.location.href = '/UserEdit/Index';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
             });
-        $(document).ready(function () {
-            var errorMessages = @Html.Raw(Json.Serialize(ViewBag.ErrorMessages));
-
-            if (errorMessages != null && errorMessages.length > 0) {
-                var errorMessage = errorMessages.join('\n');
-                $('#errorAlert').html(errorMessage);
-                $('#errorAlert').show();
-            }
         });
+        function ShowModal(mediaId, blogId) {
+            $("#MediaId").val(mediaId);
+            $("#BlogId").val(blogId);
+            $("#myModal").modal("show");
+        }
+
+        $('#savePictureBtn').click(function () {
+            var formData = new FormData($('#pictureForm')[0]);
+
+            // BlogId'yi set et
+            formData.append('BlogId', $("#BlogId").val());
+
+            $.ajax({
+                url: '/BlogMedia/UpdateBlogMedia',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('#exampleModal').modal('hide');
+                    window.location.href = '/UserEdit/Index';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        function Delete() {
+            $("#BlogId").val($("#deleteForm").find("#BlogId").val());
+            document.getElementById("deleteForm").submit();
+        }
+
+
     </script>
 }
-

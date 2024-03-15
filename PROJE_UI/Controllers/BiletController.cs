@@ -70,38 +70,7 @@ namespace PROJE_UI.Controllers
                 return RedirectToAction("Error", new { message = "Şehirler API ile iletişim sırasında bir hata oluştu." });
             }
         }
-      
-        [HttpGet]
-        public async Task<IActionResult> MuseumDetails(string city,string district)
-            {
-                string apiKey = "93k9I6pzPzDC3Nnc4tsJLdK86pCLIUySdbmpxfHqTmnsQyWdQ1tipEf0AnQ7";
-                var museumResponse = await _client.GetAsync($" https://www.nosyapi.com/apiv2/service/museum?city={city}&district={district}&apiKey={apiKey}");
-
-            if (museumResponse.IsSuccessStatusCode)
-                {
-              
-
-                var museumApiResponse = await museumResponse.Content.ReadAsStringAsync();
-                    var museumResult = JsonConvert.DeserializeObject<MuseumApiResponse>(museumApiResponse);
-
-                    if (museumResult.status == "success")
-                    {
-                        
-                        return View("MuseumDetails",  museumResult.data); 
-                    }
-                    else
-                    {
-                      
-                        return RedirectToAction("Error", new { message = museumResult.message });
-                    }
-                }
-                else
-                {
-                    
-                    return RedirectToAction("Error", new { message = "Müze API ile iletişim sırasında bir hata oluştu." });
-                }
-            }
-        
+     
         [HttpPost]
         public async Task<IActionResult> AddBilet(Ticket model)
         {

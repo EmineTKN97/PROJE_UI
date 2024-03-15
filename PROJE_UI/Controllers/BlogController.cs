@@ -112,6 +112,7 @@ namespace PROJE_UI.Controllers
             var blogResult = JsonConvert.DeserializeObject<AddBlog>(ApiResponse);
             return View(blogResult);
         }
+       
         [HttpPost]
         public async Task<IActionResult> UpdateBlog(AddBlog model)
         {
@@ -131,22 +132,9 @@ namespace PROJE_UI.Controllers
                 return RedirectToAction("Index", "UserEdit");
             }
 
-            {
-                var errorResponse = await response.Content.ReadAsStringAsync();
-                var errorModel = JsonConvert.DeserializeObject<ApiErrorResponse>(errorResponse);
-                foreach (var validationError in errorModel.ValidationErrors)
-                {
-                    ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
-                }
-
-                ViewBag.ErrorMessages = errorModel.ValidationErrors.Select(e => e.ErrorMessage).ToList();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            return View(model);
+            var errorResponse = await response.Content.ReadAsStringAsync();
+            TempData["ErrorUpdateBlog"] = errorResponse;
+            return RedirectToAction("Index", "UserEdit");
         }
     }
 }
