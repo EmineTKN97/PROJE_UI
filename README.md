@@ -4,8 +4,7 @@ Yaptığım Kültürix projesinin frontend projesidir.Asp.Net MVC teknolojisi il
 ## Kurulum
 Projenin yerel olarak nasıl kurulacağına dair adımlar:
 1. Proje kurulumu yaptıktan sonra Müzeleri çekebilmek için
-[https://www.nosyapi.com](https://www.nosyapi.com)sitesinden ücretsiz müze api kısımını kullandım.Sizde kayıt olup buradan bir apikey almalısınız.Aldığınız apikeyi Views/Bilet/Bilet.cshtml.dosyasına yapıştırmalısınız.
-![klasör yolu](https://github.com/EmineTKN97/ProjeOdev_KULTURIX/assets/156480828/bf4fadea-a656-4c86-90d7-a0a91ccdd71d)
+[https://www.nosyapi.com](https://www.nosyapi.com) sitesinden ücretsiz müze api kısımını kullandım.Sizde kayıt olup buradan bir apikey almalısınız.Aldığınız apikeyi Views/Bilet/Bilet.cshtml.dosyasına yapıştırmalısınız.![klasör yolu](https://github.com/EmineTKN97/ProjeOdev_KULTURIX/assets/156480828/bf4fadea-a656-4c86-90d7-a0a91ccdd71d)
 ![apikey](https://github.com/EmineTKN97/ProjeOdev_KULTURIX/assets/156480828/eb99f90f-d890-4514-bc8e-5b9b56b5d2a3)Buradaki yıldızlı yere keyi yapıştırmalısınız.
 3.Ödeme kısımı için Stripe Payment kütüphanesini kullandım.Bunun içinde [https://stripe.com/](https://stripe.com/) sayfasına developers olarak kayıt olarak secretkey ve publickey almanız gerekir.Bu keyleri projenin appsetting.json
 dosyasına eklemeniz gerekir.
